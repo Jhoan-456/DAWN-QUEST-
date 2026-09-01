@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddk1ergdvxh17"]
+
+[ext_resource type="Script" uid="uid://bv4qwvdxlq02c" path="res://escenas/characters/menu/menu_salir.gd" id="1_lt0ft"]
+[ext_resource type="Texture2D" uid="uid://bb2wobb47mv7o" path="res://botones/Rect-Dark-Hover.png" id="2_2cftw"]
+[ext_resource type="FontFile" uid="uid://c5ovpsfnc2xup" path="res://sprites/Font/Font.ttf" id="2_j6oqk"]
+[ext_resource type="FontFile" uid="uid://c53jndc5lg2q4" path="res://sprites/Font/PixelOperatorSC.ttf" id="4_lt0ft"]
+[ext_resource type="FontFile" uid="uid://dfkkpkwwiol0x" path="res://sprites/Font/PixelOperator.ttf" id="4_sj8ha"]
+
+[node name="MenuAjustes" type="CanvasLayer"]
+script = ExtResource("1_lt0ft")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 21.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.20784314)
+
+[node name="Panel" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.30800003
+anchor_top = 0.061000004
+anchor_right = 0.70400006
+anchor_bottom = 0.874
+offset_left = 0.47994995
+offset_top = 0.07999802
+offset_right = 0.2399292
+offset_bottom = -0.2800293
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_2cftw")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 474.0
+offset_top = 103.0
+offset_right = 1012.0
+offset_bottom = 522.0
+theme_override_constants/separation = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="ListaOpciones" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 39
+
+[node name="titulo" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_j6oqk")
+theme_override_font_sizes/font_size = 64
+text = "MENU DE SALIR"
+
+[node name="ListaOpciones" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="CONTROLS" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones"]
+layout_mode = 2
+theme_override_constants/separation = -33
+
+[node name="volumen" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_sj8ha")
+theme_override_font_sizes/font_size = 32
+text = "ESTAS SEGURO DE QUE QUIERES SALIR
+ DEL JUEGO ?"
+
+[node name="SI" type="Button" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.036000002
+anchor_top = 2.0600002
+anchor_right = 0.41900003
+anchor_bottom = 3.2540002
+offset_left = 0.01599884
+offset_top = -8.02002
+offset_right = -0.036010742
+offset_bottom = -0.018005371
+theme_override_fonts/font = ExtResource("4_lt0ft")
+theme_override_font_sizes/font_size = 32
+text = "SI"
+
+[node name="NO" type="Button" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.68500006
+anchor_top = 1.8960001
+anchor_right = 1.014
+anchor_bottom = 3.2840002
+offset_left = -0.14001465
+offset_top = -0.03201294
+offset_right = -0.21603394
+offset_bottom = -0.028015137
+theme_override_fonts/font = ExtResource("4_lt0ft")
+theme_override_font_sizes/font_size = 32
+text = "NO"
+
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen/SI" to="." method="_on_si_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen/NO" to="." method="_on_no_pressed"]

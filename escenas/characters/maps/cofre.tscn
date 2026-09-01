@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk3dwvjlpxka4"]
+
+[ext_resource type="Script" uid="uid://bk63mgl0pcow6" path="res://escenas/characters/maps/cofre.gd" id="1_2td3n"]
+[ext_resource type="PackedScene" uid="uid://obkwobejcxgc" path="res://escenas/characters/items/Moneda.tscn" id="2_4ctoc"]
+[ext_resource type="PackedScene" uid="uid://so88141ekoo3" path="res://escenas/characters/items/posion_cura.tscn" id="3_prjuc"]
+[ext_resource type="Texture2D" uid="uid://ba3dx0hc1u24f" path="res://sprites/flecha_indi.png" id="5_hvho4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2td3n"]
+size = Vector2(47, 45.25)
+
+[node name="Cofre" type="Area2D"]
+position = Vector2(140, 81)
+collision_layer = 8
+script = ExtResource("1_2td3n")
+escena_moneda = ExtResource("2_4ctoc")
+escena_posion = ExtResource("3_prjuc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_2td3n")
+debug_color = Color(0, 1.1024847, 0.6851405, 0.02745098)
+
+[node name="flecha" type="Sprite2D" parent="."]
+position = Vector2(-27, -25.999996)
+scale = Vector2(3.3143313, 3.7968745)
+texture = ExtResource("5_hvho4")
+offset = Vector2(10, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

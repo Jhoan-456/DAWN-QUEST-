@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqfhnpbre08iy"]
+
+[ext_resource type="Script" uid="uid://c34thr1qek838" path="res://escenas/characters/menu/pantalla_carga.gd" id="1_bdype"]
+[ext_resource type="Texture2D" uid="uid://bipgc4y3jnnv0" path="res://logo.jpg" id="2_bdype"]
+[ext_resource type="FontFile" uid="uid://dfkkpkwwiol0x" path="res://sprites/Font/PixelOperator.ttf" id="3_qfagm"]
+[ext_resource type="Script" uid="uid://ojdeh26cbumf" path="res://escenas/characters/menu/logo.gd" id="3_qud5x"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_cct1u"]
+grow_begin = 14.0
+grow_end = 14.0
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8eckg"]
+color = Color(1, 1, 1, 1)
+grow_begin = 14.0
+grow_end = 14.0
+thickness = 10
+
+[node name="PantallaCarga" type="Control"]
+layout_mode = 3
+anchor_right = 1.001
+anchor_bottom = 1.001
+offset_left = -3.0
+offset_top = -2.0
+offset_right = 4.8479004
+offset_bottom = -2.7850342
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bdype")
+
+[node name="TextureRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1451.0
+offset_bottom = 715.0
+color = Color(0.07058824, 0.09803922, 0.17254902, 1)
+
+[node name="logo" type="Sprite2D" parent="."]
+position = Vector2(723, 380)
+scale = Vector2(0.437, 0.4)
+texture = ExtResource("2_bdype")
+offset = Vector2(0.4, 0.4)
+script = ExtResource("3_qud5x")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0.1, 0.1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.99000007
+anchor_right = 1.0
+anchor_bottom = 1.042
+offset_left = -4.0
+offset_top = 2.7087402
+offset_right = -6.0
+offset_bottom = -2.7889404
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(2.2304118, 2.2304118, 2.2304118, 0)
+theme_override_styles/background = SubResource("StyleBoxLine_cct1u")
+theme_override_styles/fill = SubResource("StyleBoxLine_8eckg")
+step = 0.0
+
+[node name="Porcentaje" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.9110001
+anchor_right = 0.52000004
+anchor_bottom = 0.961
+offset_left = -4.5
+offset_top = 0.092041016
+offset_right = 0.27996826
+offset_bottom = 0.099365234
+theme_override_fonts/font = ExtResource("3_qfagm")
+theme_override_font_sizes/font_size = 32
+text = "()"
+
+[node name="Version" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.81600004
+anchor_top = 0.91700006
+anchor_right = 0.90500003
+anchor_bottom = 0.96700007
+offset_left = -0.3760376
+offset_top = 0.2529297
+offset_right = 0.29492188
+offset_bottom = 0.26019287
+theme_override_fonts/font = ExtResource("3_qfagm")
+theme_override_font_sizes/font_size = 32
+text = "Version:"
+
+[node name="TransicionGlobal" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="PantallaNegra" type="ColorRect" parent="TransicionGlobal"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 7.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)

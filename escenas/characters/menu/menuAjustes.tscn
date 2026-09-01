@@ -1,0 +1,239 @@
+[gd_scene load_steps=10 format=3 uid="uid://dsdmgm3c2so0q"]
+
+[ext_resource type="Script" uid="uid://2ubhf4ial5rc" path="res://escenas/characters/menu/menu_ajustes.gd" id="1_gxiqi"]
+[ext_resource type="FontFile" uid="uid://c5ovpsfnc2xup" path="res://sprites/Font/Font.ttf" id="1_mhuej"]
+[ext_resource type="Texture2D" uid="uid://bb2wobb47mv7o" path="res://botones/Rect-Dark-Hover.png" id="2_cv6xj"]
+[ext_resource type="Texture2D" uid="uid://dwtybmfh4oq1f" path="res://botones/Rect-Dark-Default.png" id="2_kbuup"]
+[ext_resource type="FontFile" uid="uid://eigjqodh80ws" path="res://sprites/Font/PixelOperatorHB.ttf" id="3_g38mc"]
+[ext_resource type="FontFile" uid="uid://dfkkpkwwiol0x" path="res://sprites/Font/PixelOperator.ttf" id="4_046v8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cv6xj"]
+texture = ExtResource("2_kbuup")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_emq6r"]
+texture = ExtResource("2_kbuup")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2mue3"]
+texture = ExtResource("2_kbuup")
+
+[node name="MenuAjustes" type="CanvasLayer"]
+script = ExtResource("1_gxiqi")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 3.0
+offset_right = 9.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.20784314)
+
+[node name="Panel" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.22000001
+anchor_top = 0.058000002
+anchor_right = 0.80700004
+anchor_bottom = 0.90300006
+offset_left = 0.19998169
+offset_top = -36.760002
+offset_right = 69.91992
+offset_bottom = -0.16003418
+texture = ExtResource("2_cv6xj")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 379.0
+offset_top = 69.0
+offset_right = 1152.0
+offset_bottom = 551.0
+theme_override_constants/separation = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Button" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_cv6xj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_emq6r")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2mue3")
+text = "
+              "
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="ListaOpciones" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 39
+
+[node name="titulo" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("1_mhuej")
+theme_override_font_sizes/font_size = 64
+text = "CONFIGURACION"
+
+[node name="Subtitulo" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g38mc")
+theme_override_font_sizes/font_size = 32
+text = "SONIDO"
+horizontal_alignment = 1
+
+[node name="AjusteVolumen2" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+theme_override_constants/separation = -33
+
+[node name="volumen" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/AjusteVolumen2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_046v8")
+theme_override_font_sizes/font_size = 32
+text = "VOLUMEN GENERAL"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/ScrollContainer/ListaOpciones/AjusteVolumen2/volumen"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 30.0
+offset_right = 471.0
+offset_bottom = 46.0
+
+[node name="AjusteVolumen" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+theme_override_constants/separation = -33
+
+[node name="volumen" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/AjusteVolumen"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_046v8")
+theme_override_font_sizes/font_size = 32
+text = "VOLUMEN DE MUSICA"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/ScrollContainer/ListaOpciones/AjusteVolumen/volumen"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 38.0
+offset_right = 471.0
+offset_bottom = 54.0
+
+[node name="ListaOpciones2" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Subtitulo" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g38mc")
+theme_override_font_sizes/font_size = 32
+text = "CONTROLES"
+horizontal_alignment = 1
+
+[node name="CONTROLS" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones2"]
+layout_mode = 2
+theme_override_constants/separation = -33
+
+[node name="volumen" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones2/CONTROLS"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_046v8")
+theme_override_font_sizes/font_size = 32
+text = "NO VIBRAR
+PANTALLA"
+
+[node name="volumen2" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones2/CONTROLS/volumen"]
+layout_mode = 0
+offset_left = 332.0
+offset_top = 4.0
+offset_right = 571.0
+offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("4_046v8")
+theme_override_font_sizes/font_size = 32
+text = "VIBRAR PANTALLA
+(MUCHO)"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones2/CONTROLS/volumen/volumen2"]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 58.0
+offset_right = 85.0
+offset_bottom = 82.0
+scale = Vector2(2, 2)
+
+[node name="volumen" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones2/CONTROLS/volumen"]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 2.0
+offset_right = 363.0
+offset_bottom = 69.0
+theme_override_fonts/font = ExtResource("4_046v8")
+theme_override_font_sizes/font_size = 32
+text = "VIBRAR PANTALLA
+(POCO)"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones2/CONTROLS/volumen/volumen"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 59.0
+offset_right = 89.0
+offset_bottom = 83.0
+scale = Vector2(2, 2)
+
+[node name="HSlider" type="CheckBox" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones2/CONTROLS/volumen"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 62.0
+offset_right = 44.0
+offset_bottom = 86.0
+scale = Vector2(2, 2)
+flat = true
+
+[node name="ListaOpciones" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="CONTROLS" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones"]
+layout_mode = 2
+theme_override_constants/separation = -33
+
+[node name="volumen" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_046v8")
+theme_override_font_sizes/font_size = 32
+text = "CAMBIAR 
+TRANSICION
+(MENUS)"
+
+[node name="OptionButtonMenu" type="OptionButton" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 20.0
+offset_right = 215.0
+offset_bottom = 55.0
+item_count = 1
+popup/item_0/id = 0
+
+[node name="volumen" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen"]
+layout_mode = 0
+offset_left = 272.0
+offset_right = 512.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("4_046v8")
+theme_override_font_sizes/font_size = 32
+text = "CAMBIAR 
+TRANSICION
+(MUNDOS)"
+
+[node name="OptionButtonMundos" type="OptionButton" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen/volumen"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 20.0
+offset_right = 215.0
+offset_bottom = 55.0
+item_count = 1
+popup/item_0/id = 0
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="item_selected" from="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen/OptionButtonMenu" to="." method="_on_option_button_menu_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen/volumen/OptionButtonMundos" to="." method="_on_option_button_mundos_item_selected"]

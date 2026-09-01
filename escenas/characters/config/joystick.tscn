@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6lv7jpxvhe6e"]
+
+[ext_resource type="Script" uid="uid://cmnn3hfdtpg45" path="res://joystick.gd" id="1_ajii7"]
+[ext_resource type="Texture2D" uid="uid://blcx2fg4h33ys" path="res://botones/Joystick .png" id="2_ydrp7"]
+[ext_resource type="Texture2D" uid="uid://dyy2jg80bvx0a" path="res://botones/Joystick Handle.png" id="3_ajii7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jhikm"]
+radius = 177.0
+
+[node name="Joystick" type="Area2D"]
+position = Vector2(501, 370)
+script = ExtResource("1_ajii7")
+metadata/_edit_vertical_guides_ = [-438.0]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_jhikm")
+
+[node name="SpriteRango" type="Sprite2D" parent="."]
+position = Vector2(-0.4999957, -0.9999962)
+scale = Vector2(0.8144532, 0.80859375)
+texture = ExtResource("2_ydrp7")
+
+[node name="SpritePalanca" type="Sprite2D" parent="."]
+position = Vector2(1.9073486e-06, 1.335144e-05)
+scale = Vector2(0.3556048, 0.3433383)
+texture = ExtResource("3_ajii7")

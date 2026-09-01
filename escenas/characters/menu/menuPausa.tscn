@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvfcs3kos4e8q"]
+
+[ext_resource type="Texture2D" uid="uid://bb2wobb47mv7o" path="res://botones/Rect-Dark-Hover.png" id="1_amb4g"]
+[ext_resource type="Script" uid="uid://beiaccy2mksuq" path="res://escenas/characters/menu/menu_pausa.gd" id="1_pchno"]
+[ext_resource type="FontFile" uid="uid://c5ovpsfnc2xup" path="res://sprites/Font/Font.ttf" id="2_u2phs"]
+[ext_resource type="FontFile" uid="uid://dfkkpkwwiol0x" path="res://sprites/Font/PixelOperator.ttf" id="3_kbh0n"]
+[ext_resource type="FontFile" uid="uid://c53jndc5lg2q4" path="res://sprites/Font/PixelOperatorSC.ttf" id="4_o1y2l"]
+
+[node name="MenuAjustes" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_pchno")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 3.0
+offset_right = 9.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.20784314)
+
+[node name="Panel" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.257
+anchor_top = 0.061000004
+anchor_right = 0.71000004
+anchor_bottom = 0.874
+offset_left = 0.9200134
+offset_top = 6.079998
+offset_right = 0.5999756
+offset_bottom = 42.71997
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_amb4g")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 459.0
+offset_top = 87.0
+offset_right = 1361.0
+offset_bottom = 592.0
+theme_override_constants/separation = 32
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="ListaOpciones" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 39
+
+[node name="titulo" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_u2phs")
+theme_override_font_sizes/font_size = 64
+text = "MENU DE PAUSA"
+
+[node name="ListaOpciones" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="CONTROLS" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones"]
+layout_mode = 2
+theme_override_constants/separation = -33
+
+[node name="volumen" type="Label" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_kbh0n")
+theme_override_font_sizes/font_size = 32
+text = "ESTAS EN PAUSA, QUE QUIERES HACER ?"
+
+[node name="ATRAS" type="Button" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32500002
+anchor_top = 2.25
+anchor_right = 0.708
+anchor_bottom = 3.6940002
+offset_left = 0.05000305
+offset_right = -0.0020141602
+offset_bottom = 0.0019989014
+theme_override_fonts/font = ExtResource("4_o1y2l")
+theme_override_font_sizes/font_size = 32
+text = "VOLVER"
+
+[node name="VOLMENU" type="Button" parent="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.047000002
+anchor_top = 10.0
+anchor_right = 0.99600005
+anchor_bottom = 11.844001
+offset_left = 1.0379982
+offset_right = -0.21606445
+offset_bottom = -0.008026123
+theme_override_fonts/font = ExtResource("4_o1y2l")
+theme_override_font_sizes/font_size = 32
+text = "IR AL MENU"
+
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen/ATRAS" to="." method="_on_atras_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ListaOpciones/ListaOpciones/CONTROLS/volumen/VOLMENU" to="." method="_on_volmenu_pressed"]

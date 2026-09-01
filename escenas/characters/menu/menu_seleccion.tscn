@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://dk4o6b1vsstug"]
+
+[ext_resource type="Texture2D" uid="uid://cd5kpxn7jb1gn" path="res://sprites/idel_player.png" id="1_1f5i8"]
+[ext_resource type="Script" uid="uid://dtwbq1ci5aux0" path="res://escenas/characters/menu/menu_seleccion.gd" id="1_1w0ud"]
+[ext_resource type="Texture2D" uid="uid://bq60w3vgju33b" path="res://sprites/icon.svg" id="2_gctyl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy7fk"]
+atlas = ExtResource("1_1f5i8")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llhvl"]
+atlas = ExtResource("1_1f5i8")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c66c4"]
+atlas = ExtResource("1_1f5i8")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yulja"]
+atlas = ExtResource("1_1f5i8")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gctyl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy7fk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llhvl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c66c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yulja")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 13.0
+}]
+
+[node name="MenuSeleccion" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1w0ud")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(247, 299)
+scale = Vector2(2.375, 2.109375)
+sprite_frames = SubResource("SpriteFrames_gctyl")
+animation = &"idle"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pergamino" type="TextureRect" parent="CanvasLayer"]
+offset_left = -170.0
+offset_top = 232.0
+offset_right = -11.0
+offset_bottom = 369.0
+texture = ExtResource("2_gctyl")
+
+[node name="Label" type="Label" parent="CanvasLayer/Pergamino"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 5.0
+offset_right = 129.0
+offset_bottom = 28.0
+text = "ESTADISTICAS"

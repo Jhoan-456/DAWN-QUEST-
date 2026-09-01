@@ -1,0 +1,33 @@
+res://escenas/characters/config/joystick.tscn::4f401fc68ee691a8d1ffff515cc1a2b2::1786753324::res://.godot/exported/133200997/export-7b772d002f33befe9bf0d4e1dcdb7477-joystick.scn
+res://escenas/characters/items/arma.tscn::46ad1dc184744b8c07ef79f3b07110a3::1786819122::res://.godot/exported/133200997/export-328b1d1f00803a89038fbb293f83b352-arma.scn
+res://escenas/characters/items/bala.tscn::ea6daa33297940c49b1f4c18c281af4f::1786753490::res://.godot/exported/133200997/export-ecfccf9fb85a9296e7000002bdb80444-bala.scn
+res://escenas/characters/items/Moneda.tscn::5cb9ac16d7fcb11942ad52de88c21c0c::1786753286::res://.godot/exported/133200997/export-d60a44ea24a4c9e96d743ead9657612f-Moneda.scn
+res://escenas/characters/items/posion_cura.tscn::cd21be5e8a1647373a2dd82e11f882e7::1786753310::res://.godot/exported/133200997/export-5fa682232ab5ce8080b9e045b6cf3e9f-posion_cura.scn
+res://escenas/characters/maps/cofre.tscn::1b93c1cfb4567b7de9b823ebf219f590::1786753218::res://.godot/exported/133200997/export-2bcf443adbed250d6cd7518cd6be6e7b-cofre.scn
+res://escenas/characters/menu/menuAjustes.tscn::51629eda183e062ac67b9733ed2b4375::1786753280::res://.godot/exported/133200997/export-27aadcb0a601cc548d68e7376fda1114-menuAjustes.scn
+res://escenas/characters/menu/menu_seleccion.tscn::52d7882b49acc61b35d29c7781e4e186::1786753294::res://.godot/exported/133200997/export-dcfc036dfbd590665e228e1cd6f687f0-menu_seleccion.scn
+res://escenas/characters/menu/pantalla_carga.tscn::42798942d139e274f9f7bb99a265b080::1788142423::res://.godot/exported/133200997/export-769d8eecb543d7a2f4ba99693f1bba90-pantalla_carga.scn
+res://escenas/characters/menu/Seleccionar_personaje.tscn::c2b8680d280de37e950a79f6dcd15b3b::1786753313::res://.godot/exported/133200997/export-a42fbfd22160c85632a8f713c94e68e9-Seleccionar_personaje.scn
+res://escenas/characters/menu/texto_flotante.tscn::befb5201a06edaca9cbcd20defe7d56d::1786753315::res://.godot/exported/133200997/export-2e06d6c97cad63f42a3a2d64f47c618c-texto_flotante.scn
+res://escenas/characters/menu/menuPausa.tscn::d9a611903e9228558a414ec7c3752323::1786741214::res://.godot/exported/133200997/export-f2af61f5b815c0c64742ad0e7064d1a7-menuPausa.scn
+res://escenas/characters/menu/menuSalir.tscn::bea96acd1e0493f7c518cca18006d5ed::1786740550::res://.godot/exported/133200997/export-0f30aac2ea1206ca3cd6b3a0e52a73ae-menuSalir.scn
+res://botones/pantalla_inicial.tscn::0de7db7643b8dd408dff4e2cc7885388::1788141319::res://.godot/exported/133200997/export-028f1efa0b1a1a84ae34e67c8ee3940a-pantalla_inicial.scn
+res://escenas/characters/BOSSES/boss_plantera.tscn::1e166e4206e8504c3253a78574314812::1786900306::res://.godot/exported/133200997/export-543a9f3663fed09a8aafe1fdbac7ee7a-boss_plantera.scn
+res://escenas/characters/BOSSES/proyectil_plantera.tscn::9759214db7b9331d70f71c82e9ca9d4c::1786899757::res://.godot/exported/133200997/export-2aeab87a9d6fabfccfb46d2ebcb672dd-proyectil_plantera.scn
+res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera.tscn::cc56e9b06ed0ec0acaba7348b0a9a3e4::1786837251::res://.godot/exported/133200997/export-35ffa4581af2ec6983b963fac674f6af-mini_esfera.scn
+res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera_2.tscn::eafc06cbe18117fb4d411a1078870ee0::1786837265::res://.godot/exported/133200997/export-de7cb993034ff40c88efe266117c59e0-mini_esfera_2.scn
+res://escenas/characters/enemi/ESFERA/esfera.tscn::b1af43fd3a26a368efd6a81597a9e0f6::1786818558::res://.godot/exported/133200997/export-847caf1d8fb23520a5c09de7abcfc0ac-esfera.scn
+res://escenas/characters/enemi/ESFERA/proyectil_maligna.tscn::0aad12363a7b3209b00509779f1ad79a::1786753096::res://.godot/exported/133200997/export-78b0e52471ddd0bf4cabd59404e1dc87-proyectil_maligna.scn
+res://escenas/characters/enemi/SLIME/slime.tscn::89ba351e4f438eadfcd519fcc2f0fb48::1786753132::res://.godot/exported/133200997/export-b0ff2bdfaf6e792d13fc1fb2973683bc-slime.scn
+res://escenas/characters/maps/escenas_generan/pasillos/pasillos_h.tscn::2625385111df3f48ed02ed19eb20b036::1786817946::res://.godot/exported/133200997/export-24ea6f1930cdd9ac7840abda914fd9f5-pasillos_h.scn
+res://escenas/characters/maps/escenas_generan/pasillos/pasillos_v.tscn::e446e4be3269fbdbc27984b04700f0d1::1786817391::res://.godot/exported/133200997/export-39e04820e98a8789f7e4724f9e12a464-pasillos_v.scn
+res://escenas/characters/maps/escenas_generan/escena_boss.tscn::4fb3bb6d035fa9ccdb9e72e9733232f6::1786899829::res://.godot/exported/133200997/export-12705b5284f2be73404604d3fc92b1d0-escena_boss.scn
+res://escenas/characters/maps/escenas_generan/escena_cofre.tscn::6d7495f9384e6223ee021eebffa14330::1786818830::res://.godot/exported/133200997/export-bc559bf42de6d9ead9ec6ea6eee3bc42-escena_cofre.scn
+res://escenas/characters/maps/escenas_generan/escena_enemigos.tscn::2d454d70d507f830a441f400b1371ec4::1786837272::res://.godot/exported/133200997/export-163e454aa68282e934b5c436f5e5f97d-escena_enemigos.scn
+res://escenas/characters/maps/escenas_generan/escena_inicio.tscn::b09de1c679c7d68065efd0f9dd5c705b::1786895936::res://.godot/exported/133200997/export-64aea915802bacb16725271146120ae4-escena_inicio.scn
+res://escenas/characters/maps/GeneradorNivel.tscn::f42e1a6e1ce00678aaf29a98333831f9::1788120936::res://.godot/exported/133200997/export-5c2fc235330190cef22234b371c64bb8-GeneradorNivel.scn
+res://escenas/characters/maps/SALA_INICIO.tscn::839b48dbec4c3403a3d397f965013bf4::1786900307::res://.godot/exported/133200997/export-5f07adaa0ac0e3eb7f45544f2275fcaa-SALA_INICIO.scn
+res://escenas/characters/menu/menu_linea.tscn::7eed52a2df806c6ef9b852680dca36d4::1786491293::res://.godot/exported/133200997/export-80510abad7139114b3b93160f8730cb3-menu_linea.scn
+res://escenas/characters/personajes/BYTE/byte.tscn::b5d6d9aa6549d63b97ed3fd0f1ef4ed3::1788141259::res://.godot/exported/133200997/export-0727dc798362e7f7ef1949c50bdf71c6-byte.scn
+res://escenas/characters/personajes/JUGADOR_DEFAULT/Personaje.tscn::1dddb21568a6604d215cbcd669488538::1788023371::res://.godot/exported/133200997/export-f439d5cc6d2e65a1723f1d0b2055cfd4-Personaje.scn
+res://node_2d.tscn::5b4cb35fe4739a20f7e8be9b85c6c57c::1787434830::res://.godot/exported/133200997/export-362256a061aa8890e9a1e558b11e5ec3-node_2d.scn

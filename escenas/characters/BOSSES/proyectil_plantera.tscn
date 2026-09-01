@@ -1,0 +1,98 @@
+[gd_scene load_steps=13 format=3 uid="uid://nt6vius1fag7"]
+
+[ext_resource type="Script" uid="uid://ur8i4fy42305" path="res://escenas/characters/BOSSES/proyectil_plantera.gd" id="1_7p7vi"]
+[ext_resource type="Texture2D" uid="uid://vvrqklr4eq68" path="res://sprites/Bola De Ponzoña.png" id="1_yyhai"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yyhai"]
+radius = 9.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p7vi"]
+atlas = ExtResource("1_yyhai")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2uqk"]
+atlas = ExtResource("1_yyhai")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlm6e"]
+atlas = ExtResource("1_yyhai")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcb0w"]
+atlas = ExtResource("1_yyhai")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8lci"]
+atlas = ExtResource("1_yyhai")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dr11a"]
+atlas = ExtResource("1_yyhai")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pkpj"]
+atlas = ExtResource("1_yyhai")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkjep"]
+atlas = ExtResource("1_yyhai")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nx072"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p7vi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2uqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlm6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcb0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8lci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dr11a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pkpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkjep")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 16.0
+}]
+
+[node name="proyectil_plantera" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_7p7vi")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_yyhai")
+debug_color = Color(0.7, 0, 0.011666489, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+position = Vector2(-5, 0)
+scale = Vector2(1.0468749, 1)
+sprite_frames = SubResource("SpriteFrames_nx072")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.61639476
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Area2D"]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_exited" from="Area2D/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

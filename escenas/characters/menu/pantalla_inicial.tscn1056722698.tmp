@@ -1,0 +1,368 @@
+[gd_scene load_steps=23 format=3 uid="uid://brfp2ut8tnchl"]
+
+[ext_resource type="Script" uid="uid://gsp84i2d88rx" path="res://codigo/pantalla_inicial.gd" id="1_d6lq7"]
+[ext_resource type="Texture2D" uid="uid://cmyi1t5hv2ada" path="res://sprites/Sprite-0002.png" id="2_ujcoa"]
+[ext_resource type="FontFile" uid="uid://dfkkpkwwiol0x" path="res://sprites/Font/PixelOperator.ttf" id="3_lul6n"]
+[ext_resource type="FontFile" uid="uid://c5ovpsfnc2xup" path="res://sprites/Font/Font.ttf" id="4_56dhd"]
+[ext_resource type="AudioStream" uid="uid://rhkd2l3wifbc" path="res://musica/donkey-kong.mp3" id="5_ckhli"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6psb2"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(0, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag47m"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(1152, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik34d"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(2304, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvgdi"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(3456, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3wwd"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(4608, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrd8s"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(5760, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md2aw"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(6912, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0s3q"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(8064, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n57p"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(9216, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp54k"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(10368, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4c2i"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(11520, 0, 1152, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xjhh"]
+atlas = ExtResource("2_ujcoa")
+region = Rect2(12672, 0, 1152, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hm8my"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6psb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag47m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik34d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvgdi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3wwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrd8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md2aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0s3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n57p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lp54k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4c2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xjhh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_6dlaf"]
+offsets = PackedFloat32Array(0, 0.31896552, 0.6810345, 1)
+colors = PackedColorArray(1, 0.72156864, 0, 1, 1, 0.72156864, 0, 1, 0.89737946, 0.51865983, 0, 1, 0.827451, 0.38039216, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kruy6"]
+gradient = SubResource("Gradient_6dlaf")
+fill_from = Vector2(0, 0.0055555557)
+fill_to = Vector2(0, 0.95)
+
+[sub_resource type="Gradient" id="Gradient_kruy6"]
+offsets = PackedFloat32Array(0, 0.46551725, 1)
+colors = PackedColorArray(0.37930954, 0.5516061, 0.8194905, 1, 0.34227586, 0.50840634, 0.75964713, 1, 0.13254854, 0.23965624, 0.4079899, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t2ujd"]
+gradient = SubResource("Gradient_kruy6")
+fill_to = Vector2(0, 1)
+
+[node name="pantalla_inicial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -1.0
+offset_right = 8.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d6lq7")
+metadata/_edit_vertical_guides_ = [-2433.0]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(569, 323)
+sprite_frames = SubResource("SpriteFrames_hm8my")
+autoplay = "default"
+frame_progress = 0.071681075
+
+[node name="fondo_cerrar" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99000007
+anchor_bottom = 1.016
+offset_left = -1.0
+offset_top = 3.0
+offset_right = 3.5699463
+offset_bottom = 2.695984
+focus_mode = 0
+flat = true
+
+[node name="config" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.12200001
+anchor_top = 0.559
+anchor_right = -0.046000004
+anchor_bottom = 0.64400005
+offset_left = 0.15400696
+offset_top = 0.0039978027
+offset_right = 0.22200394
+offset_bottom = 0.26397705
+theme_override_fonts/font = ExtResource("3_lul6n")
+theme_override_font_sizes/font_size = 32
+text = "CONFIG"
+
+[node name="iniciar" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.38000003
+anchor_top = 0.643
+anchor_right = 0.69900006
+anchor_bottom = 0.95000005
+offset_left = 0.33996582
+offset_top = -0.0920105
+offset_right = 0.256958
+offset_bottom = 0.19995117
+focus_mode = 0
+theme_override_fonts/font = ExtResource("3_lul6n")
+theme_override_font_sizes/font_size = 32
+text = "Haz click para iniciar"
+flat = true
+
+[node name="multi" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.546
+anchor_top = 1.107
+anchor_right = 0.64400005
+anchor_bottom = 1.1830001
+offset_left = 0.27801514
+offset_top = 0.09197998
+offset_right = -0.10803223
+offset_bottom = 0.14794922
+theme_override_fonts/font = ExtResource("3_lul6n")
+theme_override_font_sizes/font_size = 32
+text = "LINEA"
+
+[node name="jugar" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32900003
+anchor_top = 1.107
+anchor_right = 0.51500005
+anchor_bottom = 1.1830001
+offset_left = 0.34698486
+offset_top = 0.09197998
+offset_right = 0.1449585
+offset_bottom = 0.14794922
+theme_override_fonts/font = ExtResource("3_lul6n")
+theme_override_font_sizes/font_size = 32
+text = "NUEVO COMIENZO"
+
+[node name="salir" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.11800001
+anchor_top = 0.67200005
+anchor_right = -0.043
+anchor_bottom = 0.74500006
+offset_left = -0.47398376
+offset_top = 0.23196411
+offset_right = -0.24899673
+offset_bottom = 0.2199707
+theme_override_fonts/font = ExtResource("3_lul6n")
+theme_override_font_sizes/font_size = 32
+text = "SALIR"
+
+[node name="guard" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65900004
+anchor_top = 1.093
+anchor_right = 0.874
+anchor_bottom = 1.205
+offset_left = 0.53692627
+offset_top = 0.10797119
+offset_right = -26.218018
+offset_bottom = -0.020019531
+theme_override_fonts/font = ExtResource("3_lul6n")
+theme_override_font_sizes/font_size = 32
+text = "JUGAR
+PARTIDA GUARDADA"
+
+[node name="Nove" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.120000005
+anchor_top = 0.786
+anchor_right = -0.004
+anchor_bottom = 0.89800006
+offset_left = -0.1599884
+offset_top = -0.184021
+offset_right = -0.37199974
+offset_bottom = -0.31201172
+theme_override_fonts/font = ExtResource("3_lul6n")
+theme_override_font_sizes/font_size = 32
+text = "NUEVAS
+NOVEDADES
+"
+
+[node name=">" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.002
+anchor_top = 0.416
+anchor_right = 0.054
+anchor_bottom = 0.528
+offset_left = 0.31400013
+offset_top = 0.0960083
+offset_right = 0.52199936
+offset_bottom = -0.03201294
+theme_override_fonts/font = ExtResource("3_lul6n")
+theme_override_font_sizes/font_size = 64
+text = ">"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="PantallaNegra" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0120001
+offset_left = 2.0
+offset_top = -9.0
+offset_right = 5.0
+offset_bottom = -7.6800537
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Titulo" type="Label" parent="."]
+clip_children = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11100001
+anchor_top = -0.41000003
+anchor_right = 0.46800002
+anchor_bottom = -0.006
+offset_left = -1.4270172
+offset_top = 2.0400085
+offset_right = -204.47601
+offset_bottom = -128.136
+scale = Vector2(2, 2)
+theme_override_colors/font_outline_color = Color(0.039215688, 0.023529412, 0.078431375, 1)
+theme_override_fonts/font = ExtResource("4_56dhd")
+theme_override_font_sizes/font_size = 64
+text = "ROGUE
+DAWN"
+metadata/_edit_group_ = true
+
+[node name="TITULO" type="TextureRect" parent="Titulo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.08800001
+anchor_right = 1.0500001
+anchor_bottom = 0.404
+offset_left = -5.5
+offset_top = -0.059999466
+offset_right = -1.5258789e-05
+offset_bottom = -0.020000458
+texture = SubResource("GradientTexture2D_kruy6")
+
+[node name="TITULO2" type="TextureRect" parent="Titulo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.043
+anchor_top = 0.5
+anchor_right = 0.86200005
+anchor_bottom = 0.93100005
+offset_left = 0.030000687
+offset_top = -8.0
+offset_right = -0.020004272
+offset_bottom = -0.030006409
+texture = SubResource("GradientTexture2D_kruy6")
+
+[node name="Titulo_2" type="Label" parent="."]
+clip_children = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.108
+anchor_top = -0.632
+anchor_right = 0.45700002
+anchor_bottom = -0.425
+offset_left = 3.0439987
+offset_top = 3.0080261
+offset_right = -198.74902
+offset_bottom = -63.799988
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("4_56dhd")
+theme_override_font_sizes/font_size = 64
+text = "QUEST"
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Titulo_2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -10.5
+offset_top = 2.0
+offset_right = -0.5
+offset_bottom = 6.0
+texture = SubResource("GradientTexture2D_t2ujd")
+
+[node name="MusicaFondo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ckhli")
+volume_db = -80.0
+autoplay = true
+
+[connection signal="pressed" from="config" to="." method="_on_config_pressed"]

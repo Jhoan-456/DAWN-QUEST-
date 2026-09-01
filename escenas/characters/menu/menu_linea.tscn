@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyjxxlaenv3v6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_if652"]
+bg_color = Color(0.6751101, 0.71939987, 0.7568541, 1)
+
+[node name="menuLinea" type="CanvasLayer"]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.2)
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 230.0
+offset_top = 35.0
+offset_right = 938.0
+offset_bottom = 606.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_if652")

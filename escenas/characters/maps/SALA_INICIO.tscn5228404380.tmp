@@ -1,0 +1,20 @@
+[gd_scene load_steps=8 format=3 uid="uid://co7r0hp2r44vu"]
+
+[ext_resource type="Script" uid="uid://o8l03yph4f68" path="res://escenas/characters/maps/sala_inicio.gd" id="1_a2uji"]
+[ext_resource type="PackedScene" uid="uid://ywh1vrqrw346" path="res://escenas/characters/maps/escenas_generan/escena_inicio.tscn" id="2_sy33q"]
+[ext_resource type="PackedScene" uid="uid://cc17jxbr5x1bn" path="res://escenas/characters/maps/escenas_generan/escena_enemigos.tscn" id="3_4ye11"]
+[ext_resource type="PackedScene" uid="uid://ip1xnwh7yfyy" path="res://escenas/characters/maps/escenas_generan/escena_cofre.tscn" id="4_4yuul"]
+[ext_resource type="PackedScene" uid="uid://chiqvfyejbbhb" path="res://escenas/characters/maps/escenas_generan/escena_boss.tscn" id="5_pqddv"]
+[ext_resource type="PackedScene" uid="uid://chele5nnfxma6" path="res://escenas/characters/maps/escenas_generan/pasillos/pasillos_v.tscn" id="6_4ye11"]
+[ext_resource type="PackedScene" uid="uid://ctf8knwirfayx" path="res://escenas/characters/maps/escenas_generan/pasillos/pasillos_h.tscn" id="6_4yuul"]
+
+[node name="NIVEL 1" type="Node2D"]
+position = Vector2(-4, -23)
+script = ExtResource("1_a2uji")
+escena_inicio = ExtResource("2_sy33q")
+escena_enemigos = ExtResource("3_4ye11")
+escena_cofre = ExtResource("4_4yuul")
+escena_boss = ExtResource("5_pqddv")
+escena_pasillo_h = ExtResource("6_4yuul")
+escena_pasillo_v = ExtResource("6_4ye11")
+metadata/_edit_horizontal_guides_ = [-1035.0]

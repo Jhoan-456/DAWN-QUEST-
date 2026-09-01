@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://chvrxkjei15ns"]
+
+[ext_resource type="Script" uid="uid://bevgxsg7wmo3f" path="res://escenas/characters/menu/seleccionar_personaje.gd" id="1_b0d8j"]
+[ext_resource type="FontFile" uid="uid://glhbvbrcequf" path="res://sprites/Font/Romulus.ttf" id="2_4ntv8"]
+[ext_resource type="Texture2D" uid="uid://e7ws7boe1l3" path="res://sprites/fondo.png" id="3_thbnn"]
+[ext_resource type="Texture2D" uid="uid://xew146ldnb6s" path="res://sprites/soporte.png" id="4_gvji2"]
+[ext_resource type="Texture2D" uid="uid://cd5kpxn7jb1gn" path="res://sprites/idel_player.png" id="5_q66pf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy7fk"]
+atlas = ExtResource("5_q66pf")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llhvl"]
+atlas = ExtResource("5_q66pf")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c66c4"]
+atlas = ExtResource("5_q66pf")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yulja"]
+atlas = ExtResource("5_q66pf")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jlcs2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy7fk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llhvl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c66c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yulja")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 13.0
+}]
+
+[node name="seleccionar_personaje" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b0d8j")
+
+[node name="fondo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1151.0
+offset_bottom = 639.0
+texture = ExtResource("3_thbnn")
+
+[node name="tit" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.372
+anchor_top = -0.186
+anchor_right = 0.67600006
+anchor_bottom = -0.123
+offset_left = -5.5440063
+offset_top = 2.040001
+offset_right = -5.752075
+offset_bottom = 1.7200012
+theme_override_fonts/font = ExtResource("2_4ntv8")
+theme_override_font_sizes/font_size = 32
+text = "SELECCIONA TU PERSONAJE"
+
+[node name="plataforma" type="Sprite2D" parent="."]
+position = Vector2(580, 383.99997)
+scale = Vector2(3.2033331, 3.34)
+texture = ExtResource("4_gvji2")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(271, 373)
+scale = Vector2(2.375, 2.109375)
+sprite_frames = SubResource("SpriteFrames_jlcs2")
+animation = &"idle"
+frame_progress = 0.044927444
+
+[node name="botonInvisible" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 328.0
+offset_right = 295.0
+offset_bottom = 386.0
