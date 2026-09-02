@@ -414,8 +414,7 @@ radius = 109.370926
 
 [node name="slime" type="CharacterBody2D" groups=["Enemigos"]]
 position = Vector2(238, 144)
-collision_layer = 2
-collision_mask = 255
+collision_layer = 4
 script = ExtResource("1_ivwr1")
 texto_flotante_scene = ExtResource("2_akhsh")
 escena_moneda = ExtResource("3_eekur")
@@ -447,14 +446,14 @@ material = SubResource("ShaderMaterial_743j8")
 position = Vector2(138, -17.999998)
 scale = Vector2(1.3394088, 1.2870522)
 sprite_frames = SubResource("SpriteFrames_mk1k5")
-animation = &"idle_abajo"
+animation = &"ataque"
 autoplay = "idle_abajo"
-frame_progress = 0.18548276
 offset = Vector2(-101.33334, 21.265816)
 
 [node name="Zona_ataque" type="Area2D" parent="."]
 position = Vector2(-1, 0)
 collision_layer = 0
+collision_mask = 2
 
 [node name="hacer_daño" type="CollisionShape2D" parent="Zona_ataque"]
 position = Vector2(2, 9)
@@ -466,6 +465,7 @@ debug_color = Color(2.0331757, 0, 0.48853496, 0.12156863)
 [node name="ZonaDeteccion" type="Area2D" parent="."]
 position = Vector2(27, 9)
 collision_layer = 0
+collision_mask = 2
 
 [node name="ver" type="CollisionShape2D" parent="ZonaDeteccion"]
 position = Vector2(-27, 1)

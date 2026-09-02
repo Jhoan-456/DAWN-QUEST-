@@ -51,7 +51,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if jugador_cerca and is_instance_valid(jugador_ref) and Input.is_action_just_pressed("interactuar"):
 		if jugador_ref.has_method("equipar_arma"):
-			jugador_ref.equipar_arma()
+			jugador_ref.equipar_arma(costo_energia)
 			queue_free() # Borramos el arma del suelo
 	
 func iniciar_animacion_flecha():

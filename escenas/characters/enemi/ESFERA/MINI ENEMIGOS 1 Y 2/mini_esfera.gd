@@ -19,6 +19,11 @@ var jugador_a_perseguir = null # El jugador cuando está a rango de VISIÓN
 @export var tiempo_entre_ataques: float = 1.0 # Cada cuántos segundos golpea
 var puede_atacar: bool = true
 
+# --- ⏱️ CONFIGURACIÓN DE COOLDOWNS DE DISPARO ---
+@export_group("Cooldowns de Disparo")
+@export var cadencia_disparo: float = 0.3  # Tiempo (segundos) entre cada esfera lanzada
+@export var tiempo_recarga: float = 3.0   # Tiempo (segundos) para recargar el escudo completo
+
 # --- VARIABLES DE MOVIMIENTO ---
 var velocidad_patrulla = 70
 var velocidad_persecucion = 80 # Corre un poco más rápido al perseguir
@@ -42,7 +47,15 @@ func _ready() -> void:
 	barra_vida.max_value = vida_maxima
 	barra_vida.value = vida_actual
 	
-	# 🆕 Al nacer la mini esfera, creamos inmediatamente su escudo de 5 proyectiles
+	# 🆕 Configuración de los Cooldowns en los Timers
+	if timer_disparo_proyectil:
+		timer_disparo_proyectil.wait_time = cadencia_disparo
+		timer_disparo_proyectil.one_shot = false
+		
+	if timer_recarga_proyectiles:
+		timer_recarga_proyectiles.wait_time = tiempo_recarga
+		timer_recarga_proyectiles.one_shot = true
+	
 	generar_escudo_proyectiles()
 
 # --- SEÑALES DE LA ZONA DE ATAQUE (Círculo Pequeño) ---
@@ -176,6 +189,11 @@ func morir() -> void:
 	# 🆕 Al morir, limpiamos los proyectiles para que no queden flotando en el aire
 	limpiar_proyectiles()
 	
+	# Desactivar colisiones para que no siga golpeando mientras desaparece
+	if has_node("Zona_ataque"): $Zona_ataque.set_deferred("monitoring", false)
+	if has_node("ZonaDeteccion"): $ZonaDeteccion.set_deferred("monitoring", false)
+	if has_node("CollisionShape2D"): $CollisionShape2D.set_deferred("disabled", true)
+	
 	$visual/AnimatedSprite2D.play("died")
 	await $visual/AnimatedSprite2D.animation_finished
 	soltar_moneda()
@@ -249,7 +267,7 @@ func _on_timer_disparo_timeout() -> void:
 		# Al llegar a 0 proyectiles, espera 3 segundos para recargar
 		if proyectiles_disponibles.size() == 0:
 			timer_disparo_proyectil.stop()
-			timer_recarga_proyectiles.start()
+			timer_recarga_proyectiles.start(tiempo_recarga)
 
 # 🆕 Conecta aquí la señal 'timeout' del TimerRecarga (3.0s):
 func _on_timer_recarga_timeout() -> void:

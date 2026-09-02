@@ -175,6 +175,10 @@ func efecto_recibir_daño() -> void:
 func morir() -> void:
 	# 🆕 Al morir, limpiamos los proyectiles para que no queden flotando en el aire
 	limpiar_proyectiles()
+	# Desactivar colisiones para que no siga golpeando mientras desaparece
+	if has_node("Zona_ataque"): $Zona_ataque.set_deferred("monitoring", false)
+	if has_node("ZonaDeteccion"): $ZonaDeteccion.set_deferred("monitoring", false)
+	if has_node("CollisionShape2D"): $CollisionShape2D.set_deferred("disabled", true)
 	
 	$visual/AnimatedSprite2D.play("died")
 	await $visual/AnimatedSprite2D.animation_finished

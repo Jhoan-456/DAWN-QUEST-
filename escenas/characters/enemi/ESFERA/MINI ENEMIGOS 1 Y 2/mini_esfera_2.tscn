@@ -206,7 +206,7 @@ radius = 89.02247
 [node name="mini_esfera_2" type="CharacterBody2D" groups=["Enemigo"]]
 z_index = 2
 position = Vector2(172, 102)
-collision_layer = 2
+collision_layer = 4
 script = ExtResource("1_t87rg")
 texto_flotante_scene = ExtResource("2_btvk4")
 
@@ -240,6 +240,7 @@ autoplay = "idle"
 
 [node name="Zona_ataque" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 2
 
 [node name="hacer_daño" type="CollisionShape2D" parent="Zona_ataque"]
 position = Vector2(-1, -6)
@@ -249,6 +250,7 @@ debug_color = Color(2.0331757, 0, 0.48853496, 0.12156863)
 
 [node name="ZonaDeteccion" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 2
 
 [node name="ver" type="CollisionShape2D" parent="ZonaDeteccion"]
 position = Vector2(-1, -7)

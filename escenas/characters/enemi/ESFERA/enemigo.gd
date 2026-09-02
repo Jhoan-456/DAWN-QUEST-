@@ -14,6 +14,10 @@ var vida_actual: float = 35.0
 @export var mini_slime_scene2: PackedScene 
 @export var escena_moneda: PackedScene
 
+# --- ⏱️ CONFIGURACIÓN DE COOLDOWNS DE DISPARO ---
+@export_group("Cooldowns de Disparo")
+@export var cadencia_disparo: float = 0.3  # Tiempo (segundos) entre cada esfera lanzada
+@export var tiempo_recarga: float = 3.0   # Tiempo (segundos) para recargar el escudo completo
 # Esto evita que se divida 20 veces si le disparas muy rápido
 var ya_se_dividio: bool = false
 
@@ -49,7 +53,15 @@ func _ready() -> void:
 	barra_vida.max_value = vida_maxima
 	barra_vida.value = vida_actual
 	
-	# 🆕 Al nacer la esfera, creamos inmediatamente su escudo de 8 proyectiles
+	# 🆕 Configuración de los Cooldowns en los Timers
+	if timer_disparo_proyectil:
+		timer_disparo_proyectil.wait_time = cadencia_disparo
+		timer_disparo_proyectil.one_shot = false # Para que siga disparando en ciclo
+		
+	if timer_recarga_proyectiles:
+		timer_recarga_proyectiles.wait_time = tiempo_recarga
+		timer_recarga_proyectiles.one_shot = true # Solo se activa una vez cuando se acaba la munición
+	
 	generar_escudo_proyectiles()
 
 
@@ -220,10 +232,14 @@ func iniciar_division():
 	queue_free()
 
 func morir() -> void:
-	# 🆕 Si muere, limpiamos los proyectiles para que no queden flotando solos
-	limpiar_proyectiles()
-	$visual/AnimatedSprite2D.play("died")
-	await $visual/AnimatedSprite2D.animation_finished
+	set_physics_process(false)
+	
+	# Desactivar colisiones para que no siga golpeando mientras desaparece
+	if has_node("Zona_ataque"): $Zona_ataque.set_deferred("monitoring", false)
+	if has_node("ZonaDeteccion"): $ZonaDeteccion.set_deferred("monitoring", false)
+	if has_node("CollisionShape2D"): $CollisionShape2D.set_deferred("disabled", true)
+
+	soltar_moneda()
 	queue_free()
 
 func crear_texto_flotante(valor: String, color: Color) -> void:

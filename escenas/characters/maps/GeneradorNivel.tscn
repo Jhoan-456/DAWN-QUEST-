@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=4 uid="uid://du7xgirwrtrld"]
+[gd_scene load_steps=9 format=4 uid="uid://du7xgirwrtrld"]
 
 [ext_resource type="Texture2D" uid="uid://blni5m3olblw7" path="res://sprites/Tilesets.png" id="1_kn705"]
 [ext_resource type="Texture2D" uid="uid://bg44rx76ns1jt" path="res://sprites/ParedesBoscosas.png" id="2_0b0my"]
 [ext_resource type="PackedScene" uid="uid://cufyy63i7mqwm" path="res://escenas/characters/personajes/JUGADOR_DEFAULT/Personaje.tscn" id="3_1wvco"]
-[ext_resource type="PackedScene" uid="uid://cghmcoklixce8" path="res://escenas/characters/enemi/SLIME/slime.tscn" id="4_yr302"]
-[ext_resource type="PackedScene" uid="uid://62itmyvyxr0l" path="res://escenas/characters/enemi/ESFERA/esfera.tscn" id="5_0plmc"]
-[ext_resource type="PackedScene" uid="uid://dlm2m747f6jti" path="res://escenas/characters/BOSSES/boss_plantera.tscn" id="6_nd1ey"]
+[ext_resource type="PackedScene" uid="uid://dlm2m747f6jti" path="res://escenas/characters/BOSSES/boss_plantera.tscn" id="5_46sid"]
 [ext_resource type="PackedScene" uid="uid://cul6wv546udgk" path="res://escenas/characters/items/arma.tscn" id="7_yr302"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lj4md"]
@@ -58,20 +56,24 @@ texture = ExtResource("2_0b0my")
 4:2/0 = 0
 1:3/0 = 0
 2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.935339, -8, 8, -8, 8, 8, -5.935339, 8)
 3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 6.2950554, -8, 6.4749146, 8, -8, 8)
 4:3/0 = 0
 0:4/0 = 0
 1:4/0 = 0
 2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, 2.5180225, 8, 1.6187286, 1.2590122, -5.036045, 1.7985878)
 3:4/0 = 0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 6.4749146, -0.35971642, 1.2590103, 2.3381634, -1.2590103, 8, -8, 8, -8, 0.5395775)
 4:4/0 = 0
 5:4/0 = 0
 1:5/0 = 0
 4:5/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_1wvco"]
-physics_layer_0/collision_layer = 64
-physics_layer_0/collision_mask = 255
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 14
 sources/0 = SubResource("TileSetAtlasSource_lj4md")
 sources/1 = SubResource("TileSetAtlasSource_46sid")
 
@@ -85,14 +87,8 @@ tile_set = SubResource("TileSet_1wvco")
 position = Vector2(699, 456)
 speed = 200.0
 
-[node name="slime" parent="." instance=ExtResource("4_yr302")]
-position = Vector2(234, 145)
-
-[node name="esfera" parent="." instance=ExtResource("5_0plmc")]
-position = Vector2(1155, 196)
-
-[node name="Boss_plantera" parent="." instance=ExtResource("6_nd1ey")]
-position = Vector2(719, 123)
-
 [node name="Arma" parent="." instance=ExtResource("7_yr302")]
 position = Vector2(724, 548)
+
+[node name="Boss_plantera" parent="." instance=ExtResource("5_46sid")]
+position = Vector2(714, 216)

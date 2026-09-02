@@ -94,6 +94,7 @@ radius = 7.071068
 
 [node name="Moneda" type="Area2D"]
 position = Vector2(120, 32)
+collision_mask = 2
 script = ExtResource("1_utu0e")
 texto_flotante_scene = ExtResource("2_jrvi1")
 

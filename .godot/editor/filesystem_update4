@@ -1,2 +1,9 @@
-res://escenas/characters/enemi/SLIME/slime.tscn
 res://escenas/characters/maps/GeneradorNivel.tscn
+res://escenas/characters/enemi/ESFERA/enemigo.gd
+res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera.gd
+res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera.tscn
+res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera_2.tscn
+res://escenas/characters/enemi/ESFERA/proyectil_maligna.tscn
+res://escenas/characters/BOSSES/proyectil_plantera.tscn
+res://escenas/characters/BOSSES/boss_plantera.tscn
+res://escenas/characters/BOSSES/boss_plantera.gd

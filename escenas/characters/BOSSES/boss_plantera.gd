@@ -14,7 +14,21 @@ var vida_actual: float = 100.0
 # --- ESTADOS Y CONTROL DE ATAQUE ---
 var jugador_a_perseguir: Node2D = null
 var atacando: bool = false
-@export var tiempo_entre_rafagas: float = 1.0
+
+# ⏱️ 1. DELAYS ENTRE ATAQUES (Aumentados para darle espacio al jugador)
+@export_group("Delays y Cooldowns")
+@export var tiempo_entre_rafagas: float = 2.0  # Pausa tras el abanico (Antes 1.0s)
+@export var delay_fase_1: float = 2.0           # Pausa en Fase 1 (Antes 1.0s)
+@export var delay_fase_2: float = 1.8           # Pausa en Fase 2 (Antes 0.8s)
+@export var delay_fase_3: float = 1.5           # Pausa en Fase 3 (Antes 0.5s)
+
+# 🎯 2. ESPACIO ENTRE PROYECTILES (A menor cantidad, mayor espacio libre)
+@export_group("Configuración de Proyectiles")
+@export var proyectiles_anillo_fase1: int = 8      # Esferas por anillo (Antes 12)
+@export var proyectiles_zigzag_fase3: int = 8      # Esferas en zig-zag (Antes 12)
+@export var proyectiles_abanico: int = 3           # Disparos dirigidos (Antes 5)
+@export var incremento_angulo_espiral: float = 25.0 # Grados de separación en espiral (Antes 12.0)
+@export var espera_espiral: float = 0.1            # Tiempo entre esferas de espiral (Antes 0.04s)
 
 # Variable para turnar los ataques en la Fase 3 (< 70)
 var turno_fase_3: bool = false 
@@ -50,30 +64,29 @@ func iniciar_bucle_ataque_primera_fase() -> void:
 		# 🔴 FASE 3: Vida menor a 70 -> Alterna entre Espiral y Anillos Giratorios
 		if vida_actual < 70.0:
 			if turno_fase_3:
-				# Ataque A: Espiral rápida
-				await disparar_espiral(80, 0.08, 12.0)
+				# Espiral más pausada y con más espacio
+				await disparar_espiral(25, espera_espiral, incremento_angulo_espiral)
 			else:
-				
-				await disparar_anillos_zigzag(6, 12, 0.15)
+				# Anillos Zig-Zag con 8 esferas (más huecos para esquivar)
+				await disparar_anillos_zigzag(4, proyectiles_zigzag_fase3, 0.2)
 			
-			# Cambiamos el turno para el siguiente ataque
 			turno_fase_3 = not turno_fase_3
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(delay_fase_3).timeout
 		
-		# 🟠 FASE 2: Vida entre 70 y 80 -> Solo Espiral continua
+		# 🟠 FASE 2: Vida entre 70 y 80 -> Espiral amplia
 		elif vida_actual < 80.0:
-			await disparar_espiral(25, 0.04, 12.0)
-			await get_tree().create_timer(0.8).timeout
+			await disparar_espiral(20, espera_espiral, incremento_angulo_espiral)
+			await get_tree().create_timer(delay_fase_2).timeout
 			
-		# 🟢 FASE 1: Vida mayor o igual a 80 -> Anillo estático simple
+		# 🟢 FASE 1: Vida mayor o igual a 80 -> Anillo simple
 		else:
-			disparar_anillo(12)
-			await get_tree().create_timer(1.0).timeout
+			disparar_anillo(proyectiles_anillo_fase1)
+			await get_tree().create_timer(delay_fase_1).timeout
 		
 		if jugador_a_perseguir == null or vida_actual <= 0: break
 		
-		# Disparo secundario constante hacia el jugador
-		disparar_abanico(5, 60.0, jugador_a_perseguir.global_position)
+		# Disparo abanico secundario (ahora lanza solo 3 esferas)
+		disparar_abanico(proyectiles_abanico, 60.0, jugador_a_perseguir.global_position)
 		await get_tree().create_timer(tiempo_entre_rafagas).timeout
 
 # --- FUNCIONES DE PATRONES DE PROYECTILES ---
@@ -84,28 +97,22 @@ func instanciar_esfera(dir: Vector2) -> void:
 	bala.global_position = global_position
 	bala.direccion = dir.normalized()
 
-# 🆕 NUEVO PATRÓN (< 70 VIDA): Anillos Ráfaga con Ángulo Incremental
-func disparar_anillos_giratorios(cantidad_anillos: int = 5, esferas_por_anillo: int = 12, incremento_angulo: float = 10.0, espera: float = 0.1) -> void:
+func disparar_anillos_giratorios(cantidad_anillos: int = 5, esferas_por_anillo: int = 8, incremento_angulo: float = 15.0, espera: float = 0.2) -> void:
 	var angulo_acumulado: float = 0.0
 	
 	for n in range(cantidad_anillos):
 		if jugador_a_perseguir == null or vida_actual <= 0: break
 		
-		# Dispara un anillo completo de esferas
 		var paso_angulo = TAU / esferas_por_anillo
 		for i in range(esferas_por_anillo):
 			var angulo = (i * paso_angulo) + deg_to_rad(angulo_acumulado)
 			var direccion_bala = Vector2.RIGHT.rotated(angulo)
 			instanciar_esfera(direccion_bala)
 		
-		# Suma el ángulo para que el siguiente anillo salga ligeramente girado
 		angulo_acumulado += incremento_angulo
-		
-		# Pausa corta entre cada anillo
 		await get_tree().create_timer(espera).timeout
 
-# PATRÓN ESPIRAL (< 80 VIDA)
-func disparar_espiral(total_proyectiles: int = 30, tiempo_espera: float = 0.04, incremento_angulo: float = 12.0) -> void:
+func disparar_espiral(total_proyectiles: int = 25, tiempo_espera: float = 0.1, incremento_angulo: float = 25.0) -> void:
 	var angulo_acumulado: float = 0.0
 	for i in range(total_proyectiles):
 		if jugador_a_perseguir == null or vida_actual <= 0: break
@@ -114,21 +121,20 @@ func disparar_espiral(total_proyectiles: int = 30, tiempo_espera: float = 0.04, 
 		angulo_acumulado += incremento_angulo
 		await get_tree().create_timer(tiempo_espera).timeout
 
-func disparar_anillo(cantidad: int = 12) -> void:
+func disparar_anillo(cantidad: int = 8) -> void:
 	var paso_angulo = TAU / cantidad
 	for i in range(cantidad):
 		var angulo = i * paso_angulo
 		var direccion_bala = Vector2.RIGHT.rotated(angulo)
 		instanciar_esfera(direccion_bala)
-# 🆕 PATRÓN ZIG-ZAG (Alterna ángulos para cubrir los espacios vacíos del anterior)
-func disparar_anillos_zigzag(cantidad_anillos: int = 6, esferas_por_anillo: int = 12, espera: float = 0.15) -> void:
+
+func disparar_anillos_zigzag(cantidad_anillos: int = 4, esferas_por_anillo: int = 8, espera: float = 0.2) -> void:
 	var paso_angulo = TAU / esferas_por_anillo
-	var medio_paso = paso_angulo / 2.0 # La mitad de la distancia entre proyectiles para tapar el hueco
+	var medio_paso = paso_angulo / 2.0
 	
 	for n in range(cantidad_anillos):
 		if jugador_a_perseguir == null or vida_actual <= 0: break
 		
-		# Si el número de anillo es impar (1, 3, 5...), desplazamos las esferas exactamente a los huecos
 		var offset_actual = medio_paso if (n % 2 == 1) else 0.0
 		
 		for i in range(esferas_por_anillo):
