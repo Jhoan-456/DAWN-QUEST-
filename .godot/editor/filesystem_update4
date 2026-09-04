@@ -1,9 +1,20 @@
 res://escenas/characters/maps/GeneradorNivel.tscn
+res://escenas/characters/items/arma.tscn
+res://escenas/characters/personajes/JUGADOR_DEFAULT/Personaje.tscn
+res://escenas/characters/personajes/BYTE/byte.tscn
+res://escenas/characters/maps/escenas_generan/escena_inicio.tscn
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.tscn
+res://escenas/characters/items/bala.tscn
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/bala.tscn
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/baculo.tscn
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.gd
+res://escenas/characters/personajes/BYTE/byte.gd
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/fuego_baculo.tscn
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/baculo.gd
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/fuego_baculo.gd
 res://escenas/characters/enemi/ESFERA/enemigo.gd
-res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera.gd
-res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera.tscn
-res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera_2.tscn
-res://escenas/characters/enemi/ESFERA/proyectil_maligna.tscn
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/bala.tscn
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/bala.gd
 res://escenas/characters/BOSSES/proyectil_plantera.tscn
-res://escenas/characters/BOSSES/boss_plantera.tscn
-res://escenas/characters/BOSSES/boss_plantera.gd
+res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera_2.tscn
+res://escenas/characters/enemi/ESFERA/MINI ENEMIGOS 1 Y 2/mini_esfera.tscn

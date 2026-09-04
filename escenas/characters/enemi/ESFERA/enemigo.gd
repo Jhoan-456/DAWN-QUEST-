@@ -164,14 +164,11 @@ func _on_ataque_timeout() -> void:
 
 func recibir_daño(cantidad: int) -> void:
 	if ya_se_dividio: return 
-	
 	vida_actual -= cantidad
 	efecto_recibir_daño()
 	vida_actual = clamp(vida_actual, 0, vida_maxima)
 	barra_vida.value = vida_actual 
 	crear_texto_flotante("-"+str(cantidad), Color(0.954, 0.001, 0.0, 1.0))
-	
-	
 	
 	if vida_actual <= 0:
 		set_physics_process(false)

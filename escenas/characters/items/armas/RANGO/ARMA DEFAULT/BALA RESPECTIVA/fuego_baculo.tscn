@@ -1,0 +1,102 @@
+[gd_scene load_steps=14 format=3 uid="uid://cjckvx2xuaduq"]
+
+[ext_resource type="Script" uid="uid://dug6qni8k68fa" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/fuego_baculo.gd" id="1_viuhj"]
+[ext_resource type="Texture2D" uid="uid://d2v1vxp2fkk5p" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/llama.png" id="2_viuhj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6el0e"]
+atlas = ExtResource("2_viuhj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yu3l7"]
+atlas = ExtResource("2_viuhj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_elsq3"]
+atlas = ExtResource("2_viuhj")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pod4q"]
+atlas = ExtResource("2_viuhj")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhq0p"]
+atlas = ExtResource("2_viuhj")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wa43l"]
+atlas = ExtResource("2_viuhj")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shvgx"]
+atlas = ExtResource("2_viuhj")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ojd0"]
+atlas = ExtResource("2_viuhj")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nga5l"]
+atlas = ExtResource("2_viuhj")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ogfh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6el0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yu3l7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_elsq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pod4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhq0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wa43l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shvgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ojd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nga5l")
+}],
+"loop": true,
+"name": &"righ",
+"speed": 17.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_viuhj"]
+radius = 6.0
+height = 18.0
+
+[node name="Fuego" type="Area2D"]
+collision_mask = 12
+script = ExtResource("1_viuhj")
+velocidad = 10
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.5, 1.5)
+rotation = -1.5707964
+scale = Vector2(1, 1.081)
+sprite_frames = SubResource("SpriteFrames_1ogfh")
+animation = &"righ"
+autoplay = "righ"
+frame_progress = 0.26214585
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_viuhj")
+debug_color = Color(0, 1.9482881, 2.2556853, 0.043137256)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

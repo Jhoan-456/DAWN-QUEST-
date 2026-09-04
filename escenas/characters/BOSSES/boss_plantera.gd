@@ -78,6 +78,7 @@ func iniciar_bucle_ataque_primera_fase() -> void:
 			await disparar_espiral(20, espera_espiral, incremento_angulo_espiral)
 			await get_tree().create_timer(delay_fase_2).timeout
 			
+			
 		# 🟢 FASE 1: Vida mayor o igual a 80 -> Anillo simple
 		else:
 			disparar_anillo(proyectiles_anillo_fase1)

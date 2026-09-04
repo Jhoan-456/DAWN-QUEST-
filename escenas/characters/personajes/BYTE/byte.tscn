@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://rstmv5nsxqx7" path="res://escenas/characters/personajes/BYTE/animacion_idle2_byte.png" id="3_ppgbu"]
 [ext_resource type="Texture2D" uid="uid://bhd6gcjlhmqp8" path="res://escenas/characters/personajes/BYTE/animacion_seleccionado_byte.png" id="4_wuyol"]
 [ext_resource type="Texture2D" uid="uid://lofr7of6ucxl" path="res://escenas/characters/personajes/BYTE/animacion_seleccionado_true_byte.png" id="5_io6yr"]
-[ext_resource type="Texture2D" uid="uid://cqskbpwpb3b1h" path="res://escenas/characters/items/arma.png" id="6_6dv7u"]
+[ext_resource type="Texture2D" uid="uid://cqskbpwpb3b1h" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.png" id="6_6dv7u"]
 [ext_resource type="FontFile" uid="uid://c6jucniniwwpj" path="res://sprites/Font/PIXgothic_7shareware.ttf" id="7_gtphw"]
 [ext_resource type="Script" uid="uid://dh770yppqesl0" path="res://escenas/characters/personajes/UI  Y CURSOR/ui.gd" id="8_p2d8y"]
 [ext_resource type="Texture2D" uid="uid://cbmwkxo8rsvva" path="res://botones/Pause.png" id="9_c5tll"]
@@ -430,7 +430,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
-size = Vector2(39, 56)
+size = Vector2(22, 30)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i3q10"]
 texture = ExtResource("9_c5tll")
@@ -462,20 +462,20 @@ shadow_color = Color(0, 0, 0, 1)
 light_mask = 0
 z_index = 2
 position = Vector2(395, 263)
-collision_mask = 255
+collision_layer = 2
 script = ExtResource("1_gpov7")
 texto_flotante_scene = ExtResource("2_lgr2f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.813641, -0.99999976)
-scale = Vector2(2.199, 2)
+position = Vector2(0.936, 2.75)
+scale = Vector2(1.1310997, 1.1640624)
 sprite_frames = SubResource("SpriteFrames_b26j0")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4.5, -1)
+position = Vector2(3, 2)
 shape = SubResource("RectangleShape2D_onrkg")
 one_way_collision = true
 debug_color = Color(0, 14.837186, 16.991568, 0)
@@ -637,18 +637,23 @@ layout_mode = 2
 
 [node name="Barra_vida" type="TextureProgressBar" parent="UI/HBoxContainer/HBoxVida"]
 layout_mode = 2
-max_value = 20.0
-value = 20.0
+max_value = 160.0
+value = 160.0
 texture_under = ExtResource("15_g6rk6")
 texture_progress = ExtResource("16_3vnd3")
 texture_progress_offset = Vector2(14, -2)
 
 [node name="LabelVida" type="Label" parent="UI/HBoxContainer/HBoxVida/Barra_vida"]
-layout_mode = 0
-offset_left = 19.5
-offset_top = 14.0
-offset_right = 66.5
-offset_bottom = 30.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24400002
+anchor_top = 0.30400002
+anchor_right = 0.83100003
+anchor_bottom = 0.652
+offset_left = -0.020000458
+offset_top = 0.01599884
+offset_right = 0.019996643
+offset_bottom = 0.00799942
 theme_override_fonts/font = ExtResource("10_leojf")
 theme_override_font_sizes/font_size = 32
 text = "160/160"
@@ -663,18 +668,22 @@ layout_mode = 2
 
 [node name="Barra_escudo" type="TextureProgressBar" parent="UI/HBoxContainer/HBoxEscudo"]
 layout_mode = 2
-max_value = 20.0
-value = 20.0
+max_value = 150.0
+value = 150.0
 texture_under = ExtResource("15_g6rk6")
 texture_progress = ExtResource("17_37nvn")
 texture_progress_offset = Vector2(14, -2)
 
 [node name="LabelEscudo" type="Label" parent="UI/HBoxContainer/HBoxEscudo/Barra_escudo"]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 14.0
-offset_right = 66.0
-offset_bottom = 30.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.23700002
+anchor_top = 0.30400002
+anchor_right = 0.82500005
+anchor_bottom = 0.652
+offset_left = 0.03999901
+offset_top = 0.01599884
+offset_bottom = 0.00799942
 theme_override_fonts/font = ExtResource("10_leojf")
 theme_override_font_sizes/font_size = 16
 text = "150/150"
@@ -689,18 +698,23 @@ layout_mode = 2
 
 [node name="Barra_Energia" type="TextureProgressBar" parent="UI/HBoxContainer/HBoxEnergia"]
 layout_mode = 2
-max_value = 150.0
-value = 150.0
+max_value = 400.0
+value = 400.0
 texture_under = ExtResource("15_g6rk6")
 texture_progress = ExtResource("18_1binm")
 texture_progress_offset = Vector2(14, -2)
 
 [node name="LabelEnergia" type="Label" parent="UI/HBoxContainer/HBoxEnergia/Barra_Energia"]
-layout_mode = 0
-offset_left = 18.5
-offset_top = 14.0
-offset_right = 79.0
-offset_bottom = 30.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.231
+anchor_top = 0.30400002
+anchor_right = 1.0
+anchor_bottom = 0.652
+offset_left = 0.020000458
+offset_top = 0.01599884
+offset_right = -1.0
+offset_bottom = 0.00799942
 theme_override_fonts/font = ExtResource("10_leojf")
 theme_override_font_sizes/font_size = 35
 text = "400/400"

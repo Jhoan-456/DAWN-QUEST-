@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6s3g802sotat"]
+
+[ext_resource type="Script" uid="uid://c0ylvxr8hu4xp" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/baculo.gd" id="1_q1lxu"]
+[ext_resource type="Texture2D" uid="uid://c7884ivboyemq" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/báculo.png" id="2_cjckv"]
+[ext_resource type="Texture2D" uid="uid://bp1hudg01qtb2" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/báculoRECOGIDA.png" id="3_8d7el"]
+[ext_resource type="Texture2D" uid="uid://ba3dx0hc1u24f" path="res://sprites/flecha_indi.png" id="4_1aidl"]
+[ext_resource type="PackedScene" uid="uid://cjckvx2xuaduq" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/fuego_baculo.tscn" id="4_8d7el"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cjckv"]
+radius = 5.9917183
+height = 67.34365
+
+[node name="Baculo" type="Area2D"]
+z_index = 1
+position = Vector2(32, 30)
+collision_mask = 2
+script = ExtResource("1_q1lxu")
+textura_normal = ExtResource("2_cjckv")
+textura_seleccionado = ExtResource("3_8d7el")
+escena_bala = ExtResource("4_8d7el")
+costo_energia = 10.0
+es_clase_mago = true
+
+[node name="flecha" type="Sprite2D" parent="."]
+position = Vector2(18, -30.5)
+scale = Vector2(1.8749999, 2.15625)
+texture = ExtResource("4_1aidl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.6250014, 5.750002)
+scale = Vector2(1.6500002, 1.8500004)
+texture = ExtResource("2_cjckv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.5, 7)
+rotation = 0.62831855
+shape = SubResource("CapsuleShape2D_cjckv")
+debug_color = Color(0, 1.3353038, 1.5434018, 0.03529412)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

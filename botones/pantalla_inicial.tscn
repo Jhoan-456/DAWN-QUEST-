@@ -147,7 +147,7 @@ offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d6lq7")
-escena_a_cargar = "res://escenas/characters/maps/SALA_INICIO.tscn"
+escena_a_cargar = "res://escenas/characters/maps/GeneradorNivel.tscn"
 metadata/_edit_vertical_guides_ = [-2433.0]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

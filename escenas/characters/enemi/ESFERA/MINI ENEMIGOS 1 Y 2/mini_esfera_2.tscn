@@ -201,7 +201,7 @@ animations = [{
 radius = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_743j8"]
-radius = 89.02247
+radius = 139.70326
 
 [node name="mini_esfera_2" type="CharacterBody2D" groups=["Enemigo"]]
 z_index = 2
@@ -211,6 +211,7 @@ script = ExtResource("1_t87rg")
 texto_flotante_scene = ExtResource("2_btvk4")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
 offset_left = -44.0
 offset_top = -46.0
 offset_right = 42.0

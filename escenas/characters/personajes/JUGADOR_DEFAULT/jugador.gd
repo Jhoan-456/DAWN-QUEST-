@@ -5,6 +5,10 @@ extends CharacterBody2D
 var esta_envenenado: bool = false
 signal stats_cambiadas
 
+# --- VARIABLES DE INMUNIDAD (I-FRAMES) ---
+#@export var tiempo_inmunidad: float = 0.9
+#var esta_invencible: bool = false
+
 #------------------------------------------------------
 var vida : float = 20.0
 var Escudo : float = 20.0
@@ -188,7 +192,13 @@ func actualizar_visual_ping(ms: int) -> void:
 
 #---------------------------------------------------------------------------------------------------
 func recibir_daño(cantidad: int) -> void:
-	$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	# 🛡️ Si ya está invencible o muerto, se ignora el impacto por completo
+	#if esta_invencible or vida <= 0:
+	#	return
+		
+	# Activamos el estado de invencibilidad (0.9s) y la transparencia
+	activar_inmunidad()
+
 	if Escudo > 0:
 		var daño_al_escudo = min(cantidad, Escudo)
 		Escudo -= daño_al_escudo
@@ -198,7 +208,6 @@ func recibir_daño(cantidad: int) -> void:
 		stats_cambiadas.emit()
 	
 	if cantidad > 0:
-		$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		vida -= cantidad
 		vida = clamp(vida, 0 , max_vida)
 		efecto_recibir_daño()
@@ -208,6 +217,23 @@ func recibir_daño(cantidad: int) -> void:
 		if vida <= 0:
 			vida = 0
 			print("Game over")
+
+# --- FUNCION DE INMUNIDAD Y TRANSPARENCIA ---
+func activar_inmunidad() -> void:
+	#esta_invencible = true
+	
+	# 👻 Hacemos el sprite 50% transparente (Alpha = 0.5)
+	if has_node("AnimatedSprite2D"):
+		$AnimatedSprite2D.modulate.a = 0.5
+
+	# ⏱️ Esperamos los 0.9 segundos de inmunidad
+	#await get_tree().create_timer(tiempo_inmunidad).timeout
+
+	# 👁️ Restauramos la opacidad completa (Alpha = 1.0) y desactivamos la invencibilidad
+	if is_instance_valid(self):
+		if has_node("AnimatedSprite2D"):
+			$AnimatedSprite2D.modulate.a = 1.0
+		#esta_invencible = false
 
 func efecto_recibir_daño() -> void:
 	var sprite = $AnimatedSprite2D
@@ -248,7 +274,7 @@ func crear_texto_flotante(valor: String, color: Color) -> void:
 func recibir_veneno() -> void:
 	if esta_envenenado: return 
 	esta_envenenado = true
-	$AnimatedSprite2D.modulate = Color(0.564, 0.349, 0.87, 1.0)
+	$AnimatedSprite2D.modulate = Color(0.564, 0.349, 0.87, $AnimatedSprite2D.modulate.a)
 
 	var tics_totales = 3
 	var daño_por_tic = 1
@@ -268,7 +294,7 @@ func recibir_veneno() -> void:
 			print("Game over por veneno")
 			break
 
-	$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, $AnimatedSprite2D.modulate.a)
 	esta_envenenado = false
 
 #---------------------------------------------------------------------------
