@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7884ivboyemq"
-path="res://.godot/imported/báculo.png-46caed06d3f0628ca21b4f755d038b59.ctex"
+uid="uid://bftxrw47jyclg"
+path="res://.godot/imported/AgarrarPastorDeHadas.png-e033e0f55d423e67d1da6dc0b72f3cd9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/báculo.png"
-dest_files=["res://.godot/imported/báculo.png-46caed06d3f0628ca21b4f755d038b59.ctex"]
+source_file="res://escenas/characters/items/armas/RANGO/AgarrarPastorDeHadas.png"
+dest_files=["res://.godot/imported/AgarrarPastorDeHadas.png-e033e0f55d423e67d1da6dc0b72f3cd9.ctex"]
 
 [params]
 

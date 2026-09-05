@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://b31cgl6u1t68l"]
+
+[ext_resource type="Script" uid="uid://l4y8pavu2880" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.gd" id="1_1v02b"]
+[ext_resource type="Texture2D" uid="uid://bftxrw47jyclg" path="res://escenas/characters/items/armas/RANGO/AgarrarPastorDeHadas.png" id="3_84cvc"]
+[ext_resource type="PackedScene" uid="uid://b2dgyqkpjy7ca" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/activador_hada.tscn" id="4_84cvc"]
+[ext_resource type="Texture2D" uid="uid://ba3dx0hc1u24f" path="res://sprites/flecha_indi.png" id="5_6dady"]
+[ext_resource type="Texture2D" uid="uid://dxaeh6sllvn8b" path="res://escenas/characters/items/armas/RANGO/Pastor De Hadas.png" id="6_hojom"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_84cvc"]
+radius = 2.8446922
+height = 42.425972
+
+[node name="Pastor_hadas" type="Area2D"]
+z_index = 1
+position = Vector2(37, 36)
+collision_mask = 2
+script = ExtResource("1_1v02b")
+textura_normal = ExtResource("6_hojom")
+textura_seleccionado = ExtResource("3_84cvc")
+escena_bala = ExtResource("4_84cvc")
+
+[node name="flecha" type="Sprite2D" parent="."]
+position = Vector2(7, -27)
+scale = Vector2(1.8749999, 1.96875)
+texture = ExtResource("5_6dady")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.9999995, 4.7683716e-07)
+scale = Vector2(1.5252718, 1.4434782)
+texture = ExtResource("6_hojom")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 1.975)
+rotation = 0.33161256
+shape = SubResource("CapsuleShape2D_84cvc")
+debug_color = Color(0, 1.3353038, 1.5434018, 0.03529412)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

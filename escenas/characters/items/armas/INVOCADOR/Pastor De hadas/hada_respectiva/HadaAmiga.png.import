@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2v1vxp2fkk5p"
-path="res://.godot/imported/llama.png-7cbdf348b6ada3d4b326c3a8f336f9ac.ctex"
+uid="uid://8ydfb26xvdbk"
+path="res://.godot/imported/HadaAmiga.png-f62af1d67bcd58e2d3f35c2cbde1a397.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/llama.png"
-dest_files=["res://.godot/imported/llama.png-7cbdf348b6ada3d4b326c3a8f336f9ac.ctex"]
+source_file="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/HadaAmiga.png"
+dest_files=["res://.godot/imported/HadaAmiga.png-f62af1d67bcd58e2d3f35c2cbde1a397.ctex"]
 
 [params]
 

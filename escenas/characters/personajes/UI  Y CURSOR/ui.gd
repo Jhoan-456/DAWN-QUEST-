@@ -66,7 +66,14 @@ func _on_atacar_released() -> void:
 
 func _on_cambiar_pressed() -> void:
 	$cambiar.modulate.a = 0.5
-	estado_disparo_cambiado.emit(true) # 👈 Avisa que estás presionando
+	
+	# Busca automáticamente al jugador por su grupo
+	var jugador_ref = get_tree().get_first_node_in_group("jugador")
+	
+	if jugador_ref and jugador_ref.has_method("intercambiar_arma"):
+		jugador_ref.intercambiar_arma()
+		
+	estado_disparo_cambiado.emit(true) # Avisa que estás presionando
 
 func _on_cambiar_released() -> void:
 	$cambiar.modulate.a = 1.0

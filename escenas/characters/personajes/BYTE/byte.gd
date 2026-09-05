@@ -20,8 +20,6 @@ signal stats_cambiadas
 @export var Probabilidad_crítico: float = 1.5
 @export var Suerte : float = 1.2
 @export var Bateria_Portatil : PackedScene # Item Inicial (activo)
-# → Al usarla recarga instantáneamente la pasiva y da un pequeño escudo.
-# PASIVA - SOBRE-CARGA	
 #==========================================================================
 
 @export_group("VIDA MAXIMO DE BYTE")
@@ -31,7 +29,7 @@ signal stats_cambiadas
 #=====================================================================
 
 # --- DATOS DEL ARMA EQUIPADA ---
-var escena_bala_actual : PackedScene = null # 👈 Guarda la bala del arma que tienes en la mano
+var escena_bala_actual : PackedScene = null
 var dano_calculado: float = 10.0
 var cadencia_calculada: float = 0.5
 var vel_proyectil_calculada: float = 0.0
@@ -43,17 +41,22 @@ var aplica_quemadura: bool = false
 var duracion_quemadura: float = 0.0
 
 var Moneda = 0
-var joystick : Joystick
+@onready var joystick: Joystick = $UI/Joystick
 var ping_actual : int = 30
 var enemigo_mas_cercano: Node2D = null
 var puede_disparar: bool = true
 var tiene_arma = false
+
+# --- SISTEMA DE INVENTARIO (2 SLOTS) ---
+var inventario_armas: Array[Dictionary] = []
+var indice_arma_activa: int = 0
 
 @onready var texto_moneda = $UI/LabelMoneda
 @onready var texto_fps = $UI/fps
 @onready var texto_version = $UI/Version
 @onready var texto_segundos = $UI/segund_efect
 @onready var texto_internet = $UI/LabelInternet
+  
 
 @export var escena_pausa = preload("res://escenas/characters/menu/menuPausa.tscn")
 
@@ -63,24 +66,31 @@ func _ready() -> void:
 	texto_fps.visible = Datos.fps_visibles
 	texto_version.visible = Datos.version_visible
 	texto_version.text = "VERSION: " + Datos.version_juego
+	$AnimatedSprite2D.play("idle")
 
 
 func _physics_process(_delta: float) -> void:
 	var direction = Vector2.ZERO
+
+	# 1. Movimiento por Joystick (si existe y está instanciado)
 	if joystick != null and is_instance_valid(joystick):
 		direction = joystick.direc
-		if Input.is_action_pressed("mover_derecha"):
-			direction.x += 1
-		if Input.is_action_pressed("mover_izquierda"):
-			direction.x -= 1
-		if Input.is_action_pressed("mover_arriba"):
-			direction.y -= 1
-		if Input.is_action_pressed("mover_abajo"):
-			direction.y += 1
-		if Input.is_action_just_pressed("F3"):
-			Datos.fps_visibles = not Datos.fps_visibles
-			Datos.version_visible = not Datos.version_visible
+
+	# 2. Movimiento por Teclado (independiente del joystick)
+	if Input.is_action_pressed("mover_derecha"):
+		direction.x += 1
+	if Input.is_action_pressed("mover_izquierda"):
+		direction.x -= 1
+	if Input.is_action_pressed("mover_arriba"):
+		direction.y -= 1
+	if Input.is_action_pressed("mover_abajo"):
+		direction.y += 1
+
+	if Input.is_action_just_pressed("F3"):
+		Datos.fps_visibles = not Datos.fps_visibles
+		Datos.version_visible = not Datos.version_visible
 		
+	# 3. Aplicar velocidad
 	if direction != Vector2.ZERO:
 		velocity = direction.normalized() * speed
 		$AnimatedSprite2D.play()
@@ -96,6 +106,7 @@ func _physics_process(_delta: float) -> void:
 	elif velocity.x < 0:
 		$AnimatedSprite2D.flip_h = true
 	
+	# 4. Apuntado y rotación del arma
 	if tiene_arma:
 		enemigo_mas_cercano = buscar_enemigo_cercano()
 		var angulo_apuntado: float = 0.0
@@ -141,64 +152,102 @@ func _process(_delta: float) -> void:
 		disparar()
 
 
+# --- LÓGICA DE INVENTARIO Y EQUIPAR ARMAS ---
+
 func equipar_arma(nodo_arma: Node2D) -> void:
+	var datos_arma = {
+		"textura": nodo_arma.textura_normal if "textura_normal" in nodo_arma else null,
+		"escena_bala": nodo_arma.escena_bala if "escena_bala" in nodo_arma else null,
+		"costo_energia": nodo_arma.costo_energia if "costo_energia" in nodo_arma else 5.0,
+		"dano_base": nodo_arma.dano_base if "dano_base" in nodo_arma else 5.0,
+		"esc_int": nodo_arma.escalado_inteligencia if "escalado_inteligencia" in nodo_arma else 0.0,
+		"esc_fuerza": nodo_arma.escalado_fuerza if "escalado_fuerza" in nodo_arma else 0.0,
+		"cad_base": nodo_arma.cadencia_base if "cadencia_base" in nodo_arma else 0.5,
+		"mult_vel_p": nodo_arma.multiplicador_vel_proyectil if "multiplicador_vel_proyectil" in nodo_arma else 1.0,
+		"es_mago": nodo_arma.es_clase_mago if "es_clase_mago" in nodo_arma else false,
+		"es_mele": nodo_arma.es_clase_mele if "es_clase_mele" in nodo_arma else false,
+		"es_rango": nodo_arma.es_clase_rango if "es_clase_rango" in nodo_arma else false,
+		"es_invocador": nodo_arma.es_clase_invocador if "es_clase_invocador" in nodo_arma else false,
+		"aplica_quemadura": nodo_arma.aplica_quemadura if "aplica_quemadura" in nodo_arma else false,
+		"duracion_quemadura": nodo_arma.duracion_quemadura if "duracion_quemadura" in nodo_arma else 0.0,
+		"escena_suelo_path": nodo_arma.scene_file_path
+	}
+
+	if inventario_armas.size() < 2:
+		inventario_armas.append(datos_arma)
+		indice_arma_activa = inventario_armas.size() - 1
+	else:
+		soltar_arma_actual_al_suelo()
+		inventario_armas[indice_arma_activa] = datos_arma
+
+	activar_arma_actual()
+	print("⚔️ Total de armas guardadas en inventario:", inventario_armas.size())
+
+
+func intercambiar_arma() -> void:
+	if inventario_armas.size() < 2:
+		print("Solo tienes 1 arma en el inventario.")
+		return
+	
+	indice_arma_activa = 1 - indice_arma_activa
+	activar_arma_actual()
+	print("🔄 Cambiaste al slot de arma:", indice_arma_activa)
+
+
+func activar_arma_actual() -> void:
+	if inventario_armas.is_empty():
+		tiene_arma = false
+		$ArmaVisual.visible = false
+		return
+
 	tiene_arma = true
 	$ArmaVisual.visible = true
-	
-	# 🎨 CAMBIAR LA TEXTURA VISUAL DEL ARMA EN MANO
-	if "textura_normal" in nodo_arma and nodo_arma.textura_normal != null:
-		$ArmaVisual.texture = nodo_arma.textura_normal
-	
-	# Guardamos la escena de la bala del arma recogida
-	if "escena_bala" in nodo_arma:
-		escena_bala_actual = nodo_arma.escena_bala
-	
-	if "costo_energia" in nodo_arma:
-		costo_energia_actual = nodo_arma.costo_energia
-	
-	recalcular_atributos_por_clase(nodo_arma)
-	print("¡Arma equipada correctamente!")
 
+	var arma = inventario_armas[indice_arma_activa]
 
-func recalcular_atributos_por_clase(arma: Node2D) -> void:
-	# 1. Obtener valores base del arma o usar valores por defecto seguros
-	var base_dano: float = arma.dano_base if "dano_base" in arma else 5.0
-	var esc_int: float = arma.escalado_inteligencia if "escalado_inteligencia" in arma else 0.0
-	var esc_fuerza: float = arma.escalado_fuerza if "escalado_fuerza" in arma else 0.0
-	var cad_base: float = arma.cadencia_base if "cadencia_base" in arma else 0.5
-	var mult_vel_p: float = arma.multiplicador_vel_proyectil if "multiplicador_vel_proyectil" in arma else 1.0
+	if "textura" in arma and arma["textura"] != null:
+		$ArmaVisual.texture = arma["textura"]
 
-	# 2. Reseteo general de estadísticas
+	escena_bala_actual = arma["escena_bala"]
+	costo_energia_actual = arma["costo_energia"]
+	aplica_quemadura = arma["aplica_quemadura"]
+	duracion_quemadura = arma["duracion_quemadura"]
+
 	prob_critico_calculada = Probabilidad_crítico
-	
-	# --- EXTRAS ---
-	if "aplica_quemadura" in arma:
-		aplica_quemadura = arma.aplica_quemadura
-		duracion_quemadura = arma.duracion_quemadura
 
-	# 3. Cálculo genérico según la clase activa del arma
-	if "es_clase_mago" in arma and arma.es_clase_mago:
-		dano_calculado = base_dano + (inteligencia * esc_int) + (fuerza * esc_fuerza)
-		cadencia_calculada = max(0.15, cad_base - (Velocidad_ataque * 0.03))
-		vel_proyectil_calculada = (Velocidad_proyectil * 30.0) * mult_vel_p
+	if arma["es_mago"]:
+		dano_calculado = arma["dano_base"] + (inteligencia * arma["esc_int"]) + (fuerza * arma["esc_fuerza"])
+		cadencia_calculada = max(0.15, arma["cad_base"] - (Velocidad_ataque * 0.03))
+		vel_proyectil_calculada = (Velocidad_proyectil * 30.0) * arma["mult_vel_p"]
 
-	elif "es_clase_mele" in arma and arma.es_clase_mele:
-		dano_calculado = base_dano + (fuerza * esc_fuerza) + (inteligencia * esc_int)
-		cadencia_calculada = max(0.1, cad_base - (Velocidad_ataque * 0.04))
+	elif arma["es_mele"]:
+		dano_calculado = arma["dano_base"] + (fuerza * arma["esc_fuerza"]) + (inteligencia * arma["esc_int"])
+		cadencia_calculada = max(0.1, arma["cad_base"] - (Velocidad_ataque * 0.04))
 		vel_proyectil_calculada = 0.0
 
-	elif "es_clase_rango" in arma and arma.es_clase_rango:
-		dano_calculado = base_dano + (fuerza * esc_fuerza)
-		cadencia_calculada = max(0.1, cad_base - (Velocidad_ataque * 0.05))
-		vel_proyectil_calculada = (Velocidad_proyectil * 35.0) * mult_vel_p
+	elif arma["es_rango"]:
+		dano_calculado = arma["dano_base"] + (fuerza * arma["esc_fuerza"])
+		cadencia_calculada = max(0.1, arma["cad_base"] - (Velocidad_ataque * 0.05))
+		vel_proyectil_calculada = (Velocidad_proyectil * 35.0) * arma["mult_vel_p"]
 		prob_critico_calculada = Probabilidad_crítico * 1.2
 
-	elif "es_clase_invocador" in arma and arma.es_clase_invocador:
-		dano_calculado = base_dano + (inteligencia * esc_int) + (Suerte * 1.5)
-		cadencia_calculada = max(0.2, cad_base)
-		vel_proyectil_calculada = (Velocidad_proyectil * 25.0) * mult_vel_p
+	elif arma["es_invocador"]:
+		dano_calculado = arma["dano_base"] + (inteligencia * arma["esc_int"]) + (Suerte * 1.5)
+		cadencia_calculada = max(0.2, arma["cad_base"])
+		vel_proyectil_calculada = (Velocidad_proyectil * 25.0) * arma["mult_vel_p"]
 
-	print("⚔️ Arma equipada | Daño final:", dano_calculado, " | Cadencia:", cadencia_calculada, " | Vel. Proyectil:", vel_proyectil_calculada)
+	print("⚔️ Arma Activa | Daño:", dano_calculado, " | Cadencia:", cadencia_calculada)
+
+
+func soltar_arma_actual_al_suelo() -> void:
+	var arma_a_soltar = inventario_armas[indice_arma_activa]
+	if arma_a_soltar.has("escena_suelo_path") and arma_a_soltar["escena_suelo_path"] != "":
+		var escena_arma = load(arma_a_soltar["escena_suelo_path"])
+		if escena_arma:
+			var nueva_arma_suelo = escena_arma.instantiate()
+			get_parent().add_child(nueva_arma_suelo)
+			nueva_arma_suelo.global_position = global_position + Vector2(25, 0)
+
 
 func disparar() -> void:
 	if not escena_bala_actual:
@@ -211,27 +260,27 @@ func disparar() -> void:
 	
 	puede_disparar = false
 	
-	# Instanciamos la bala del arma actual
 	var bala = escena_bala_actual.instantiate()
 	get_parent().add_child(bala)
 	
 	bala.global_position = $ArmaVisual/puntoDisparo.global_position
 	bala.rotation = $ArmaVisual.rotation
-	bala.direccion_vector = Vector2.RIGHT.rotated($ArmaVisual.rotation)
+
+	# 🛠️ Verificación segura antes de asignar la dirección:
+	if "direccion_vector" in bala:
+		bala.direccion_vector = Vector2.RIGHT.rotated($ArmaVisual.rotation)
 	
-	# Asignamos el daño calculado a la bala (con o sin Ñ)
 	var es_critico = (randf() * 100.0) <= prob_critico_calculada
 	var dano_final = dano_calculado * (1.5 if es_critico else 1.0)
 
 	if "daño" in bala:
 		bala.daño = dano_final
 	if "dano" in bala:
-		bala.dano = dano_final # 👈 Corregido: ya no dice 'bala.daño' aquí
+		bala.dano = dano_final
 		
 	if "velocidad" in bala:
 		bala.velocidad = vel_proyectil_calculada
 
-	# Transferir efecto de quemadura si la bala lo soporta
 	if "aplica_quemadura" in bala:
 		bala.aplica_quemadura = aplica_quemadura
 		bala.duracion_quemadura = duracion_quemadura
@@ -240,6 +289,8 @@ func disparar() -> void:
 	
 	await get_tree().create_timer(cadencia_calculada).timeout
 	puede_disparar = true
+
+
 func aplicar_retroceso():
 	$ArmaVisual.position = Vector2(0, 0)
 	var tween = create_tween()
@@ -351,13 +402,3 @@ func buscar_enemigo_cercano() -> Node2D:
 			return enemigo_mas_cercano_del_grupo
 
 	return null
-
-
-func _on_ui_enviar_joystick(j: Joystick) -> void:
-	joystick = j
-
-
-func _on_pausar_pressed() -> void:
-	var escena_a_pausa = escena_pausa.instantiate()
-	get_tree().paused = true 
-	add_child(escena_a_pausa)

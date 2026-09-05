@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://b6s3g802sotat"]
 
-[ext_resource type="Script" uid="uid://c0ylvxr8hu4xp" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/baculo.gd" id="1_q1lxu"]
-[ext_resource type="Texture2D" uid="uid://c7884ivboyemq" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/báculo.png" id="2_cjckv"]
-[ext_resource type="Texture2D" uid="uid://bp1hudg01qtb2" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/báculoRECOGIDA.png" id="3_8d7el"]
+[ext_resource type="Script" uid="uid://c0ylvxr8hu4xp" path="res://escenas/characters/items/armas/MAGO/baculo/baculo.gd" id="1_q1lxu"]
+[ext_resource type="Texture2D" uid="uid://c7884ivboyemq" path="res://escenas/characters/items/armas/MAGO/baculo/báculo.png" id="2_cjckv"]
+[ext_resource type="Texture2D" uid="uid://bp1hudg01qtb2" path="res://escenas/characters/items/armas/MAGO/baculo/báculoRECOGIDA.png" id="3_8d7el"]
 [ext_resource type="Texture2D" uid="uid://ba3dx0hc1u24f" path="res://sprites/flecha_indi.png" id="4_1aidl"]
-[ext_resource type="PackedScene" uid="uid://cjckvx2xuaduq" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/fuego_baculo.tscn" id="4_8d7el"]
+[ext_resource type="PackedScene" uid="uid://cjckvx2xuaduq" path="res://escenas/characters/items/armas/MAGO/baculo/fuego_respectivo/fuego_baculo.tscn" id="4_8d7el"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cjckv"]
 radius = 5.9917183

@@ -604,7 +604,7 @@ scale = Vector2(3.2700624, 3.2158751)
 texture = ExtResource("11_l1dpr")
 
 [node name="Joystick" parent="UI" instance=ExtResource("12_xkqiu")]
-position = Vector2(188, 493)
+position = Vector2(175, 540)
 
 [node name="Atacar" type="TouchScreenButton" parent="UI"]
 position = Vector2(1001.00006, 444.00003)

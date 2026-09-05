@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://du7xgirwrtrld"]
+[gd_scene load_steps=13 format=4 uid="uid://du7xgirwrtrld"]
 
 [ext_resource type="Texture2D" uid="uid://blni5m3olblw7" path="res://sprites/Tilesets.png" id="1_kn705"]
 [ext_resource type="Texture2D" uid="uid://bg44rx76ns1jt" path="res://sprites/ParedesBoscosas.png" id="2_0b0my"]
@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://62itmyvyxr0l" path="res://escenas/characters/enemi/ESFERA/esfera.tscn" id="6_1wvco"]
 [ext_resource type="PackedScene" uid="uid://ckab71qke54h3" path="res://escenas/characters/personajes/BYTE/byte.tscn" id="7_0plmc"]
 [ext_resource type="PackedScene" uid="uid://cul6wv546udgk" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.tscn" id="7_yr302"]
-[ext_resource type="PackedScene" uid="uid://b6s3g802sotat" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/baculo.tscn" id="8_0plmc"]
+[ext_resource type="PackedScene" uid="uid://b6s3g802sotat" path="res://escenas/characters/items/armas/MAGO/baculo/baculo.tscn" id="8_0plmc"]
+[ext_resource type="PackedScene" uid="uid://b31cgl6u1t68l" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.tscn" id="9_nd1ey"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lj4md"]
 texture = ExtResource("1_kn705")
@@ -106,3 +107,6 @@ speed = 200.0
 [node name="Baculo" parent="." instance=ExtResource("8_0plmc")]
 position = Vector2(636, 593)
 costo_energia = 5.0
+
+[node name="Pastor_hadas" parent="." instance=ExtResource("9_nd1ey")]
+position = Vector2(801, 613)

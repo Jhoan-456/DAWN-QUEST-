@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp1hudg01qtb2"
-path="res://.godot/imported/báculoRECOGIDA.png-b5b12ffab255f14b6465bd7467b05da3.ctex"
+uid="uid://d2v1vxp2fkk5p"
+path="res://.godot/imported/llama.png-e251e66df40c99d27bb88cddb5b6df73.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/báculoRECOGIDA.png"
-dest_files=["res://.godot/imported/báculoRECOGIDA.png-b5b12ffab255f14b6465bd7467b05da3.ctex"]
+source_file="res://escenas/characters/items/armas/MAGO/baculo/fuego_respectivo/llama.png"
+dest_files=["res://.godot/imported/llama.png-e251e66df40c99d27bb88cddb5b6df73.ctex"]
 
 [params]
 

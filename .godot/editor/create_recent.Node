@@ -1,3 +1,6 @@
+CollisionShape2D
+AnimatedSprite2D
+CharacterBody2D
 Area2D
 TileMapLayer
 TouchScreenButton
@@ -7,8 +10,5 @@ TextureRect
 TextureProgressBar
 Button
 VisibleOnScreenNotifier2D
-AnimatedSprite2D
-CollisionShape2D
-CharacterBody2D
 Node2D
 CanvasLayer

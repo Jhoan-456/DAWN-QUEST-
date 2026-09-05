@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://p8cn4d0nvwyp"]
+
+[ext_resource type="Script" uid="uid://gma6oavwsrn1" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/hada.gd" id="1_22ydm"]
+[ext_resource type="Texture2D" uid="uid://8ydfb26xvdbk" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/HadaAmiga.png" id="1_pjv16"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22ydm"]
+atlas = ExtResource("1_pjv16")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mnw3"]
+atlas = ExtResource("1_pjv16")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd4e3"]
+atlas = ExtResource("1_pjv16")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_he77h"]
+atlas = ExtResource("1_pjv16")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_indeb"]
+atlas = ExtResource("1_pjv16")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_84pcg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22ydm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mnw3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hd4e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_he77h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_indeb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 14.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pjv16"]
+radius = 11.0
+
+[node name="hada" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_22ydm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_84pcg")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.1251265
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_pjv16")
+debug_color = Color(0, 0.1333332, 1, 0.16862746)

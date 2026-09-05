@@ -1,42 +1,42 @@
 [gd_scene load_steps=14 format=3 uid="uid://cjckvx2xuaduq"]
 
-[ext_resource type="Script" uid="uid://dug6qni8k68fa" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/fuego_baculo.gd" id="1_viuhj"]
-[ext_resource type="Texture2D" uid="uid://d2v1vxp2fkk5p" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/llama.png" id="2_viuhj"]
+[ext_resource type="Script" uid="uid://dug6qni8k68fa" path="res://escenas/characters/items/armas/MAGO/baculo/fuego_respectivo/fuego_baculo.gd" id="1_igwda"]
+[ext_resource type="Texture2D" uid="uid://d2v1vxp2fkk5p" path="res://escenas/characters/items/armas/MAGO/baculo/fuego_respectivo/llama.png" id="2_eartt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6el0e"]
-atlas = ExtResource("2_viuhj")
+atlas = ExtResource("2_eartt")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yu3l7"]
-atlas = ExtResource("2_viuhj")
+atlas = ExtResource("2_eartt")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_elsq3"]
-atlas = ExtResource("2_viuhj")
+atlas = ExtResource("2_eartt")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pod4q"]
-atlas = ExtResource("2_viuhj")
+atlas = ExtResource("2_eartt")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fhq0p"]
-atlas = ExtResource("2_viuhj")
+atlas = ExtResource("2_eartt")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wa43l"]
-atlas = ExtResource("2_viuhj")
+atlas = ExtResource("2_eartt")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shvgx"]
-atlas = ExtResource("2_viuhj")
+atlas = ExtResource("2_eartt")
 region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ojd0"]
-atlas = ExtResource("2_viuhj")
+atlas = ExtResource("2_eartt")
 region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nga5l"]
-atlas = ExtResource("2_viuhj")
+atlas = ExtResource("2_eartt")
 region = Rect2(256, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1ogfh"]
@@ -80,7 +80,7 @@ height = 18.0
 
 [node name="Fuego" type="Area2D"]
 collision_mask = 12
-script = ExtResource("1_viuhj")
+script = ExtResource("1_igwda")
 velocidad = 10
 metadata/_edit_group_ = true
 
@@ -91,7 +91,7 @@ scale = Vector2(1, 1.081)
 sprite_frames = SubResource("SpriteFrames_1ogfh")
 animation = &"righ"
 autoplay = "righ"
-frame_progress = 0.26214585
+frame_progress = 0.8983868
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 0)
