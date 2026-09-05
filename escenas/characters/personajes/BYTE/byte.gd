@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export_group("CARACTERISTICAS DE BYTE")
 @export var speed: float = 130.0
 @export var texto_flotante_scene: PackedScene
+@export var info_flotante_scene: PackedScene
 @export var radio_aim_assist: float = 250.0 # Distancia máxima en píxeles para apuntar solo
 var esta_envenenado: bool = false
 signal stats_cambiadas
@@ -56,7 +57,6 @@ var indice_arma_activa: int = 0
 @onready var texto_version = $UI/Version
 @onready var texto_segundos = $UI/segund_efect
 @onready var texto_internet = $UI/LabelInternet
-  
 
 @export var escena_pausa = preload("res://escenas/characters/menu/menuPausa.tscn")
 
@@ -76,7 +76,7 @@ func _physics_process(_delta: float) -> void:
 	if joystick != null and is_instance_valid(joystick):
 		direction = joystick.direc
 
-	# 2. Movimiento por Teclado (independiente del joystick)
+	# 2. Movimiento por Teclado
 	if Input.is_action_pressed("mover_derecha"):
 		direction.x += 1
 	if Input.is_action_pressed("mover_izquierda"):
@@ -86,27 +86,29 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("mover_abajo"):
 		direction.y += 1
 
+	# Teclas de atajo / depuración
 	if Input.is_action_just_pressed("F3"):
 		Datos.fps_visibles = not Datos.fps_visibles
 		Datos.version_visible = not Datos.version_visible
+
+	# 🔄 3. CAMBIAR DE ARMA (Al presionar la C o la acción configurada)
+	if Input.is_action_just_pressed("cambiar_arma") or Input.is_action_just_pressed("c"):
+		intercambiar_arma()
 		
-	# 3. Aplicar velocidad
+	# 4. Aplicar velocidad
 	if direction != Vector2.ZERO:
 		velocity = direction.normalized() * speed
 		$AnimatedSprite2D.play()
 		$AnimatedSprite2D.animation = "idle"
-		if direction.x != 0:
-			$AnimatedSprite2D.flip_h = direction.x < 0
 	else:
 		velocity = Vector2.ZERO
 		$AnimatedSprite2D.stop()
 
-	if velocity.x > 0:
-		$AnimatedSprite2D.flip_h = false
-	elif velocity.x < 0:
-		$AnimatedSprite2D.flip_h = true
-	
-	# 4. Apuntado y rotación del arma
+	# Orientación por movimiento
+	if velocity.x != 0:
+		actualizar_orientacion_espaldas(velocity.x < 0)
+
+	# 5. Apuntado, rotación del arma y volteo de la espalda
 	if tiene_arma:
 		enemigo_mas_cercano = buscar_enemigo_cercano()
 		var angulo_apuntado: float = 0.0
@@ -123,16 +125,11 @@ func _physics_process(_delta: float) -> void:
 			
 		if debe_rotar_arma:
 			$ArmaVisual.rotation = angulo_apuntado
-			if abs(angulo_apuntado) > PI/2:
-				$ArmaVisual.flip_v = true
-				$AnimatedSprite2D.flip_h = true
-			else:
-				$ArmaVisual.flip_v = false
-				$AnimatedSprite2D.flip_h = false
+			var mirar_izquierda = abs(angulo_apuntado) > PI/2
+			$ArmaVisual.flip_v = mirar_izquierda
+			actualizar_orientacion_espaldas(mirar_izquierda)
 
 	move_and_slide()
-
-
 func _process(_delta: float) -> void:
 	if texto_fps.visible:
 		var fps: int = Engine.get_frames_per_second()
@@ -156,6 +153,7 @@ func _process(_delta: float) -> void:
 
 func equipar_arma(nodo_arma: Node2D) -> void:
 	var datos_arma = {
+		"nombre": nodo_arma.nombre_arma if "nombre_arma" in nodo_arma else nodo_arma.name,
 		"textura": nodo_arma.textura_normal if "textura_normal" in nodo_arma else null,
 		"escena_bala": nodo_arma.escena_bala if "escena_bala" in nodo_arma else null,
 		"costo_energia": nodo_arma.costo_energia if "costo_energia" in nodo_arma else 5.0,
@@ -186,7 +184,7 @@ func equipar_arma(nodo_arma: Node2D) -> void:
 
 func intercambiar_arma() -> void:
 	if inventario_armas.size() < 2:
-		print("Solo tienes 1 arma en el inventario.")
+		crear_info_flotante("Solo 1 arma equipada", Color(0.8, 0.8, 0.8))
 		return
 	
 	indice_arma_activa = 1 - indice_arma_activa
@@ -198,16 +196,35 @@ func activar_arma_actual() -> void:
 	if inventario_armas.is_empty():
 		tiene_arma = false
 		$ArmaVisual.visible = false
+		if has_node("ArmaEspalda"):
+			$ArmaEspalda.visible = false
 		return
 
 	tiene_arma = true
 	$ArmaVisual.visible = true
 
+	# 1. MOSTRAR ARMA ACTIVA EN LA MANO
 	var arma = inventario_armas[indice_arma_activa]
 
 	if "textura" in arma and arma["textura"] != null:
 		$ArmaVisual.texture = arma["textura"]
 
+	# 2. MOSTRAR ARMA SECUNDARIA EN LA ESPALDA
+	if has_node("ArmaEspalda"):
+		if inventario_armas.size() > 1:
+			var indice_secundario = 1 - indice_arma_activa
+			var arma_secundaria = inventario_armas[indice_secundario]
+			if "textura" in arma_secundaria and arma_secundaria["textura"] != null:
+				$ArmaEspalda.texture = arma_secundaria["textura"]
+				$ArmaEspalda.visible = true
+		else:
+			$ArmaEspalda.visible = false
+
+	# 3. MOSTRAR TEXTO FLOTANTE CON EL NOMBRE
+	var nombre_mostrar = arma["nombre"] if "nombre" in arma else "Arma"
+	crear_info_flotante(str(nombre_mostrar), Color(1.0, 0.85, 0.2))
+
+	# Actualizar variables de combate
 	escena_bala_actual = arma["escena_bala"]
 	costo_energia_actual = arma["costo_energia"]
 	aplica_quemadura = arma["aplica_quemadura"]
@@ -381,6 +398,13 @@ func crear_texto_flotante(valor: String, color: Color) -> void:
 	get_parent().add_child(texto)
 	texto.global_position = global_position + Vector2(0, -20)
 	texto.mostrar(valor, color)
+func crear_info_flotante(valor: String, color: Color) -> void:
+	if not info_flotante_scene: return
+	
+	var texto = texto_flotante_scene.instantiate()
+	get_parent().add_child(texto)
+	texto.global_position = global_position + Vector2(0, -20)
+	texto.mostrar(valor, color)
 
 
 func buscar_enemigo_cercano() -> Node2D:
@@ -402,3 +426,10 @@ func buscar_enemigo_cercano() -> Node2D:
 			return enemigo_mas_cercano_del_grupo
 
 	return null
+func actualizar_orientacion_espaldas(mirar_izquierda: bool) -> void:
+	$AnimatedSprite2D.flip_h = mirar_izquierda
+
+	if has_node("ArmaEspalda"):
+		$ArmaEspalda.flip_h = mirar_izquierda
+		var pos_x_base = abs($ArmaEspalda.position.x)
+		$ArmaEspalda.position.x = -pos_x_base if mirar_izquierda else pos_x_base

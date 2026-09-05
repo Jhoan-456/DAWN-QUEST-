@@ -1,19 +1,13 @@
 res://escenas/characters/maps/GeneradorNivel.tscn
-res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/baculo.tscn
-res://escenas/characters/items/armas/MAGO/baculo/baculo.tscn
-res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/BALA RESPECTIVA/fuego_baculo.tscn
-res://escenas/characters/items/armas/MAGO/baculo/fuego_baculo.tscn
-res://escenas/characters/items/armas/MAGO/baculo/fuego_respectivo/fuego_baculo.tscn
-res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.tscn
 res://escenas/characters/personajes/BYTE/byte.tscn
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.gd
+res://escenas/characters/items/armas/MAGO/baculo/baculo.gd
 res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.gd
-res://activador_hada.tscn
-res://activador_hada.gd
-res://hada.tscn
-res://hada.gd
-res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/activador_hada.tscn
-res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada.tscn
-res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/activador_hada.gd
-res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/node_2d.tscn
-res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/hada.tscn
 res://escenas/characters/personajes/BYTE/byte.gd
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.tscn
+res://escenas/characters/menu/texto_flotante.tscn
+res://escenas/characters/menu/texto_flotante.gd
+res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/activador_hada.gd
+res://escenas/characters/menu/info_flotante.tscn
+res://escenas/characters/menu/info_flotante.gd
+res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/activador_hada.tscn

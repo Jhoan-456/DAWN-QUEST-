@@ -13,7 +13,7 @@ func mostrar(texto: String, color: Color) -> void:
 	var tween = create_tween().set_parallel(true)
 	
 	# 1. Sube 40 píxeles y se mueve un poco hacia los lados durante 0.6 segundos
-	tween.tween_property(self, "position", position + Vector2(desvio_x, -40), 1).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "position", position + Vector2(desvio_x, -45), 1.8).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
 	# 2. Hace un efecto de escala (empieza un poco grande y vuelve a tamaño normal)
 	scale = Vector2(1.3, 1.3)

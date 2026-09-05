@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://h247nuktlvmv"]
 
 [ext_resource type="Script" uid="uid://5woqvargdrkn" path="res://escenas/characters/menu/texto_flotante.gd" id="1_2k2pd"]
-[ext_resource type="FontFile" uid="uid://drnirihjyc5p6" path="res://sprites/Font/PixelOperator8.ttf" id="2_jb6q2"]
+[ext_resource type="FontFile" uid="uid://c5ovpsfnc2xup" path="res://sprites/Font/Font.ttf" id="2_jb6q2"]
 
 [node name="TextoFlotante" type="Marker2D"]
 position = Vector2(231, 55)
@@ -13,8 +13,9 @@ offset_top = -40.0
 offset_right = 15.0
 offset_bottom = -12.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("2_jb6q2")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 24
 text = "-2"
 horizontal_alignment = 1
 vertical_alignment = 1

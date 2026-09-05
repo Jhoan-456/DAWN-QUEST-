@@ -19,6 +19,7 @@ var sprite_principal : Sprite2D
 @export var es_clase_mele: bool = false
 @export var es_clase_mago: bool = false
 @export var es_clase_invocador: bool = false
+@export var nombre_arma: String = "Báculo" # Escribe el nombre correspondiente en cada arma
 
 @export_group("ESTADÍSTICAS DEL ARMA")
 @export var dano_base: float = 3.0

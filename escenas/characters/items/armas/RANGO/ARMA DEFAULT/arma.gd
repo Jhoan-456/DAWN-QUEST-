@@ -19,7 +19,7 @@ var sprite_principal : Sprite2D
 @export var es_clase_mele: bool = false
 @export var es_clase_mago: bool = false
 @export var es_clase_invocador: bool = false
-
+@export var nombre_arma: String = "Armas" # Escribe el nombre correspondiente en cada arma
 
 func _on_body_entered(body):
 	if body.is_in_group("jugador"):

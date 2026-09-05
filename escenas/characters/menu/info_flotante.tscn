@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwsye5s7sf3ud"]
+
+[ext_resource type="Script" uid="uid://boeikfuiqkcnf" path="res://escenas/characters/menu/info_flotante.gd" id="1_6xoyt"]
+[ext_resource type="FontFile" uid="uid://dfkkpkwwiol0x" path="res://sprites/Font/PixelOperator.ttf" id="2_6xoyt"]
+
+[node name="TextoFlotante" type="Marker2D"]
+position = Vector2(231, 55)
+script = ExtResource("1_6xoyt")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -40.0
+offset_right = 15.0
+offset_bottom = -12.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_6xoyt")
+theme_override_font_sizes/font_size = 32
+text = "..."
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2dgyqkpjy7ca"]
+[gd_scene load_steps=3 format=3 uid="uid://b2dgyqkpjy7ca"]
 
 [ext_resource type="Script" uid="uid://ba7kvtuqcdw3j" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/activador_hada.gd" id="1_g8t03"]
+[ext_resource type="PackedScene" uid="uid://h247nuktlvmv" path="res://escenas/characters/menu/texto_flotante.tscn" id="2_ntru0"]
 
 [node name="activador_hada" type="Node2D"]
 script = ExtResource("1_g8t03")
+texto_flotante_scene = ExtResource("2_ntru0")
+limite_maximo = 2

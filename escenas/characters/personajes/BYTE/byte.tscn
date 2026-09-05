@@ -1,7 +1,8 @@
-[gd_scene load_steps=84 format=3 uid="uid://ckab71qke54h3"]
+[gd_scene load_steps=85 format=3 uid="uid://ckab71qke54h3"]
 
 [ext_resource type="Script" uid="uid://bkh0luinqp3lr" path="res://escenas/characters/personajes/BYTE/byte.gd" id="1_gpov7"]
 [ext_resource type="PackedScene" uid="uid://h247nuktlvmv" path="res://escenas/characters/menu/texto_flotante.tscn" id="2_lgr2f"]
+[ext_resource type="PackedScene" uid="uid://bwsye5s7sf3ud" path="res://escenas/characters/menu/info_flotante.tscn" id="3_lgr2f"]
 [ext_resource type="Texture2D" uid="uid://rstmv5nsxqx7" path="res://escenas/characters/personajes/BYTE/animacion_idle2_byte.png" id="3_ppgbu"]
 [ext_resource type="Texture2D" uid="uid://bhd6gcjlhmqp8" path="res://escenas/characters/personajes/BYTE/animacion_seleccionado_byte.png" id="4_wuyol"]
 [ext_resource type="Texture2D" uid="uid://lofr7of6ucxl" path="res://escenas/characters/personajes/BYTE/animacion_seleccionado_true_byte.png" id="5_io6yr"]
@@ -465,6 +466,7 @@ position = Vector2(395, 263)
 collision_layer = 2
 script = ExtResource("1_gpov7")
 texto_flotante_scene = ExtResource("2_lgr2f")
+info_flotante_scene = ExtResource("3_lgr2f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0.936, 2.75)
@@ -719,6 +721,12 @@ theme_override_fonts/font = ExtResource("10_leojf")
 theme_override_font_sizes/font_size = 35
 text = "400/400"
 label_settings = SubResource("LabelSettings_kne1u")
+
+[node name="ArmaEspalda" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-9, 10)
+rotation = -1.5515977
+scale = Vector2(1.5, 1.5)
 
 [connection signal="enviar_joystick" from="UI" to="." method="_on_ui_enviar_joystick"]
 [connection signal="pressed" from="UI/pausar" to="." method="_on_pausar_pressed"]

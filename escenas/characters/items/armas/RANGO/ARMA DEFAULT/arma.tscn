@@ -7,11 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://ba3dx0hc1u24f" path="res://sprites/flecha_indi.png" id="4_xe5if"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uya3a"]
-size = Vector2(26, 16)
+size = Vector2(25.5, 18.5)
 
 [node name="Arma" type="Area2D"]
 z_index = 1
-position = Vector2(32, 30)
+position = Vector2(34, 29)
+collision_mask = 2
 script = ExtResource("1_5s4q5")
 textura_normal = ExtResource("2_662we")
 textura_seleccionado = ExtResource("3_1dtsv")
@@ -20,19 +21,21 @@ costo_energia = 1.0
 es_clase_rango = true
 
 [node name="flecha" type="Sprite2D" parent="."]
-position = Vector2(10.999999, -6.9999995)
+position = Vector2(13.999999, -7.9999995)
 scale = Vector2(1.8749999, 1.96875)
 texture = ExtResource("4_xe5if")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7.6250014, 5.750002)
-scale = Vector2(1.6500002, 1.8500004)
+position = Vector2(10.125, 12.25)
+rotation = -0.6981317
+scale = Vector2(1.9833333, 2.35)
 texture = ExtResource("2_662we")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(7, 4)
+position = Vector2(10.75, 12.75)
+rotation = -0.6981317
 shape = SubResource("RectangleShape2D_uya3a")
 debug_color = Color(0, 1.3353038, 1.5434018, 0.03529412)
 

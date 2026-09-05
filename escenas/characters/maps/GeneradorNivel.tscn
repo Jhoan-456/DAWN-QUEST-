@@ -88,11 +88,13 @@ tile_map_data = PackedByteArray("AAAKAAYAAAAAAAAAAAAKAAcAAAAAAAAAAAAKAAgAAAAAAAA
 tile_set = SubResource("TileSet_1wvco")
 
 [node name="Arma" parent="." instance=ExtResource("7_yr302")]
+z_index = 2
 position = Vector2(724, 548)
 collision_mask = 3
+nombre_arma = "Pistola Default"
 
 [node name="Boss_plantera" parent="." instance=ExtResource("5_46sid")]
-position = Vector2(714, 216)
+position = Vector2(700, 239)
 
 [node name="slime" parent="." instance=ExtResource("4_yr302")]
 position = Vector2(1038, 408)
@@ -101,12 +103,15 @@ position = Vector2(1038, 408)
 position = Vector2(401, 369)
 
 [node name="Personaje" parent="." instance=ExtResource("7_0plmc")]
+z_index = 1
 position = Vector2(735, 505)
 speed = 200.0
 
 [node name="Baculo" parent="." instance=ExtResource("8_0plmc")]
+z_index = 2
 position = Vector2(636, 593)
 costo_energia = 5.0
 
 [node name="Pastor_hadas" parent="." instance=ExtResource("9_nd1ey")]
+z_index = 2
 position = Vector2(801, 613)
