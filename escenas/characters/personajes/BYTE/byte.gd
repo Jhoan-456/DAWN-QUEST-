@@ -8,6 +8,9 @@ extends CharacterBody2D
 var esta_envenenado: bool = false
 signal stats_cambiadas
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+
 #====================================================================
 @export_group("ATRIBUTOS DEL BYTE")
 @export var vida :float = 160
@@ -63,6 +66,18 @@ var indice_arma_activa: int = 0
 
 func _ready() -> void:
 	add_to_group("jugador")
+	
+	# Desactivar la UI y Cámara de los personajes que pertenecen a otros jugadores
+	if not is_multiplayer_authority():
+		if has_node("UI"):
+			$UI.visible = false
+		if has_node("Camera2D"):
+			$Camera2D.enabled = false
+		return
+
+	# Configuración normal para el personaje local
+	if has_node("Camera2D"):
+		$Camera2D.enabled = true
 	texto_fps.visible = Datos.fps_visibles
 	texto_version.visible = Datos.version_visible
 	texto_version.text = "VERSION: " + Datos.version_juego
@@ -70,6 +85,9 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	# 🛑 Solo procesa el disparo y la interfaz si este personaje pertenece al jugador local
+	if not is_multiplayer_authority():
+		return
 	var direction = Vector2.ZERO
 
 	# 1. Movimiento por Joystick (si existe y está instanciado)

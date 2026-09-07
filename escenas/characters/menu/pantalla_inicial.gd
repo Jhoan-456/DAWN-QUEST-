@@ -19,7 +19,7 @@ var y_original_guard : float
 var transicion_empezada : bool = false
 @export var escena_a_cargar: String = "res://escenas/characters/maps/MAPA.tscn"
 @export var escena_ajustes = preload("res://escenas/characters/menu/menuAjustes.tscn")
-@export var escena_linea = preload("res://escenas/characters/menu/menu_linea.tscn")
+@export var escena_linea = preload("res://multijugador/menu_multijugador.tscn")
 @export var escena_salir = preload("res://escenas/characters/menu/menuSalir.tscn")
 @onready var cartel = $Titulo
 @onready var cartel_2 = $Titulo_2
@@ -188,7 +188,10 @@ func _on_config_pressed() -> void:
 	pass # Replace with function body.
 	
 func _on_multi_pressed() -> void:
-	TransicionGlobal.denegar_boton(self, "¡ESTA FUNCION NO ESTA DISPONIBLE!")
+	var menu_linea = escena_linea.instantiate()
+	add_child(menu_linea)
+	pass
+	#TransicionGlobal.denegar_boton(self, "¡ESTA FUNCION NO ESTA DISPONIBLE!")
 func _on_salir_pressed() -> void:
 	var menu_salir = escena_salir.instantiate()
 	add_child(menu_salir)

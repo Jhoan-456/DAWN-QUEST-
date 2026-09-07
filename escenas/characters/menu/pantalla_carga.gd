@@ -13,7 +13,7 @@ var carga_lista : bool = false
 var nueva_escena : PackedScene
 var tween_barra : Tween
 
-var version : String = "BETA 0.0.1"
+var version : String = "alpha 0.0.1"
 
 func _ready():
 	if escena_a_cargar == "":

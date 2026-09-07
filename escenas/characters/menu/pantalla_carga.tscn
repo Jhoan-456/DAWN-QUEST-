@@ -32,7 +32,7 @@ script = ExtResource("1_bdype")
 layout_mode = 0
 offset_right = 1451.0
 offset_bottom = 715.0
-color = Color(0.07058824, 0.09803922, 0.17254902, 1)
+color = Color(0, 0.09019608, 0.15686275, 1)
 
 [node name="logo" type="Sprite2D" parent="."]
 position = Vector2(723, 380)

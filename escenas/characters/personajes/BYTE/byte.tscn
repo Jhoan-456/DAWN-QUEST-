@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://ckab71qke54h3"]
+[gd_scene load_steps=86 format=3 uid="uid://ckab71qke54h3"]
 
 [ext_resource type="Script" uid="uid://bkh0luinqp3lr" path="res://escenas/characters/personajes/BYTE/byte.gd" id="1_gpov7"]
 [ext_resource type="PackedScene" uid="uid://h247nuktlvmv" path="res://escenas/characters/menu/texto_flotante.tscn" id="2_lgr2f"]
@@ -459,6 +459,17 @@ font = ExtResource("10_leojf")
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 1)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lgr2f"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="Personaje" type="CharacterBody2D" groups=["jugador"]]
 light_mask = 0
 z_index = 2
@@ -606,7 +617,7 @@ scale = Vector2(3.2700624, 3.2158751)
 texture = ExtResource("11_l1dpr")
 
 [node name="Joystick" parent="UI" instance=ExtResource("12_xkqiu")]
-position = Vector2(175, 540)
+position = Vector2(191, 464)
 
 [node name="Atacar" type="TouchScreenButton" parent="UI"]
 position = Vector2(1001.00006, 444.00003)
@@ -727,6 +738,9 @@ z_index = -1
 position = Vector2(-9, 10)
 rotation = -1.5515977
 scale = Vector2(1.5, 1.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_lgr2f")
 
 [connection signal="enviar_joystick" from="UI" to="." method="_on_ui_enviar_joystick"]
 [connection signal="pressed" from="UI/pausar" to="." method="_on_pausar_pressed"]

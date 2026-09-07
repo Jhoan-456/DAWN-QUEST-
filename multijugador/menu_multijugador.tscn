@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwitoekvot4ys"]
+
+[ext_resource type="Script" uid="uid://pfbhg837dpwe" path="res://multijugador/menu_multijugador.gd" id="1_2n6ri"]
+[ext_resource type="FontFile" uid="uid://c5ovpsfnc2xup" path="res://sprites/Font/Font.ttf" id="2_jfnhm"]
+
+[node name="MenuMultijugador" type="Node2D"]
+script = ExtResource("1_2n6ri")
+escena_mundo = "uid://lrpuklafr4he"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = 300.0
+offset_right = 1106.0
+offset_bottom = 625.0
+color = Color(0.06, 0.06, 0.06, 0.23529412)
+
+[node name="host" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 516.0
+offset_top = 183.0
+offset_right = 898.0
+offset_bottom = 255.0
+theme_override_fonts/font = ExtResource("2_jfnhm")
+theme_override_font_sizes/font_size = 32
+text = "CREAR PARTIDA"
+
+[node name="client" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 306.0
+offset_right = 878.0
+offset_bottom = 378.0
+theme_override_fonts/font = ExtResource("2_jfnhm")
+theme_override_font_sizes/font_size = 32
+text = "UNIRSE"
+
+[node name="LineEdit" type="LineEdit" parent="Control"]
+layout_mode = 0
+offset_left = 519.0
+offset_top = 95.0
+offset_right = 892.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("2_jfnhm")
+theme_override_font_sizes/font_size = 32
+text = "127.0.0.1"
+
+[connection signal="pressed" from="Control/host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Control/client" to="." method="_on_client_pressed"]

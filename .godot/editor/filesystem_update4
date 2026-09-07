@@ -1,13 +1,10 @@
 res://escenas/characters/maps/GeneradorNivel.tscn
 res://escenas/characters/personajes/BYTE/byte.tscn
-res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.gd
-res://escenas/characters/items/armas/MAGO/baculo/baculo.gd
-res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.gd
 res://escenas/characters/personajes/BYTE/byte.gd
-res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.tscn
-res://escenas/characters/menu/texto_flotante.tscn
-res://escenas/characters/menu/texto_flotante.gd
-res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/activador_hada.gd
-res://escenas/characters/menu/info_flotante.tscn
-res://escenas/characters/menu/info_flotante.gd
-res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/activador_hada.tscn
+res://multijugador/mundo.tscn
+res://multijugador/menu_multijugador.tscn
+res://multijugador/menu_multijugador.gd
+res://multijugador/mundo.gd
+res://escenas/characters/menu/pantalla_carga.tscn
+res://botones/pantalla_inicial.tscn
+res://escenas/characters/menu/pantalla_inicial.gd

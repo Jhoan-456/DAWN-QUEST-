@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://lrpuklafr4he"]
+
+[ext_resource type="Script" uid="uid://bfflbbsriphgd" path="res://multijugador/mundo.gd" id="1_lsogy"]
+
+[node name="Mundo" type="Node"]
+
+[node name="ContenedorJugadores" type="Node2D" parent="."]
+script = ExtResource("1_lsogy")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="ContenedorJugadores"]
+_spawnable_scenes = PackedStringArray("uid://ckab71qke54h3")
+spawn_path = NodePath("..")
+spawn_limit = 5
