@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b31cgl6u1t68l"]
+[gd_scene load_steps=8 format=3 uid="uid://b31cgl6u1t68l"]
 
 [ext_resource type="Script" uid="uid://l4y8pavu2880" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.gd" id="1_1v02b"]
 [ext_resource type="Texture2D" uid="uid://bftxrw47jyclg" path="res://escenas/characters/items/armas/RANGO/AgarrarPastorDeHadas.png" id="3_84cvc"]
@@ -9,6 +9,20 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_84cvc"]
 radius = 2.8446922
 height = 42.425972
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_84cvc"]
+properties/0/path = NodePath("flecha:frame")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Sprite2D/AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Sprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:nombre_arma")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Pastor_hadas" type="Area2D"]
 z_index = 1
@@ -36,6 +50,9 @@ position = Vector2(-8, 1.975)
 rotation = 0.33161256
 shape = SubResource("CapsuleShape2D_84cvc")
 debug_color = Color(0, 1.3353038, 1.5434018, 0.03529412)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_84cvc")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

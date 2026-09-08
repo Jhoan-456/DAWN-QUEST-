@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://lrpuklafr4he"]
+[gd_scene load_steps=4 format=3 uid="uid://lrpuklafr4he"]
 
 [ext_resource type="Script" uid="uid://bfflbbsriphgd" path="res://multijugador/mundo.gd" id="1_lsogy"]
+[ext_resource type="PackedScene" uid="uid://b6s3g802sotat" path="res://escenas/characters/items/armas/MAGO/baculo/baculo.tscn" id="2_n0d4f"]
+[ext_resource type="PackedScene" uid="uid://b31cgl6u1t68l" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.tscn" id="3_ffnvy"]
 
 [node name="Mundo" type="Node"]
 
@@ -8,6 +10,33 @@
 script = ExtResource("1_lsogy")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="ContenedorJugadores"]
-_spawnable_scenes = PackedStringArray("uid://ckab71qke54h3")
+_spawnable_scenes = PackedStringArray("uid://ckab71qke54h3", "uid://b6s3g802sotat", "uid://62itmyvyxr0l")
 spawn_path = NodePath("..")
 spawn_limit = 5
+
+[node name="Pastor_hadas" parent="ContenedorJugadores" instance=ExtResource("3_ffnvy")]
+position = Vector2(922, 228)
+
+[node name="Pastor_hadas2" parent="ContenedorJugadores" instance=ExtResource("3_ffnvy")]
+position = Vector2(1844, 456)
+
+[node name="Pastor_hadas3" parent="ContenedorJugadores" instance=ExtResource("3_ffnvy")]
+position = Vector2(2876, 986)
+
+[node name="Baculo" parent="ContenedorJugadores" instance=ExtResource("2_n0d4f")]
+position = Vector2(578, 317)
+
+[node name="Baculo2" parent="ContenedorJugadores" instance=ExtResource("2_n0d4f")]
+position = Vector2(727, 425)
+
+[node name="Pastor_hadas4" parent="ContenedorJugadores" instance=ExtResource("3_ffnvy")]
+position = Vector2(1954, 758)
+
+[node name="Baculo3" parent="ContenedorJugadores" instance=ExtResource("2_n0d4f")]
+position = Vector2(1096, 104)
+
+[node name="Baculo4" parent="ContenedorJugadores" instance=ExtResource("2_n0d4f")]
+position = Vector2(1674, 421)
+
+[node name="Baculo5" parent="ContenedorJugadores" instance=ExtResource("2_n0d4f")]
+position = Vector2(1674, 421)

@@ -95,7 +95,6 @@ size = Vector2(10, 9)
 position = Vector2(9, 84)
 collision_mask = 12
 script = ExtResource("1_pifwj")
-velocidad = 300
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

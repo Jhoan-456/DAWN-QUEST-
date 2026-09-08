@@ -3,6 +3,7 @@ extends CharacterBody2D
 # --- VARIABLES DE VIDA ---
 @export var vida_maxima: float = 35.0
 var vida_actual: float = 35.0
+var sync_position: Vector2 = Vector2.ZERO
 @export var es_mini: bool = false
 
 @export var texto_flotante_scene: PackedScene
@@ -99,6 +100,13 @@ func _on_zona_deteccion_body_exited(body: Node2D) -> void:
 
 # --- LÓGICA DE MOVIMIENTO Y ATAQUE ---
 func _physics_process(delta: float) -> void:
+	if multiplayer.is_server():
+		# Tu lógica actual de movimiento del enemigo
+		move_and_slide()
+		sync_position = global_position
+	else:
+		# Los clientes solo interpolan la posición que manda el host
+		global_position = global_position.lerp(sync_position, 20.0 * delta)
 	
 	# ESTADO 1: ATACANDO (Jugador muy cerca)
 	if objetivo != null:

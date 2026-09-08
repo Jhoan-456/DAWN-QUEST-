@@ -19,6 +19,7 @@ textura_seleccionado = ExtResource("3_1dtsv")
 escena_bala = ExtResource("4_662we")
 costo_energia = 1.0
 es_clase_rango = true
+nombre_arma = "Armas_default"
 
 [node name="flecha" type="Sprite2D" parent="."]
 position = Vector2(13.999999, -7.9999995)

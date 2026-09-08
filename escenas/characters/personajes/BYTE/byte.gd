@@ -8,9 +8,19 @@ extends CharacterBody2D
 var esta_envenenado: bool = false
 signal stats_cambiadas
 
+# 📡 Variable sincronizada por red para suavizar movimiento (Lerp)
+var sync_position: Vector2 = Vector2.ZERO
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
-
+# Transmite la textura del arma equipada a todas las pantallas
+@rpc("any_peer", "call_local", "reliable")
+func sincronizar_arma_visual_rpc(ruta_textura: String) -> void:
+	if ruta_textura != "":
+		$ArmaVisual.texture = load(ruta_textura)
+		$ArmaVisual.visible = true
+	else:
+		$ArmaVisual.visible = false
 #====================================================================
 @export_group("ATRIBUTOS DEL BYTE")
 @export var vida :float = 160
@@ -66,6 +76,7 @@ var indice_arma_activa: int = 0
 
 func _ready() -> void:
 	add_to_group("jugador")
+	sync_position = global_position
 	
 	# Desactivar la UI y Cámara de los personajes que pertenecen a otros jugadores
 	if not is_multiplayer_authority():
@@ -84,71 +95,93 @@ func _ready() -> void:
 	$AnimatedSprite2D.play("idle")
 
 
-func _physics_process(_delta: float) -> void:
-	# 🛑 Solo procesa el disparo y la interfaz si este personaje pertenece al jugador local
+func _physics_process(delta: float) -> void:
+	# 🟢 1. JUGADOR LOCAL (Tú controlas este personaje)
+	if is_multiplayer_authority():
+		var direction = Vector2.ZERO
+
+		# Movimiento por Joystick
+		if joystick != null and is_instance_valid(joystick):
+			direction = joystick.direc
+
+		# Movimiento por Teclado
+		if Input.is_action_pressed("mover_derecha"):
+			direction.x += 1
+		if Input.is_action_pressed("mover_izquierda"):
+			direction.x -= 1
+		if Input.is_action_pressed("mover_arriba"):
+			direction.y -= 1
+		if Input.is_action_pressed("mover_abajo"):
+			direction.y += 1
+
+		# Teclas de atajo / depuración
+		if Input.is_action_just_pressed("F3"):
+			Datos.fps_visibles = not Datos.fps_visibles
+			Datos.version_visible = not Datos.version_visible
+
+		# Cambiar de arma
+		if Input.is_action_just_pressed("cambiar_arma") or Input.is_action_just_pressed("c"):
+			intercambiar_arma()
+			
+		# Aplicar velocidad
+		if direction != Vector2.ZERO:
+			velocity = direction.normalized() * speed
+			$AnimatedSprite2D.play()
+			$AnimatedSprite2D.animation = "idle"
+		else:
+			velocity = Vector2.ZERO
+			$AnimatedSprite2D.stop()
+
+		# Orientación por movimiento
+		if velocity.x != 0:
+			actualizar_orientacion_espaldas(velocity.x < 0)
+
+		# Apuntado, rotación del arma y volteo de la espalda
+		if tiene_arma:
+			enemigo_mas_cercano = buscar_enemigo_cercano()
+			var angulo_apuntado: float = 0.0
+			var debe_rotar_arma: bool = false
+			
+			if enemigo_mas_cercano != null and is_instance_valid(enemigo_mas_cercano):
+				var vector_direccion = enemigo_mas_cercano.global_position - global_position
+				angulo_apuntado = vector_direccion.angle()
+				debe_rotar_arma = true
+				
+			elif velocity.length() > 0:
+				angulo_apuntado = velocity.angle()
+				debe_rotar_arma = true
+				
+			if debe_rotar_arma:
+				$ArmaVisual.rotation = angulo_apuntado
+				var mirar_izquierda = abs(angulo_apuntado) > PI/2
+				$ArmaVisual.flip_v = mirar_izquierda
+				actualizar_orientacion_espaldas(mirar_izquierda)
+
+		move_and_slide()
+		
+		# Guardamos la posición local para transmitirla a los demás
+		sync_position = global_position
+
+	# 🟡 2. JUGADOR REMOTO (Otro jugador en la red)
+	else:
+		var pos_anterior = global_position
+		# Desplazamiento fluido cuadro a cuadro (Interpolación)
+		global_position = global_position.lerp(sync_position, 25.0 * delta)
+		
+		# Animar al jugador remoto según la distancia recorrida
+		var movimiento_real = global_position - pos_anterior
+		if movimiento_real.length() > 0.1:
+			$AnimatedSprite2D.play("idle")
+			if movimiento_real.x != 0:
+				actualizar_orientacion_espaldas(movimiento_real.x < 0)
+		else:
+			$AnimatedSprite2D.stop()
+
+
+func _process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
-	var direction = Vector2.ZERO
 
-	# 1. Movimiento por Joystick (si existe y está instanciado)
-	if joystick != null and is_instance_valid(joystick):
-		direction = joystick.direc
-
-	# 2. Movimiento por Teclado
-	if Input.is_action_pressed("mover_derecha"):
-		direction.x += 1
-	if Input.is_action_pressed("mover_izquierda"):
-		direction.x -= 1
-	if Input.is_action_pressed("mover_arriba"):
-		direction.y -= 1
-	if Input.is_action_pressed("mover_abajo"):
-		direction.y += 1
-
-	# Teclas de atajo / depuración
-	if Input.is_action_just_pressed("F3"):
-		Datos.fps_visibles = not Datos.fps_visibles
-		Datos.version_visible = not Datos.version_visible
-
-	# 🔄 3. CAMBIAR DE ARMA (Al presionar la C o la acción configurada)
-	if Input.is_action_just_pressed("cambiar_arma") or Input.is_action_just_pressed("c"):
-		intercambiar_arma()
-		
-	# 4. Aplicar velocidad
-	if direction != Vector2.ZERO:
-		velocity = direction.normalized() * speed
-		$AnimatedSprite2D.play()
-		$AnimatedSprite2D.animation = "idle"
-	else:
-		velocity = Vector2.ZERO
-		$AnimatedSprite2D.stop()
-
-	# Orientación por movimiento
-	if velocity.x != 0:
-		actualizar_orientacion_espaldas(velocity.x < 0)
-
-	# 5. Apuntado, rotación del arma y volteo de la espalda
-	if tiene_arma:
-		enemigo_mas_cercano = buscar_enemigo_cercano()
-		var angulo_apuntado: float = 0.0
-		var debe_rotar_arma: bool = false
-		
-		if enemigo_mas_cercano != null and is_instance_valid(enemigo_mas_cercano):
-			var vector_direccion = enemigo_mas_cercano.global_position - global_position
-			angulo_apuntado = vector_direccion.angle()
-			debe_rotar_arma = true
-			
-		elif velocity.length() > 0:
-			angulo_apuntado = velocity.angle()
-			debe_rotar_arma = true
-			
-		if debe_rotar_arma:
-			$ArmaVisual.rotation = angulo_apuntado
-			var mirar_izquierda = abs(angulo_apuntado) > PI/2
-			$ArmaVisual.flip_v = mirar_izquierda
-			actualizar_orientacion_espaldas(mirar_izquierda)
-
-	move_and_slide()
-func _process(_delta: float) -> void:
 	if texto_fps.visible:
 		var fps: int = Engine.get_frames_per_second()
 		texto_fps.text = "FPS: " + str(fps)
@@ -272,6 +305,14 @@ func activar_arma_actual() -> void:
 		vel_proyectil_calculada = (Velocidad_proyectil * 25.0) * arma["mult_vel_p"]
 
 	print("⚔️ Arma Activa | Daño:", dano_calculado, " | Cadencia:", cadencia_calculada)
+	
+	# 🔄 AL FINAL DE LA FUNCIÓN: Sincronizar con los demás
+	if inventario_armas.is_empty():
+		sincronizar_arma_visual_rpc.rpc("")
+	else:
+		arma = inventario_armas[indice_arma_activa]
+		if "textura" in arma and arma["textura"] != null:
+			sincronizar_arma_visual_rpc.rpc(arma["textura"].resource_path)
 
 
 func soltar_arma_actual_al_suelo() -> void:
@@ -301,7 +342,6 @@ func disparar() -> void:
 	bala.global_position = $ArmaVisual/puntoDisparo.global_position
 	bala.rotation = $ArmaVisual.rotation
 
-	# 🛠️ Verificación segura antes de asignar la dirección:
 	if "direccion_vector" in bala:
 		bala.direccion_vector = Vector2.RIGHT.rotated($ArmaVisual.rotation)
 	
@@ -416,10 +456,12 @@ func crear_texto_flotante(valor: String, color: Color) -> void:
 	get_parent().add_child(texto)
 	texto.global_position = global_position + Vector2(0, -20)
 	texto.mostrar(valor, color)
+
+
 func crear_info_flotante(valor: String, color: Color) -> void:
 	if not info_flotante_scene: return
 	
-	var texto = texto_flotante_scene.instantiate()
+	var texto = info_flotante_scene.instantiate()
 	get_parent().add_child(texto)
 	texto.global_position = global_position + Vector2(0, -20)
 	texto.mostrar(valor, color)
@@ -444,6 +486,8 @@ func buscar_enemigo_cercano() -> Node2D:
 			return enemigo_mas_cercano_del_grupo
 
 	return null
+
+
 func actualizar_orientacion_espaldas(mirar_izquierda: bool) -> void:
 	$AnimatedSprite2D.flip_h = mirar_izquierda
 

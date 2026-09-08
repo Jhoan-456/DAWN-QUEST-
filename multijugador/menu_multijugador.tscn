@@ -18,39 +18,70 @@ grow_vertical = 2
 [node name="TextureRect" type="ColorRect" parent="Control"]
 layout_mode = 0
 offset_left = 300.0
+offset_top = 11.0
 offset_right = 1106.0
-offset_bottom = 625.0
+offset_bottom = 615.0
 color = Color(0.06, 0.06, 0.06, 0.23529412)
 
 [node name="host" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 516.0
-offset_top = 183.0
-offset_right = 898.0
-offset_bottom = 255.0
+offset_left = 333.0
+offset_top = 215.0
+offset_right = 1035.0
+offset_bottom = 317.0
 theme_override_fonts/font = ExtResource("2_jfnhm")
 theme_override_font_sizes/font_size = 32
 text = "CREAR PARTIDA"
 
 [node name="client" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 540.0
-offset_top = 306.0
-offset_right = 878.0
-offset_bottom = 378.0
+offset_left = 333.0
+offset_top = 383.0
+offset_right = 671.0
+offset_bottom = 455.0
 theme_override_fonts/font = ExtResource("2_jfnhm")
 theme_override_font_sizes/font_size = 32
 text = "UNIRSE"
 
 [node name="LineEdit" type="LineEdit" parent="Control"]
 layout_mode = 0
-offset_left = 519.0
-offset_top = 95.0
-offset_right = 892.0
-offset_bottom = 147.0
+offset_left = 339.0
+offset_top = 23.0
+offset_right = 656.0
+offset_bottom = 94.0
 theme_override_fonts/font = ExtResource("2_jfnhm")
 theme_override_font_sizes/font_size = 32
 text = "127.0.0.1"
 
+[node name="LabelmiIp" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 796.0
+offset_top = 27.0
+offset_right = 994.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 16
+text = "TU IP DE CONEXION ES:
+"
+
+[node name="btn_buscar" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 701.0
+offset_top = 390.0
+offset_right = 1039.0
+offset_bottom = 462.0
+theme_override_fonts/font = ExtResource("2_jfnhm")
+theme_override_font_sizes/font_size = 32
+text = "BUSCAR PARTIDA LAN"
+
+[node name="LabelEstado" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 536.0
+offset_right = 533.0
+offset_bottom = 577.0
+theme_override_fonts/font = ExtResource("2_jfnhm")
+theme_override_font_sizes/font_size = 32
+
 [connection signal="pressed" from="Control/host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Control/client" to="." method="_on_client_pressed"]
+[connection signal="pressed" from="Control/btn_buscar" to="." method="_on_btn_buscar_pressed"]
