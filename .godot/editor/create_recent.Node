@@ -1,8 +1,9 @@
+TextureRect
+Sprite2D
 MultiplayerSynchronizer
 Label
 Button
 ColorRect
-TextureRect
 Node2D
 MultiplayerSpawner
 LineEdit
@@ -10,5 +11,4 @@ Control
 Node
 VBoxContainer
 BoxContainer
-Sprite2D
 CollisionShape2D

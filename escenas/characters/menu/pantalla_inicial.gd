@@ -87,7 +87,7 @@ func _on_ini_pressed():
 		
 	tween_vertical = create_tween().set_parallel(true)
 	
-	var distancia : float = 180.0
+	var distancia : float = 200.0
 	var duration : float = 1.0
 	
 	var destino_ini_y : float
@@ -119,7 +119,7 @@ func _on_ini_pressed_2():
 	
 	menu_activo = !menu_activo
 	
-	var distancia : float = 170.0
+	var distancia : float = 180.0
 	var duracion : float = 1.0
 	
 	tween_movimiento = create_tween().set_parallel(true)

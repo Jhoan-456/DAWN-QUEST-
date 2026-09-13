@@ -1,11 +1,17 @@
-[gd_scene load_steps=31 format=3 uid="uid://brfp2ut8tnchl"]
+[gd_scene load_steps=46 format=3 uid="uid://brfp2ut8tnchl"]
 
 [ext_resource type="Script" uid="uid://gsp84i2d88rx" path="res://escenas/characters/menu/pantalla_inicial.gd" id="1_d6lq7"]
 [ext_resource type="Texture2D" uid="uid://cmyi1t5hv2ada" path="res://sprites/Sprite-0002.png" id="2_ujcoa"]
 [ext_resource type="FontFile" uid="uid://dfkkpkwwiol0x" path="res://sprites/Font/PixelOperator.ttf" id="3_lul6n"]
-[ext_resource type="Texture2D" uid="uid://dvnkuixbybayu" path="res://botones/Gear.png" id="4_lul6n"]
+[ext_resource type="Texture2D" uid="uid://dj7rwr72d4kw8" path="res://botones/gear.png" id="4_shuh5"]
+[ext_resource type="Texture2D" uid="uid://cs5iyrc5k3nm1" path="res://botones/button_square_depth_gradient.png" id="4_vc8su"]
+[ext_resource type="Texture2D" uid="uid://ri37jqcdoitk" path="res://botones/exitRight.png" id="4_y3o8s"]
+[ext_resource type="Texture2D" uid="uid://bvdvb4eub2lre" path="res://botones/button_square_gradient.png" id="5_1aet4"]
+[ext_resource type="Texture2D" uid="uid://dmhuitwvpfap6" path="res://botones/button_rectangle_depth_line.png" id="5_cwur2"]
+[ext_resource type="Texture2D" uid="uid://7ty5pkigek0e" path="res://botones/button_rectangle_depth_gradient.png" id="5_shuh5"]
+[ext_resource type="Texture2D" uid="uid://b310lonnymyix" path="res://botones/button_rectangle_gradient.png" id="6_vc8su"]
+[ext_resource type="Texture2D" uid="uid://b3qrcu5isbhnd" path="res://botones/button_rectangle_line.png" id="6_vddbi"]
 [ext_resource type="FontFile" uid="uid://glhbvbrcequf" path="res://sprites/Font/Romulus.ttf" id="6_y3o8s"]
-[ext_resource type="Texture2D" uid="uid://blbx6pobw06g3" path="res://botones/Exit.png" id="7_ckhli"]
 [ext_resource type="AudioStream" uid="uid://t2c214qoegia" path="res://musica/cancion_menu.mp3" id="7_y3o8s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6psb2"]
@@ -100,23 +106,50 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ujcoa"]
-texture = ExtResource("4_lul6n")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_di73r"]
+texture = ExtResource("4_vc8su")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_56dhd"]
-texture = ExtResource("4_lul6n")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7wfvm"]
+texture = ExtResource("5_1aet4")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ckhli"]
-texture = ExtResource("4_lul6n")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wqppw"]
+texture = ExtResource("5_1aet4")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lul6n"]
-texture = ExtResource("7_ckhli")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ucmb"]
+texture = ExtResource("5_shuh5")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s6omu"]
-texture = ExtResource("7_ckhli")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p2e6j"]
+texture = ExtResource("6_vc8su")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_31vss"]
-texture = ExtResource("7_ckhli")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_54k4a"]
+texture = ExtResource("6_vc8su")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_shuh5"]
+texture = ExtResource("5_cwur2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vc8su"]
+texture = ExtResource("6_vddbi")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1aet4"]
+texture = ExtResource("6_vddbi")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g3cch"]
+texture = ExtResource("4_vc8su")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lucfa"]
+texture = ExtResource("5_1aet4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ac5ce"]
+texture = ExtResource("5_1aet4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wys57"]
+texture = ExtResource("4_vc8su")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3m0dg"]
+texture = ExtResource("5_1aet4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_blteo"]
+texture = ExtResource("5_1aet4")
 
 [sub_resource type="Gradient" id="Gradient_6dlaf"]
 offsets = PackedFloat32Array(0, 0.54140127, 1)
@@ -173,21 +206,26 @@ flat = true
 [node name="config" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.11800001
-anchor_top = 0.522
-anchor_right = -0.035
-anchor_bottom = 0.634
-offset_left = 0.51000977
-offset_top = 0.07199097
-offset_right = 0.57500076
-offset_bottom = -0.015991211
+anchor_left = -0.113000005
+anchor_top = 0.5
+anchor_right = -0.033
+anchor_bottom = 0.64400005
+offset_left = -0.71499634
+offset_top = 8.0
+offset_right = -0.31499863
+offset_bottom = 10.7439575
 theme_override_fonts/font = ExtResource("3_lul6n")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_ujcoa")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_56dhd")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ckhli")
+theme_override_styles/normal = SubResource("StyleBoxTexture_di73r")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7wfvm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wqppw")
 action_mode = 0
 button_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="config"]
+position = Vector2(57.000004, 47.999996)
+scale = Vector2(1.6899998, 1.5699999)
+texture = ExtResource("4_shuh5")
 
 [node name="iniciar" type="Button" parent="."]
 layout_mode = 1
@@ -211,16 +249,24 @@ flat = true
 [node name="multi" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.49100003
-anchor_top = 1.0960001
-anchor_right = 0.643
-anchor_bottom = 1.1850001
-offset_left = -0.08703613
-offset_top = 4.1759644
-offset_right = 0.04901123
-offset_bottom = 3.8599854
+anchor_left = 0.47700003
+anchor_top = 1.07
+anchor_right = 0.689
+anchor_bottom = 1.2370001
+offset_left = -0.26501465
+offset_top = 0.3199463
+offset_right = 0.19494629
+offset_bottom = -0.14807129
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_lul6n")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxTexture_5ucmb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_p2e6j")
+theme_override_styles/hover = SubResource("StyleBoxTexture_54k4a")
 action_mode = 0
 button_mask = 3
 text = "MULTIJUGADOR"
@@ -228,16 +274,24 @@ text = "MULTIJUGADOR"
 [node name="jugar" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.275
-anchor_top = 1.107
-anchor_right = 0.46100003
-anchor_bottom = 1.1830001
-offset_left = -0.17501831
-offset_top = 0.09197998
-offset_right = -0.37701416
-offset_bottom = 0.14794922
+anchor_left = 0.259
+anchor_top = 1.07
+anchor_right = 0.47100002
+anchor_bottom = 1.2340001
+offset_left = -0.25500488
+offset_top = 0.3199463
+offset_right = 0.20495605
+offset_bottom = 2.0239258
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_lul6n")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxTexture_shuh5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vc8su")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1aet4")
 action_mode = 0
 button_mask = 3
 text = "NUEVO COMIENZO"
@@ -245,33 +299,38 @@ text = "NUEVO COMIENZO"
 [node name="salir" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.117000006
-anchor_top = 0.656
-anchor_right = -0.035
-anchor_bottom = 0.76100004
-offset_left = 0.06500244
-offset_top = 0.055999756
-offset_right = 0.57500076
-offset_bottom = 0.035949707
+anchor_left = -0.113000005
+anchor_top = 0.675
+anchor_right = -0.033
+anchor_bottom = 0.80700004
+offset_left = -0.71499634
+offset_top = 0.2999878
+offset_right = -0.31499863
+offset_bottom = 1.7319946
 theme_override_fonts/font = ExtResource("3_lul6n")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_lul6n")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_s6omu")
-theme_override_styles/hover = SubResource("StyleBoxTexture_31vss")
+theme_override_styles/normal = SubResource("StyleBoxTexture_g3cch")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lucfa")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ac5ce")
 action_mode = 0
 button_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="salir"]
+position = Vector2(58.999996, 41)
+scale = Vector2(1.6, 1.4399999)
+texture = ExtResource("4_y3o8s")
 
 [node name="guard" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.68
-anchor_top = 1.095
-anchor_right = 0.874
-anchor_bottom = 1.205
-offset_left = 0.23999023
-offset_top = -0.17999268
-offset_right = -2.2180176
-offset_bottom = 0.97998047
+anchor_left = 0.693
+anchor_top = 1.07
+anchor_right = 0.906
+anchor_bottom = 1.2370001
+offset_left = 0.61499023
+offset_top = 0.3199463
+offset_right = -0.36999512
+offset_bottom = -0.14807129
 theme_override_fonts/font = ExtResource("3_lul6n")
 theme_override_font_sizes/font_size = 32
 action_mode = 0
@@ -282,14 +341,14 @@ PARTIDA GUARDADA"
 [node name="Nove" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.120000005
-anchor_top = 0.786
-anchor_right = -0.004
-anchor_bottom = 0.89800006
-offset_left = -0.1599884
-offset_top = -0.184021
-offset_right = -0.37199974
-offset_bottom = -0.31201172
+anchor_left = -0.15400001
+anchor_top = 0.823
+anchor_right = -0.019000001
+anchor_bottom = 0.957
+offset_left = 0.53001404
+offset_top = 0.14801025
+offset_right = 0.45500183
+offset_bottom = 0.13195801
 theme_override_fonts/font = ExtResource("3_lul6n")
 theme_override_font_sizes/font_size = 32
 action_mode = 0
@@ -302,15 +361,18 @@ NOVEDADES
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0050000004
-anchor_top = 0.402
-anchor_right = 0.061000004
-anchor_bottom = 0.51000005
+anchor_top = 0.36200002
+anchor_right = 0.071
+anchor_bottom = 0.5
 offset_left = 0.1989994
-offset_top = -0.04800415
-offset_right = 0.40699768
-offset_bottom = -0.24005127
+offset_top = -0.088012695
+offset_right = 0.40499878
+offset_bottom = -7.0
 theme_override_fonts/font = ExtResource("3_lul6n")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxTexture_wys57")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3m0dg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_blteo")
 action_mode = 0
 button_mask = 3
 text = ">"
@@ -319,13 +381,15 @@ text = ">"
 layer = 100
 
 [node name="PantallaNegra" type="ColorRect" parent="CanvasLayer"]
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 1.0120001
-offset_left = -4.0
-offset_top = -11.0
-offset_right = -1.0
-offset_bottom = -9.680054
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -3.0
+offset_right = 6.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 

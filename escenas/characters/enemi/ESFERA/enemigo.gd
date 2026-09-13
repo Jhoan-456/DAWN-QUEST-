@@ -31,8 +31,8 @@ var jugador_a_perseguir = null # El jugador cuando está a rango de VISIÓN
 var puede_atacar: bool = true
 
 # --- VARIABLES DE MOVIMIENTO ---
-var velocidad_patrulla = 80
-var velocidad_persecucion = 100 # Corre un poco más rápido al perseguir
+var velocidad_patrulla = 60
+var velocidad_persecucion = 90 # Corre un poco más rápido al perseguir
 var direccion = Vector2.ZERO
 var tiempo_proximo_paso = 0.0
 

@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cqskbpwpb3b1h" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.png" id="6_6dv7u"]
 [ext_resource type="FontFile" uid="uid://c6jucniniwwpj" path="res://sprites/Font/PIXgothic_7shareware.ttf" id="7_gtphw"]
 [ext_resource type="Script" uid="uid://dh770yppqesl0" path="res://escenas/characters/personajes/UI  Y CURSOR/ui.gd" id="8_p2d8y"]
-[ext_resource type="Texture2D" uid="uid://cbmwkxo8rsvva" path="res://botones/Pause.png" id="9_c5tll"]
 [ext_resource type="FontFile" uid="uid://dfkkpkwwiol0x" path="res://sprites/Font/PixelOperator.ttf" id="10_leojf"]
+[ext_resource type="Texture2D" uid="uid://c5u3lihijswoy" path="res://botones/pause.png" id="10_lgr2f"]
 [ext_resource type="Texture2D" uid="uid://dc21qyme8l6po" path="res://sprites/icono_veneno.png" id="11_l1dpr"]
 [ext_resource type="PackedScene" uid="uid://b6lv7jpxvhe6e" path="res://escenas/characters/config/joystick.tscn" id="12_xkqiu"]
 [ext_resource type="Texture2D" uid="uid://btb2uanev5r3u" path="res://botones/interactuar.png" id="13_pxuap"]
@@ -433,14 +433,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(22, 30)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i3q10"]
-texture = ExtResource("9_c5tll")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lgr2f"]
+texture = ExtResource("10_lgr2f")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f8nqn"]
-texture = ExtResource("9_c5tll")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ppgbu"]
+texture = ExtResource("10_lgr2f")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dyhx6"]
-texture = ExtResource("9_c5tll")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wuyol"]
+texture = ExtResource("10_lgr2f")
 
 [sub_resource type="LabelSettings" id="LabelSettings_e80uo"]
 font_size = 32
@@ -476,8 +476,11 @@ z_index = 2
 position = Vector2(395, 263)
 collision_layer = 2
 script = ExtResource("1_gpov7")
+speed = 200.0
 texto_flotante_scene = ExtResource("2_lgr2f")
 info_flotante_scene = ExtResource("3_lgr2f")
+radio_aim_assist = 300.0
+Velocidad_movimiento = 15.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0.936, 2.75)
@@ -495,7 +498,7 @@ debug_color = Color(0, 14.837186, 16.991568, 0)
 
 [node name="ArmaVisual" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(13.2061205, 3.9999905)
+position = Vector2(-2.794, 13)
 scale = Vector2(1.3058488, 1.4170598)
 texture = ExtResource("6_6dv7u")
 
@@ -536,9 +539,9 @@ offset_left = -0.48010254
 offset_top = 0.1599989
 offset_right = 0.11987305
 offset_bottom = -0.12000275
-theme_override_styles/normal = SubResource("StyleBoxTexture_i3q10")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_f8nqn")
-theme_override_styles/hover = SubResource("StyleBoxTexture_dyhx6")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lgr2f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ppgbu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wuyol")
 action_mode = 0
 
 [node name="Version" type="Label" parent="UI"]
@@ -617,16 +620,16 @@ scale = Vector2(3.2700624, 3.2158751)
 texture = ExtResource("11_l1dpr")
 
 [node name="Joystick" parent="UI" instance=ExtResource("12_xkqiu")]
-position = Vector2(191, 464)
+position = Vector2(195, 506)
 
 [node name="Atacar" type="TouchScreenButton" parent="UI"]
-position = Vector2(1001.00006, 444.00003)
+position = Vector2(1144, 455.99997)
 scale = Vector2(0.5722654, 0.57421875)
 texture_normal = ExtResource("13_pxuap")
 action = "interactuar"
 
 [node name="cambiar" type="TouchScreenButton" parent="UI"]
-position = Vector2(1206, 296)
+position = Vector2(1219, 268)
 scale = Vector2(0.38476557, 0.3769531)
 texture_normal = ExtResource("14_ihhc3")
 
@@ -735,8 +738,8 @@ label_settings = SubResource("LabelSettings_kne1u")
 
 [node name="ArmaEspalda" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(-9, 10)
-rotation = -1.5515977
+position = Vector2(-4, 0)
+rotation = -0.80110615
 scale = Vector2(1.5, 1.5)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

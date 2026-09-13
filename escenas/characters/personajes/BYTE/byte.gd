@@ -12,7 +12,14 @@ signal stats_cambiadas
 var sync_position: Vector2 = Vector2.ZERO
 
 func _enter_tree() -> void:
-	set_multiplayer_authority(name.to_int())
+	var id_jugador = name.to_int()
+	
+	# Si el nombre es un número (multijugador), asigna ese ID
+	if id_jugador != 0:
+		set_multiplayer_authority(id_jugador)
+	# Si no es un número (prueba local con F6), asigna tu propio ID actual
+	else:
+		set_multiplayer_authority(multiplayer.get_unique_id())
 # Transmite la textura del arma equipada a todas las pantallas
 @rpc("any_peer", "call_local", "reliable")
 func sincronizar_arma_visual_rpc(ruta_textura: String) -> void:
@@ -100,7 +107,7 @@ func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		var direction = Vector2.ZERO
 
-		# Movimiento por Joystick
+	# Movimiento por Joystick
 		if joystick != null and is_instance_valid(joystick):
 			direction = joystick.direc
 
@@ -123,14 +130,15 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("cambiar_arma") or Input.is_action_just_pressed("c"):
 			intercambiar_arma()
 			
-		# Aplicar velocidad
+		# ⬇️ AÑADE O MODIFICA ESTO JUSTO AQUÍ DEBAJO ⬇️
 		if direction != Vector2.ZERO:
-			velocity = direction.normalized() * speed
+			var velocidad_total = speed + Velocidad_movimiento
+			velocity = direction.normalized() * velocidad_total
 			$AnimatedSprite2D.play()
 			$AnimatedSprite2D.animation = "idle"
 		else:
 			velocity = Vector2.ZERO
-			$AnimatedSprite2D.stop()
+			$AnimatedSprite2D.play("idle")
 
 		# Orientación por movimiento
 		if velocity.x != 0:
@@ -309,7 +317,7 @@ func activar_arma_actual() -> void:
 	# 🔄 AL FINAL DE LA FUNCIÓN: Sincronizar con los demás
 	if inventario_armas.is_empty():
 		sincronizar_arma_visual_rpc.rpc("")
-	else:
+	else:	
 		arma = inventario_armas[indice_arma_activa]
 		if "textura" in arma and arma["textura"] != null:
 			sincronizar_arma_visual_rpc.rpc(arma["textura"].resource_path)
@@ -493,5 +501,10 @@ func actualizar_orientacion_espaldas(mirar_izquierda: bool) -> void:
 
 	if has_node("ArmaEspalda"):
 		$ArmaEspalda.flip_h = mirar_izquierda
-		var pos_x_base = abs($ArmaEspalda.position.x)
-		$ArmaEspalda.position.x = -pos_x_base if mirar_izquierda else pos_x_base
+		
+		if mirar_izquierda:
+			$ArmaEspalda.position.x = 4           # Posición al mirar a la izquierda
+			$ArmaEspalda.rotation_degrees = 45    # Invierte la diagonal a 45°
+		else:
+			$ArmaEspalda.position.x = -4          # Posición al mirar a la derecha
+			$ArmaEspalda.rotation_degrees = -45   # Inclinación diagonal normal (-45°)
