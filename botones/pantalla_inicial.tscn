@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://7ty5pkigek0e" path="res://botones/button_rectangle_depth_gradient.png" id="5_shuh5"]
 [ext_resource type="Texture2D" uid="uid://b310lonnymyix" path="res://botones/button_rectangle_gradient.png" id="6_vc8su"]
 [ext_resource type="Texture2D" uid="uid://b3qrcu5isbhnd" path="res://botones/button_rectangle_line.png" id="6_vddbi"]
-[ext_resource type="FontFile" uid="uid://glhbvbrcequf" path="res://sprites/Font/Romulus.ttf" id="6_y3o8s"]
 [ext_resource type="AudioStream" uid="uid://t2c214qoegia" path="res://musica/cancion_menu.mp3" id="7_y3o8s"]
+[ext_resource type="FontFile" uid="uid://xphfrekunuw7" path="res://sprites/Font/Kenney Future Narrow.ttf" id="13_5ucmb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6psb2"]
 atlas = ExtResource("2_ujcoa")
@@ -403,11 +403,11 @@ anchor_right = 0.37600002
 anchor_bottom = -0.108
 offset_left = -2.3950195
 offset_top = 3.8400269
-offset_right = -192.80402
-offset_bottom = -158.808
+offset_right = -133.32
+offset_bottom = -142.808
 scale = Vector2(2, 2)
 theme_override_colors/font_outline_color = Color(0.039215688, 0.023529412, 0.078431375, 1)
-theme_override_fonts/font = ExtResource("6_y3o8s")
+theme_override_fonts/font = ExtResource("13_5ucmb")
 theme_override_font_sizes/font_size = 64
 text = "DAWN"
 metadata/_edit_group_ = true
@@ -434,11 +434,11 @@ anchor_right = 0.526
 anchor_bottom = -0.057000004
 offset_left = -0.28500366
 offset_top = -0.03199768
-offset_right = -298.57
-offset_bottom = -63.232
+offset_right = -88.07001
+offset_bottom = -54.732
 scale = Vector2(2, 2)
 theme_override_colors/font_outline_color = Color(0.1764706, 0.8, 0.96862745, 1)
-theme_override_fonts/font = ExtResource("6_y3o8s")
+theme_override_fonts/font = ExtResource("13_5ucmb")
 theme_override_font_sizes/font_size = 64
 text = "QUEST"
 metadata/_edit_group_ = true

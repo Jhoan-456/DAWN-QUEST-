@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://ckab71qke54h3"]
+[gd_scene load_steps=88 format=3 uid="uid://ckab71qke54h3"]
 
 [ext_resource type="Script" uid="uid://bkh0luinqp3lr" path="res://escenas/characters/personajes/BYTE/byte.gd" id="1_gpov7"]
 [ext_resource type="PackedScene" uid="uid://h247nuktlvmv" path="res://escenas/characters/menu/texto_flotante.tscn" id="2_lgr2f"]
@@ -17,8 +17,10 @@
 [ext_resource type="Texture2D" uid="uid://d4n4a4utww3v0" path="res://botones/cycle.png" id="14_ihhc3"]
 [ext_resource type="Texture2D" uid="uid://ctxgdnnuuh6bq" path="res://sprites/MarcoSolo.png" id="15_g6rk6"]
 [ext_resource type="Texture2D" uid="uid://uhm6hfqbo743" path="res://sprites/BarraDeVidaSola.png" id="16_3vnd3"]
+[ext_resource type="Texture2D" uid="uid://dv0f61eekwcli" path="res://escenas/characters/personajes/BYTE/habilidad-activo.png" id="16_ppgbu"]
 [ext_resource type="Texture2D" uid="uid://bregmn5cgyx3a" path="res://sprites/BarraDeEscudoSola.png" id="17_37nvn"]
 [ext_resource type="Texture2D" uid="uid://tc1ayxgl8ia3" path="res://sprites/BarraDeEnergiaSola.png" id="18_1binm"]
+[ext_resource type="Texture2D" uid="uid://bqk2hnql2gxn" path="res://escenas/characters/personajes/BYTE/recargar_pasiva_bateria.png" id="21_wuyol"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_igjd1"]
 atlas = ExtResource("3_ppgbu")
@@ -483,7 +485,7 @@ radio_aim_assist = 300.0
 Velocidad_movimiento = 15.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.936, 2.75)
+position = Vector2(1.9999954, 2)
 scale = Vector2(1.1310997, 1.1640624)
 sprite_frames = SubResource("SpriteFrames_b26j0")
 animation = &"idle"
@@ -491,7 +493,7 @@ autoplay = "idle"
 offset = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 2)
+position = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_onrkg")
 one_way_collision = true
 debug_color = Color(0, 14.837186, 16.991568, 0)
@@ -633,6 +635,11 @@ position = Vector2(1219, 268)
 scale = Vector2(0.38476557, 0.3769531)
 texture_normal = ExtResource("14_ihhc3")
 
+[node name="habilidad_activo" type="TouchScreenButton" parent="UI"]
+position = Vector2(926, 477.00003)
+scale = Vector2(1.6640629, 1.6015625)
+texture_normal = ExtResource("16_ppgbu")
+
 [node name="HBoxContainer" type="VBoxContainer" parent="UI"]
 anchors_preset = -1
 anchor_right = 0.12200001
@@ -745,9 +752,17 @@ scale = Vector2(1.5, 1.5)
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_lgr2f")
 
+[node name="activo-recarga" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(3, 20)
+texture = ExtResource("21_wuyol")
+
 [connection signal="enviar_joystick" from="UI" to="." method="_on_ui_enviar_joystick"]
 [connection signal="pressed" from="UI/pausar" to="." method="_on_pausar_pressed"]
 [connection signal="pressed" from="UI/Atacar" to="UI" method="_on_atacar_pressed"]
 [connection signal="released" from="UI/Atacar" to="UI" method="_on_atacar_released"]
 [connection signal="pressed" from="UI/cambiar" to="UI" method="_on_cambiar_pressed"]
 [connection signal="released" from="UI/cambiar" to="UI" method="_on_cambiar_released"]
+[connection signal="pressed" from="UI/habilidad_activo" to="." method="usar_bateria_portatil"]
+[connection signal="released" from="UI/habilidad_activo" to="UI" method="_on_habilidadactivo_released"]

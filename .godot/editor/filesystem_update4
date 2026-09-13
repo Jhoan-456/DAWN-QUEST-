@@ -1,7 +1,4 @@
-res://escenas/characters/menu/menuAjustes.tscn
-res://escenas/characters/menu/pantalla_carga.tscn
-res://botones/pantalla_inicial.tscn
-res://escenas/characters/maps/GeneradorNivel.tscn
 res://escenas/characters/personajes/BYTE/byte.tscn
-res://escenas/characters/menu/info_flotante.tscn
-res://escenas/characters/menu/texto_flotante.tscn
+res://escenas/characters/personajes/BYTE/byte.gd
+res://escenas/characters/personajes/UI  Y CURSOR/ui.gd
+res://escenas/characters/maps/GeneradorNivel.tscn

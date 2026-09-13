@@ -40,7 +40,24 @@ func sincronizar_arma_visual_rpc(ruta_textura: String) -> void:
 @export var Velocidad_movimiento: float = 10.0
 @export var Probabilidad_crítico: float = 1.5
 @export var Suerte : float = 1.2
-@export var Bateria_Portatil : PackedScene # Item Inicial (activo)
+#Pasiva – Sobrecarga ⚡ 
+#Cada 8 segundos su próximo disparo no físico hace un 30% más de daño y deja un pequeño rastro eléctrico.  
+#Ítem inicial: Batería Portátil (activo) → Al usarla recarga instantáneamente la pasiva y da un pequeño escudo.
+
+# =====================================================================
+# ⚡ PASIVA: SOBRECARGA
+# =====================================================================
+var pasiva_sobrecarga_lista: bool = false
+var tiempo_pasiva_acumulado: float = 0.0
+const TIEMPO_PASIVA: float = 8.0 # Cada 8 segundos
+
+# =====================================================================
+# 🔋 ACTIVO: BATERÍA PORTÁTIL
+# =====================================================================
+@export var cooldown_activo: float = 10.0 # Tiempo de recarga de la habilidad activa
+@export var escudo_bateria: float = 30.0   # Escudo que otorga al usarse
+var activo_listo: bool = true
+var tiempo_activo_acumulado: float = 0.0
 #==========================================================================
 
 @export_group("VIDA MAXIMO DE BYTE")
@@ -85,6 +102,8 @@ func _ready() -> void:
 	add_to_group("jugador")
 	sync_position = global_position
 	
+	$"activo-recarga".visible = false
+	
 	# Desactivar la UI y Cámara de los personajes que pertenecen a otros jugadores
 	if not is_multiplayer_authority():
 		if has_node("UI"):
@@ -98,7 +117,7 @@ func _ready() -> void:
 		$Camera2D.enabled = true
 	texto_fps.visible = Datos.fps_visibles
 	texto_version.visible = Datos.version_visible
-	texto_version.text = "VERSION: " + Datos.version_juego
+	texto_version.text = Datos.version_juego
 	$AnimatedSprite2D.play("idle")
 
 
@@ -189,6 +208,22 @@ func _physics_process(delta: float) -> void:
 func _process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
+	
+	# --- ⚡ RECARGA DE LA PASIVA (Cada 8 segundos) ---
+	if not pasiva_sobrecarga_lista:
+		tiempo_pasiva_acumulado += _delta
+		if tiempo_pasiva_acumulado >= TIEMPO_PASIVA:
+			pasiva_sobrecarga_lista = true
+			tiempo_pasiva_acumulado = 0.0
+			crear_info_flotante("⚡ ¡Sobrecarga Lista!", Color(1.0, 0.9, 0.2))
+
+	# --- 🔋 RECARGA DE LA HABILIDAD ACTIVA ---
+	if not activo_listo:
+		tiempo_activo_acumulado += _delta
+		if tiempo_activo_acumulado >= cooldown_activo:
+			activo_listo = true
+			tiempo_activo_acumulado = 0.0
+			crear_info_flotante("🔋 ¡Batería Lista!", Color(0.2, 1.0, 0.4))
 
 	if texto_fps.visible:
 		var fps: int = Engine.get_frames_per_second()
@@ -355,11 +390,29 @@ func disparar() -> void:
 	
 	var es_critico = (randf() * 100.0) <= prob_critico_calculada
 	var dano_final = dano_calculado * (1.5 if es_critico else 1.0)
+	# ⚡ LÓGICA DE LA PASIVA SOBRECARGA
+	var es_no_fisico = false
+	if not inventario_armas.is_empty():
+		var arma_actual = inventario_armas[indice_arma_activa]
+		# Es no físico si no es cuerpo a cuerpo (mele)
+		es_no_fisico = not arma_actual.get("es_mele", false)
+
+	var aplico_sobrecarga: bool = false
+	if pasiva_sobrecarga_lista and es_no_fisico:
+		dano_final *= 1.30 # ⚡ +30% de daño extra
+		aplico_sobrecarga = true
+		pasiva_sobrecarga_lista = false # Se consume la pasiva
+		tiempo_pasiva_acumulado = 0.0   # Reinicia el conteo de 8s
 
 	if "daño" in bala:
 		bala.daño = dano_final
 	if "dano" in bala:
 		bala.dano = dano_final
+	# Si aplicó sobrecarga, avisa a la bala para que genere rastro eléctrico
+	if aplico_sobrecarga:
+		if "es_electrico" in bala:
+			bala.es_electrico = true
+		crear_texto_flotante("⚡ +30%", Color(1.0, 0.9, 0.2))
 		
 	if "velocidad" in bala:
 		bala.velocidad = vel_proyectil_calculada
@@ -508,3 +561,26 @@ func actualizar_orientacion_espaldas(mirar_izquierda: bool) -> void:
 		else:
 			$ArmaEspalda.position.x = -4          # Posición al mirar a la derecha
 			$ArmaEspalda.rotation_degrees = -45   # Inclinación diagonal normal (-45°)
+func usar_bateria_portatil() -> void:
+	if not is_multiplayer_authority():
+		return
+
+	if not activo_listo:
+		crear_info_flotante("Batería Recargando...", Color(0.6, 0.6, 0.6))
+		return
+
+	# Consumir el uso de la batería
+	activo_listo = false
+	tiempo_activo_acumulado = 0.0
+
+	# 1. Recarga instantánea de la pasiva
+	pasiva_sobrecarga_lista = true
+	tiempo_pasiva_acumulado = 0.0
+	
+	$"activo-recarga".visible = true
+	# 2. Otorga escudo
+	Escudo = clamp(Escudo + escudo_bateria, 0, max_escudo)
+	stats_cambiadas.emit()
+
+	# 3. Retroalimentación visual
+	crear_info_flotante("🔋 + " + str(escudo_bateria) + " Escudo | Pasiva Lista! ⚡", Color(0.2, 0.8, 1.0))

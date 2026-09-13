@@ -78,3 +78,11 @@ func _on_cambiar_pressed() -> void:
 func _on_cambiar_released() -> void:
 	$cambiar.modulate.a = 1.0
 	estado_disparo_cambiado.emit(false) # 👈 Avisa que soltaste
+	
+func _on_habilidadactivo_pressed() -> void:
+	$habilidad_activo.modulate.a = 0.5
+	pass # Replace with function body.
+
+
+func _on_habilidadactivo_released() -> void:
+	pass # Replace with function body.

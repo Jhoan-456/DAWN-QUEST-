@@ -13,7 +13,7 @@ var carga_lista : bool = false
 var nueva_escena : PackedScene
 var tween_barra : Tween
 
-var version : String = "alpha 0.0.1"
+var version : String = "v0.0.2 - alpha "
 
 func _ready():
 	if escena_a_cargar == "":
@@ -51,7 +51,7 @@ func _process(delta):
 	$Porcentaje.text = str(porcentaje_actual) + "%" 
 	
 	# Muestra tu versión abajo
-	$Version.text = "Version: " + str(version)
+	$Version.text = str(version)
 func ejecutar_intro_transicion():
 	# 1. Bloqueamos la pantalla temporalmente
 	$TransicionGlobal/PantallaNegra.mouse_filter = Control.MOUSE_FILTER_STOP

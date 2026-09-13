@@ -1,7 +1,7 @@
 extends Node
 
 var fps_visibles : bool = true
-var version_juego : String = "alpha 0.0.1"
+var version_juego : String = "v0.0.2 - alpha "
 var version_visible : bool = true
 
 
