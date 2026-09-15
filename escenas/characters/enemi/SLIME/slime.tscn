@@ -453,7 +453,7 @@ offset = Vector2(-101.33334, 21.265816)
 [node name="Zona_ataque" type="Area2D" parent="."]
 position = Vector2(-1, 0)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 18
 
 [node name="hacer_daño" type="CollisionShape2D" parent="Zona_ataque"]
 position = Vector2(2, 9)
@@ -472,6 +472,7 @@ position = Vector2(-27, 1)
 shape = SubResource("CircleShape2D_743j8")
 debug_color = Color(14.032558, 15.441137, 18.892157, 0.019607844)
 
+[connection signal="area_entered" from="Zona_ataque" to="." method="_on_zona_ataque_area_entered"]
 [connection signal="body_entered" from="Zona_ataque" to="." method="_on_zona_ataque_body_entered"]
 [connection signal="body_exited" from="Zona_ataque" to="." method="_on_zona_ataque_body_exited"]
 [connection signal="body_entered" from="ZonaDeteccion" to="." method="_on_zona_deteccion_body_entered"]

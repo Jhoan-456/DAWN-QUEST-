@@ -20,6 +20,7 @@ func _enter_tree() -> void:
 	# Si no es un número (prueba local con F6), asigna tu propio ID actual
 	else:
 		set_multiplayer_authority(multiplayer.get_unique_id())
+		
 # Transmite la textura del arma equipada a todas las pantallas
 @rpc("any_peer", "call_local", "reliable")
 func sincronizar_arma_visual_rpc(ruta_textura: String) -> void:
@@ -28,6 +29,7 @@ func sincronizar_arma_visual_rpc(ruta_textura: String) -> void:
 		$ArmaVisual.visible = true
 	else:
 		$ArmaVisual.visible = false
+		
 #====================================================================
 @export_group("ATRIBUTOS DEL BYTE")
 @export var vida :float = 160
@@ -40,24 +42,30 @@ func sincronizar_arma_visual_rpc(ruta_textura: String) -> void:
 @export var Velocidad_movimiento: float = 10.0
 @export var Probabilidad_crítico: float = 1.5
 @export var Suerte : float = 1.2
-#Pasiva – Sobrecarga ⚡ 
-#Cada 8 segundos su próximo disparo no físico hace un 30% más de daño y deja un pequeño rastro eléctrico.  
-#Ítem inicial: Batería Portátil (activo) → Al usarla recarga instantáneamente la pasiva y da un pequeño escudo.
 
 # =====================================================================
 # ⚡ PASIVA: SOBRECARGA
 # =====================================================================
-var pasiva_sobrecarga_lista: bool = false
-var tiempo_pasiva_acumulado: float = 0.0
+@export var pasiva_sobrecarga_lista: bool = false
+@export var tiempo_pasiva_acumulado: float = 0.0
 const TIEMPO_PASIVA: float = 8.0 # Cada 8 segundos
 
 # =====================================================================
-# 🔋 ACTIVO: BATERÍA PORTÁTIL
+# 🔋 ACTIVO: BATERÍA PORTÁTIL (Escudo Físico Area2D)
 # =====================================================================
 @export var cooldown_activo: float = 10.0 # Tiempo de recarga de la habilidad activa
-@export var escudo_bateria: float = 30.0   # Escudo que otorga al usarse
+@export var escudo_bateria: float = 100.0 # Vida que tiene la burbuja de escudo
+
+# Referencias a los nuevos nodos
+@onready var burbuja_escudo = $BurbujaEscudo
+@onready var escudo_visual = $BurbujaEscudo/AnimatedSprite2D
+
+@export var boton_habilidad: TouchScreenButton 
+@export var barra_recarga: TextureProgressBar # <--- NUEVO: La barra circular que creaste
+
 var activo_listo: bool = true
 var tiempo_activo_acumulado: float = 0.0
+var vida_actual_escudo: float = 0.0 # Vida independiente del escudo de burbuja
 #==========================================================================
 
 @export_group("VIDA MAXIMO DE BYTE")
@@ -76,7 +84,7 @@ var costo_energia_actual: float = 5.0
 
 # Efectos de estado transferibles del arma
 var aplica_quemadura: bool = false
-var duracion_quemadura: float = 0.0
+var duracion_quemadura: float = 1.0
 
 var Moneda = 0
 @onready var joystick: Joystick = $UI/Joystick
@@ -101,8 +109,15 @@ var indice_arma_activa: int = 0
 func _ready() -> void:
 	add_to_group("jugador")
 	sync_position = global_position
+	$aro_energia.visible = false
+	if has_node("activo-recarga"):
+		$"activo-recarga".visible = false
 	
-	$"activo-recarga".visible = false
+	# Asegurarnos de que el escudo empiece apagado al iniciar
+	if burbuja_escudo:
+		burbuja_escudo.visible = false
+		burbuja_escudo.set_deferred("monitorable", false)
+		burbuja_escudo.set_deferred("monitoring", false)
 	
 	# Desactivar la UI y Cámara de los personajes que pertenecen a otros jugadores
 	if not is_multiplayer_authority():
@@ -149,7 +164,6 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("cambiar_arma") or Input.is_action_just_pressed("c"):
 			intercambiar_arma()
 			
-		# ⬇️ AÑADE O MODIFICA ESTO JUSTO AQUÍ DEBAJO ⬇️
 		if direction != Vector2.ZERO:
 			var velocidad_total = speed + Velocidad_movimiento
 			velocity = direction.normalized() * velocidad_total
@@ -217,12 +231,20 @@ func _process(_delta: float) -> void:
 			tiempo_pasiva_acumulado = 0.0
 			crear_info_flotante("⚡ ¡Sobrecarga Lista!", Color(1.0, 0.9, 0.2))
 
-	# --- 🔋 RECARGA DE LA HABILIDAD ACTIVA ---
+	# --- 🔋 RECARGA VISUAL DE LA HABILIDAD (Estilo Soul Knight) ---
 	if not activo_listo:
 		tiempo_activo_acumulado += _delta
+		
+		if barra_recarga:
+			var tiempo_restante = cooldown_activo - tiempo_activo_acumulado
+			var porcentaje = (tiempo_restante / cooldown_activo) * 100.0
+			barra_recarga.value = porcentaje
+
 		if tiempo_activo_acumulado >= cooldown_activo:
 			activo_listo = true
 			tiempo_activo_acumulado = 0.0
+			if barra_recarga:
+				barra_recarga.value = 0 # Quita la capa oscura por completo
 			crear_info_flotante("🔋 ¡Batería Lista!", Color(0.2, 1.0, 0.4))
 
 	if texto_fps.visible:
@@ -239,6 +261,7 @@ func _process(_delta: float) -> void:
 	
 	texto_moneda.text = "Monedas: " + str(Moneda)
 	
+	# ⚔️ LÓGICA DE DISPARO E INVOCACIÓN
 	if tiene_arma and puede_disparar and Energia >= costo_energia_actual and Input.is_action_pressed("interactuar"):
 		disparar()
 
@@ -262,7 +285,8 @@ func equipar_arma(nodo_arma: Node2D) -> void:
 		"es_invocador": nodo_arma.es_clase_invocador if "es_clase_invocador" in nodo_arma else false,
 		"aplica_quemadura": nodo_arma.aplica_quemadura if "aplica_quemadura" in nodo_arma else false,
 		"duracion_quemadura": nodo_arma.duracion_quemadura if "duracion_quemadura" in nodo_arma else 0.0,
-		"escena_suelo_path": nodo_arma.scene_file_path
+		"escena_suelo_path": nodo_arma.scene_file_path,
+		"limite_max": nodo_arma.limite_max if "limite_max" in nodo_arma else 3,
 	}
 
 	if inventario_armas.size() < 2:
@@ -316,7 +340,7 @@ func activar_arma_actual() -> void:
 
 	# 3. MOSTRAR TEXTO FLOTANTE CON EL NOMBRE
 	var nombre_mostrar = arma["nombre"] if "nombre" in arma else "Arma"
-	crear_info_flotante(str(nombre_mostrar), Color(1.0, 0.85, 0.2))
+	crear_info_flotante(str(nombre_mostrar), Color(0.2, 0.853, 1.0, 1.0))
 
 	# Actualizar variables de combate
 	escena_bala_actual = arma["escena_bala"]
@@ -346,8 +370,6 @@ func activar_arma_actual() -> void:
 		dano_calculado = arma["dano_base"] + (inteligencia * arma["esc_int"]) + (Suerte * 1.5)
 		cadencia_calculada = max(0.2, arma["cad_base"])
 		vel_proyectil_calculada = (Velocidad_proyectil * 25.0) * arma["mult_vel_p"]
-
-	print("⚔️ Arma Activa | Daño:", dano_calculado, " | Cadencia:", cadencia_calculada)
 	
 	# 🔄 AL FINAL DE LA FUNCIÓN: Sincronizar con los demás
 	if inventario_armas.is_empty():
@@ -370,8 +392,28 @@ func soltar_arma_actual_al_suelo() -> void:
 
 func disparar() -> void:
 	if not escena_bala_actual:
-		print("⚠️ ALERTA: Esta arma no tiene asignada una 'escena_bala' en su Inspector.")
 		return
+	# 🧚‍♂️ CONTROL DE INVOCACIONES POR JUGADOR
+	if not inventario_armas.is_empty():
+		var arma_actual = inventario_armas[indice_arma_activa]
+		if arma_actual.get("es_invocador", false):
+			# Lee el límite máximo del diccionario del arma (por defecto 1 si no existe)
+			var maximo_permitido: int = arma_actual.get("limite_max", 3)
+			
+			# Contar únicamente las hadas que pertenecen a ESTE jugador
+			var mis_hadas: Array = []
+			for node in get_tree().get_nodes_in_group("hada_jugador"):
+				if is_instance_valid(node):
+					# Revisa tanto si el nodo tiene la referencia como si la red coincide
+					var es_mio = ("jugador" in node and node.jugador == self) or (node.get_multiplayer_authority() == get_multiplayer_authority())
+					if es_mio:
+						mis_hadas.append(node)
+			
+			# Si alcanzamos o superamos el límite, borramos las más antiguas
+			while mis_hadas.size() >= maximo_permitido:
+				var hada_vieja = mis_hadas.pop_front()
+				if is_instance_valid(hada_vieja):
+					hada_vieja.queue_free()
 
 	Energia -= costo_energia_actual
 	Energia = clamp(Energia, 0, max_energia)
@@ -384,31 +426,40 @@ func disparar() -> void:
 	
 	bala.global_position = $ArmaVisual/puntoDisparo.global_position
 	bala.rotation = $ArmaVisual.rotation
+	
+	# 🟢 DESFASE: Un pequeño margen aleatorio (-20 a 20 px) para que no queden encimadas una sobre otra
+	var desfase = Vector2(randf_range(-20, 20), randf_range(-20, 20))
+	bala.global_position = global_position + desfase
+	# 🟢 AGREGAR ESTAS 2 LÍNEAS PARA EL MULTIJUGADOR:
+	if "jugador" in bala:
+		bala.jugador = self # Le dices al hada que TÚ eres su invocador
+	bala.set_multiplayer_authority(get_multiplayer_authority()) # Le das tu misma autoridad
 
 	if "direccion_vector" in bala:
 		bala.direccion_vector = Vector2.RIGHT.rotated($ArmaVisual.rotation)
 	
 	var es_critico = (randf() * 100.0) <= prob_critico_calculada
 	var dano_final = dano_calculado * (1.5 if es_critico else 1.0)
+	
 	# ⚡ LÓGICA DE LA PASIVA SOBRECARGA
 	var es_no_fisico = false
 	if not inventario_armas.is_empty():
 		var arma_actual = inventario_armas[indice_arma_activa]
-		# Es no físico si no es cuerpo a cuerpo (mele)
 		es_no_fisico = not arma_actual.get("es_mele", false)
 
 	var aplico_sobrecarga: bool = false
 	if pasiva_sobrecarga_lista and es_no_fisico:
 		dano_final *= 1.30 # ⚡ +30% de daño extra
 		aplico_sobrecarga = true
-		pasiva_sobrecarga_lista = false # Se consume la pasiva
-		tiempo_pasiva_acumulado = 0.0   # Reinicia el conteo de 8s
+		pasiva_sobrecarga_lista = false 
+		tiempo_pasiva_acumulado = 0.0
 
 	if "daño" in bala:
 		bala.daño = dano_final
 	if "dano" in bala:
 		bala.dano = dano_final
-	# Si aplicó sobrecarga, avisa a la bala para que genere rastro eléctrico
+		
+	# Si aplicó sobrecarga, avisa a la bala
 	if aplico_sobrecarga:
 		if "es_electrico" in bala:
 			bala.es_electrico = true
@@ -437,6 +488,7 @@ func aplicar_retroceso():
 	tween.tween_property($ArmaVisual, "position", posicion_original, 0.07)
 
 
+# --- FUNCIÓN DE DAÑO DIRECTO AL JUGADOR ---
 func recibir_daño(cantidad: int):
 	$AnimatedSprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	if Escudo > 0:
@@ -459,6 +511,27 @@ func recibir_daño(cantidad: int):
 			vida = 0
 			print("Game over")
 
+# --- NUEVAS FUNCIONES PARA EL ESCUDO BURBUJA ---
+func recibir_dano_escudo(cantidad: int) -> void:
+	if vida_actual_escudo <= 0: return # Ya está roto
+	
+	vida_actual_escudo -= cantidad
+	crear_texto_flotante("🛡️ -" + str(cantidad), Color(0.2, 0.8, 1.0))
+	
+	if vida_actual_escudo <= 0:
+		romper_escudo_visual()
+
+func romper_escudo_visual() -> void:
+	if burbuja_escudo:
+		burbuja_escudo.set_deferred("monitorable", false)
+		burbuja_escudo.set_deferred("monitoring", false)
+	
+	if escudo_visual:
+		escudo_visual.play("destruccion")
+		await escudo_visual.animation_finished
+		burbuja_escudo.visible = false
+
+# ------------------------------------------------
 
 func efecto_recibir_daño() -> void:
 	var sprite = $AnimatedSprite2D
@@ -556,31 +629,37 @@ func actualizar_orientacion_espaldas(mirar_izquierda: bool) -> void:
 		$ArmaEspalda.flip_h = mirar_izquierda
 		
 		if mirar_izquierda:
-			$ArmaEspalda.position.x = 4           # Posición al mirar a la izquierda
-			$ArmaEspalda.rotation_degrees = 45    # Invierte la diagonal a 45°
+			$ArmaEspalda.position.x = 4            # Posición al mirar a la izquierda
+			$ArmaEspalda.rotation_degrees = 45     # Invierte la diagonal a 45°
 		else:
-			$ArmaEspalda.position.x = -4          # Posición al mirar a la derecha
-			$ArmaEspalda.rotation_degrees = -45   # Inclinación diagonal normal (-45°)
+			$ArmaEspalda.position.x = -4           # Posición al mirar a la derecha
+			$ArmaEspalda.rotation_degrees = -45    # Inclinación diagonal normal (-45°)
+
+
+# =====================================================================
+# HABILIDAD ACTIVA
+# =====================================================================
 func usar_bateria_portatil() -> void:
-	if not is_multiplayer_authority():
+	if not is_multiplayer_authority() or not activo_listo:
 		return
 
-	if not activo_listo:
-		crear_info_flotante("Batería Recargando...", Color(0.6, 0.6, 0.6))
-		return
-
-	# Consumir el uso de la batería
 	activo_listo = false
 	tiempo_activo_acumulado = 0.0
+	
+	$aro_energia.visible = true
+	if barra_recarga:
+		barra_recarga.value = 100 # Se llena de oscuridad al activarse
 
-	# 1. Recarga instantánea de la pasiva
+	# 1. Recargar Pasiva Instantáneamente
 	pasiva_sobrecarga_lista = true
 	tiempo_pasiva_acumulado = 0.0
 	
-	$"activo-recarga".visible = true
-	# 2. Otorga escudo
-	Escudo = clamp(Escudo + escudo_bateria, 0, max_escudo)
-	stats_cambiadas.emit()
+	# 2. Activar la Burbuja Física
+	if burbuja_escudo and escudo_visual:
+		vida_actual_escudo = escudo_bateria # Le da vida equivalente a la estadística 'escudo_bateria'
+		burbuja_escudo.visible = true
+		burbuja_escudo.set_deferred("monitorable", true)
+		burbuja_escudo.set_deferred("monitoring", true)
+		escudo_visual.play("activo")
 
-	# 3. Retroalimentación visual
-	crear_info_flotante("🔋 + " + str(escudo_bateria) + " Escudo | Pasiva Lista! ⚡", Color(0.2, 0.8, 1.0))
+	crear_info_flotante("🛡️ Escudo Desplegado | Pasiva Lista!", Color(0.2, 0.8, 1.0))

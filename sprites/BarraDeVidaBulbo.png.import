@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vxsjhq5x4mxc"
-path="res://.godot/imported/BarraDeVidaBulbo.png-3827cb6e22cf52054ba134218666f62e.ctex"
+path="res://.godot/imported/BarraDeVidaBulbo.png-25757753ba8489f4c8086d9a519058b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BarraDeVidaBulbo.png"
-dest_files=["res://.godot/imported/BarraDeVidaBulbo.png-3827cb6e22cf52054ba134218666f62e.ctex"]
+source_file="res://sprites/BarraDeVidaBulbo.png"
+dest_files=["res://.godot/imported/BarraDeVidaBulbo.png-25757753ba8489f4c8086d9a519058b0.ctex"]
 
 [params]
 

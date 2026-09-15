@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bipgc4y3jnnv0"
-path="res://.godot/imported/logo.jpg-f1e0e75630b3c4ad7a7a98f2202aa665.ctex"
+uid="uid://cuakxpnri2m0t"
+path="res://.godot/imported/PqredesBosque.png-1e38413e9dd2e112a8503b201ec96293.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://logo.jpg"
-dest_files=["res://.godot/imported/logo.jpg-f1e0e75630b3c4ad7a7a98f2202aa665.ctex"]
+source_file="res://sprites/PqredesBosque.png"
+dest_files=["res://.godot/imported/PqredesBosque.png-1e38413e9dd2e112a8503b201ec96293.ctex"]
 
 [params]
 

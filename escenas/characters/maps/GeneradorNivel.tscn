@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://du7xgirwrtrld"]
+[gd_scene load_steps=14 format=3 uid="uid://du7xgirwrtrld"]
 
 [ext_resource type="Texture2D" uid="uid://blni5m3olblw7" path="res://sprites/Tilesets.png" id="1_kn705"]
 [ext_resource type="Texture2D" uid="uid://bg44rx76ns1jt" path="res://sprites/ParedesBoscosas.png" id="2_0b0my"]
@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://b6s3g802sotat" path="res://escenas/characters/items/armas/MAGO/baculo/baculo.tscn" id="8_0plmc"]
 [ext_resource type="PackedScene" uid="uid://dlm2m747f6jti" path="res://escenas/characters/BOSSES/boss_plantera.tscn" id="8_nd1ey"]
 [ext_resource type="PackedScene" uid="uid://cghmcoklixce8" path="res://escenas/characters/enemi/SLIME/slime.tscn" id="9_7g0br"]
-[ext_resource type="PackedScene" uid="uid://b31cgl6u1t68l" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.tscn" id="9_nd1ey"]
+[ext_resource type="PackedScene" uid="uid://b31cgl6u1t68l" path="res://sprites/Pastor_hadas.tscn" id="9_nd1ey"]
+[ext_resource type="PackedScene" uid="uid://br4vetd4wljha" path="res://escenas/characters/items/armas/MAGO/libro de agua/libro_Agua.tscn" id="10_7g0br"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lj4md"]
 texture = ExtResource("1_kn705")
@@ -94,7 +95,7 @@ nombre_arma = "Pistola Default"
 
 [node name="Personaje" parent="." instance=ExtResource("7_0plmc")]
 z_index = 1
-position = Vector2(735, 505)
+position = Vector2(745, 580)
 
 [node name="Baculo" parent="." instance=ExtResource("8_0plmc")]
 z_index = 2
@@ -112,3 +113,6 @@ position = Vector2(790, -140)
 
 [node name="slime" parent="." instance=ExtResource("9_7g0br")]
 position = Vector2(734, 228)
+
+[node name="libro_agua" parent="." instance=ExtResource("10_7g0br")]
+position = Vector2(740, 915)

@@ -15,6 +15,7 @@ var ya_se_dividio: bool = false
 var esta_muerto: bool = false
 var recibiendo_dano: bool = false  # 👈 Evita interrupciones durante el golpe
 
+@export var distancia_rebote: float = 60.0 # Píxeles que saldrá empujado hacia atrás
 var dano: int = 2
 var objetivo: Node2D = null              # Jugador en rango de ATAQUE
 var jugador_a_perseguir: Node2D = null  # Jugador en rango de VISIÓN
@@ -213,3 +214,19 @@ func soltar_moneda() -> void:
 	var nueva_moneda = escena_moneda.instantiate()
 	get_parent().add_child(nueva_moneda)
 	nueva_moneda.global_position = global_position + Vector2(0, -10)
+
+
+func _on_zona_ataque_area_entered(area: Area2D) -> void:
+	if area.is_in_group("escudo_jugador"):
+		if area.get_parent().has_method("recibir_dano_escudo"):
+			area.get_parent().recibir_dano_escudo(5) # Tu variable de daño
+			
+			# 1. Obtener la dirección opuesta al escudo (desde el escudo hacia el enemigo)
+			var direccion_empujon = (global_position - area.global_position).normalized()
+			
+			# 2. Calcular la posición final del empujón
+			var destino = global_position + (direccion_empujon * distancia_rebote)
+			
+			# 3. Mover al enemigo rápidamente hacia atrás
+			var tween = create_tween()
+			tween.tween_property(self, "global_position", destino, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)

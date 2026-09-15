@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1wj7211hl3oi"
-path="res://.godot/imported/Barra de vida jefe.png-d8640672f72d89e7e0456227560733a8.ctex"
+path="res://.godot/imported/Barra de vida jefe.png-d7b55e82ded00c9c43caf26ad20f2398.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Barra de vida jefe.png"
-dest_files=["res://.godot/imported/Barra de vida jefe.png-d8640672f72d89e7e0456227560733a8.ctex"]
+source_file="res://sprites/Barra de vida jefe.png"
+dest_files=["res://.godot/imported/Barra de vida jefe.png-d7b55e82ded00c9c43caf26ad20f2398.ctex"]
 
 [params]
 

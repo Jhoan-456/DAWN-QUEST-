@@ -363,7 +363,7 @@ autoplay = "idle"
 [node name="Zona_ataque" type="Area2D" parent="."]
 position = Vector2(-1, 0)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 18
 
 [node name="hacer_daño" type="CollisionShape2D" parent="Zona_ataque"]
 position = Vector2(-2, -7)
@@ -374,7 +374,7 @@ debug_color = Color(2.0331757, 0, 0.48853496, 0.12156863)
 [node name="ZonaDeteccion" type="Area2D" parent="."]
 position = Vector2(-4, -4)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 18
 
 [node name="ver" type="CollisionShape2D" parent="ZonaDeteccion"]
 position = Vector2(4, -2)
@@ -394,6 +394,7 @@ wait_time = 0.3
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_n7v3p")
 
+[connection signal="area_entered" from="Zona_ataque" to="." method="_on_zona_ataque_area_entered"]
 [connection signal="body_entered" from="Zona_ataque" to="." method="_on_zona_ataque_body_entered"]
 [connection signal="body_exited" from="Zona_ataque" to="." method="_on_zona_ataque_body_exited"]
 [connection signal="body_entered" from="ZonaDeteccion" to="." method="_on_zona_deteccion_body_entered"]

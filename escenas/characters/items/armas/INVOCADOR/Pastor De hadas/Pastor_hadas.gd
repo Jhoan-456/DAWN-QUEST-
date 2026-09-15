@@ -21,6 +21,7 @@ var sprite_principal : Sprite2D
 @export var cadencia_base: float = 0.5
 @export var multiplicador_vel_proyectil: float = 1.0
 @export var nombre_arma: String = "Pastor de Hadas" # Escribe el nombre correspondiente en cada arma
+@export var limite_max: int = 2
 
 @export_group("CLASE DEL ARMA")
 @export var es_clase_invocador: bool = true

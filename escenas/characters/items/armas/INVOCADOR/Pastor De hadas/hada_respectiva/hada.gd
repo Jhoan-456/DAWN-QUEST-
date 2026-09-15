@@ -1,120 +1,104 @@
 extends CharacterBody2D
 
-@export var vel_seguimiento: float = 140.0
-@export var vel_embestida: float = 400.0
-@export var alcance_ataque: float = 35.0
-@export var cadencia_ataque: float = 0.4
-
-var dano: float = 4.0
-var jugador: Node2D = null
-var enemigo_objetivo: Node2D = null
+@export var velocidad_movimiento: float = 130.0
+@export var dano: float = 8.0
+@export var cadencia_ataque: float = 1.0 # Segundos entre cada golpe
+@export var radio_deteccion: float = 300.0
+@export var rango_ataque: float = 40.0 # Qué tan cerca debe estar para golpear
 
 var puede_atacar: bool = true
-var en_embestida: bool = false
-var offset_flotante: Vector2 = Vector2(-25, -30)
-
+var objetivo_actual: CharacterBody2D = null
+var jugador: CharacterBody2D = null
 
 func _ready() -> void:
-	add_to_group("súbdito_hada")
-	jugador = get_tree().get_first_node_in_group("jugador")
+	add_to_group("hada_jugador")
 
-
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+# Si no se le asignó un jugador desde byte.gd, busca a cuál asociarse
 	if not is_instance_valid(jugador):
-		jugador = get_tree().get_first_node_in_group("jugador")
-		if not jugador:
-			return
+		buscar_jugador()
 
-	# Si está ejecutando el desplazamiento del campanazo
-	if en_embestida:
-		_procesar_embestida(delta)
-		return
+	objetivo_actual = buscar_enemigo_cercano()
 
-	# Buscar enemigo objetivo si no tiene uno
-	if enemigo_objetivo == null or not is_instance_valid(enemigo_objetivo):
-		enemigo_objetivo = buscar_enemigo_cercano()
+	# 1. MOVIMIENTO DIRECTO
+	mover_hada()
 
-	if enemigo_objetivo != null and is_instance_valid(enemigo_objetivo):
-		var dist = global_position.distance_to(enemigo_objetivo.global_position)
-		if dist > alcance_ataque:
-			var dir = (enemigo_objetivo.global_position - global_position).normalized()
-			velocity = dir * vel_seguimiento
+	# 2. ATAQUE DIRECTO
+	if is_instance_valid(objetivo_actual) and puede_atacar:
+		if esta_tocando_objetivo():
+			atacar_automatico()
+
+func mover_hada() -> void:
+	if is_instance_valid(objetivo_actual):
+		# Va DIRECTO hacia el enemigo para chocar con él
+		var direccion = (objetivo_actual.global_position - global_position).normalized()
+		velocity = direccion * velocidad_movimiento
+	elif is_instance_valid(jugador):
+		# Sigue al jugador si se aleja más de 20px
+		var distancia = global_position.distance_to(jugador.global_position)
+		if distancia > 20.0:
+			var direccion = (jugador.global_position - global_position).normalized()
+			velocity = direccion * velocidad_movimiento
 		else:
 			velocity = Vector2.ZERO
-			if puede_atacar:
-				atacar_enemigo(enemigo_objetivo)
 	else:
-		# Si no hay enemigos, flota al lado del jugador
-		var pos_objetivo = jugador.global_position + offset_flotante
-		var dist_jugador = global_position.distance_to(pos_objetivo)
-		if dist_jugador > 15.0:
-			var dir = (pos_objetivo - global_position).normalized()
-			velocity = dir * vel_seguimiento
-		else:
-			velocity = Vector2.ZERO
-
-	# Girar la vista del Hada según su movimiento
-	if velocity.x != 0 and has_node("Sprite2D"):
-		$Sprite2D.flip_h = velocity.x < 0
+		velocity = Vector2.ZERO
 
 	move_and_slide()
 
+func buscar_enemigo_cercano() -> CharacterBody2D:
+	var grupos = ["bosses", "enemigos_dificil", "enemigos_medio", "enemigos_facil"]
+	var enemigo_cercano: CharacterBody2D = null
+	var distancia_minima: float = radio_deteccion
 
-# --- LÓGICA DEL CAMPANAZO ---
-func redireccionar_a_enemigo() -> void:
-	var nuevo_enemigo = buscar_enemigo_cercano()
-	if nuevo_enemigo != null:
-		enemigo_objetivo = nuevo_enemigo
-		en_embestida = true
-		
-		# Golpea de inmediato al iniciar el desplazamiento
-		atacar_enemigo(enemigo_objetivo)
-		
-		# Duración del desplazamiento rápido
-		await get_tree().create_timer(0.25).timeout
-		en_embestida = false
+	for grupo in grupos:
+		for enemigo in get_tree().get_nodes_in_group(grupo):
+			# Validamos que exista y que realmente sea un CharacterBody2D
+			if is_instance_valid(enemigo) and enemigo is CharacterBody2D:
+				var dist = global_position.distance_to(enemigo.global_position)
+				if dist < distancia_minima:
+					distancia_minima = dist
+					enemigo_cercano = enemigo as CharacterBody2D
 
-
-func _procesar_embestida(_delta: float) -> void:
-	if enemigo_objetivo != null and is_instance_valid(enemigo_objetivo):
-		var dir = (enemigo_objetivo.global_position - global_position).normalized()
-		velocity = dir * vel_embestida
-		move_and_slide()
+	return enemigo_cercano
 
 
-# --- APLICAR DAÑO A ENEMIGOS ---
-func atacar_enemigo(target: Node2D) -> void:
-	if not puede_atacar or target == null or not is_instance_valid(target):
-		return
-		
+func buscar_jugador() -> void:
+	# Si el hada no tiene jugador asignado, busca cuál es la autoridad del nodo
+	var lista_jugadores = get_tree().get_nodes_in_group("jugador")
+	for p in lista_jugadores:
+		if is_instance_valid(p) and p is CharacterBody2D:
+			# Compara si la autoridad de la red del jugador coincide con la del hada
+			if p.get_multiplayer_authority() == get_multiplayer_authority():
+				jugador = p as CharacterBody2D
+				break
+func atacar_automatico() -> void:
 	puede_atacar = false
 
-	if target.has_method("recibir_daño"):
-		target.recibir_daño(dano)
-	elif target.has_method("recibir_dano"):
-		target.recibir_dano(dano)
-	elif "vida" in target:
-		target.vida -= dano
+	if is_instance_valid(objetivo_actual):
+		# AQUÍ LE HACE DAÑO DIRECTO AL ENEMIGO
+		# Revisa cómo se llama tu función de daño en los enemigos y cámbiala si es necesario
+		if objetivo_actual.has_method("recibir_daño"):
+			objetivo_actual.recibir_daño(dano)
+		elif objetivo_actual.has_method("recibir_dano"): # Por si le pusiste otro nombre
+			objetivo_actual.recibir_dano(dano)
+			
+		print("¡El hada golpeó al enemigo!") # Para que veas en la consola que sí está atacando
 
 	await get_tree().create_timer(cadencia_ataque).timeout
 	puede_atacar = true
+func esta_tocando_objetivo() -> bool:
+	if not is_instance_valid(objetivo_actual):
+		return false
 
+	# 1. Distancia directa (para enemigos pequeños)
+	if global_position.distance_to(objetivo_actual.global_position) <= rango_ataque:
+		return true
 
-# --- BÚSQUEDA AUTOMÁTICA DE ENEMIGOS ---
-func buscar_enemigo_cercano() -> Node2D:
-	var lista_prioridades = ["bosses", "enemigos_dificil", "enemigos_medio", "enemigos_facil"]
-	var enemigo_cercano: Node2D = null
-	var dist_minima: float = 350.0 # Alcance máximo de detección
+	# 2. Colisión física (para Bosses grandes donde chocamos con su cuerpo antes de llegar al centro)
+	for i in get_slide_collision_count():
+		var colision = get_slide_collision(i)
+		if colision.get_collider() == objetivo_actual:
+			return true
 
-	for grupo in lista_prioridades:
-		var enemigos = get_tree().get_nodes_in_group(grupo)
-		for e in enemigos:
-			if is_instance_valid(e):
-				var d = global_position.distance_to(e.global_position)
-				if d < dist_minima:
-					dist_minima = d
-					enemigo_cercano = e
-		if enemigo_cercano != null:
-			break
-
-	return enemigo_cercano
+	return false

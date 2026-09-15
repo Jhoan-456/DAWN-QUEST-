@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuakxpnri2m0t"
-path="res://.godot/imported/PqredesBosque.png-30ed8df89c5f5ad76fbfef02df552f24.ctex"
+uid="uid://b5eqacapb8iff"
+path="res://.godot/imported/Libro de agyaAgarrar.png-d76b5260500328a0e16c3f4bc4c844d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://PqredesBosque.png"
-dest_files=["res://.godot/imported/PqredesBosque.png-30ed8df89c5f5ad76fbfef02df552f24.ctex"]
+source_file="res://escenas/characters/items/armas/MAGO/libro de agua/Libro de agyaAgarrar.png"
+dest_files=["res://.godot/imported/Libro de agyaAgarrar.png-d76b5260500328a0e16c3f4bc4c844d2.ctex"]
 
 [params]
 

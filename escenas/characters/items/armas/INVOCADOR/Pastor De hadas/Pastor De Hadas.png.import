@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bftxrw47jyclg"
-path="res://.godot/imported/AgarrarPastorDeHadas.png-e033e0f55d423e67d1da6dc0b72f3cd9.ctex"
+uid="uid://dxaeh6sllvn8b"
+path="res://.godot/imported/Pastor De Hadas.png-a4c5a7190e64ad43c1a422a54c3d5aee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://escenas/characters/items/armas/RANGO/AgarrarPastorDeHadas.png"
-dest_files=["res://.godot/imported/AgarrarPastorDeHadas.png-e033e0f55d423e67d1da6dc0b72f3cd9.ctex"]
+source_file="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor De Hadas.png"
+dest_files=["res://.godot/imported/Pastor De Hadas.png-a4c5a7190e64ad43c1a422a54c3d5aee.ctex"]
 
 [params]
 

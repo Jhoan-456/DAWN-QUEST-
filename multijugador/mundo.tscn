@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bfflbbsriphgd" path="res://multijugador/mundo.gd" id="1_lsogy"]
 [ext_resource type="PackedScene" uid="uid://b6s3g802sotat" path="res://escenas/characters/items/armas/MAGO/baculo/baculo.tscn" id="2_n0d4f"]
-[ext_resource type="PackedScene" uid="uid://b31cgl6u1t68l" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.tscn" id="3_ffnvy"]
+[ext_resource type="PackedScene" uid="uid://b31cgl6u1t68l" path="res://sprites/Pastor_hadas.tscn" id="3_ffnvy"]
 [ext_resource type="PackedScene" uid="uid://62itmyvyxr0l" path="res://escenas/characters/enemi/ESFERA/esfera.tscn" id="4_ffnvy"]
 
 [node name="Mundo" type="Node"]

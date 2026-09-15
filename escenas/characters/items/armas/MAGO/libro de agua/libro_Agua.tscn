@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://br4vetd4wljha"]
+
+[ext_resource type="Script" uid="uid://6fi7ds2426ln" path="res://escenas/characters/items/armas/MAGO/libro de agua/libro_Agua.gd" id="1_2jrqu"]
+[ext_resource type="Texture2D" uid="uid://dmkdqng1i7e41" path="res://escenas/characters/items/armas/MAGO/libro de agua/LibroDeAgua.png" id="2_31tqt"]
+[ext_resource type="Texture2D" uid="uid://b5eqacapb8iff" path="res://escenas/characters/items/armas/MAGO/libro de agua/Libro de agyaAgarrar.png" id="3_2lgal"]
+[ext_resource type="Texture2D" uid="uid://ba3dx0hc1u24f" path="res://sprites/flecha_indi.png" id="4_4untp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fn26c"]
+radius = 9.520912
+height = 30.886879
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qsjwp"]
+properties/0/path = NodePath(".:aplica_quemadura")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("flecha:frame")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Sprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Sprite2D:frame")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Sprite2D/AnimatedSprite2D:animation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Sprite2D/AnimatedSprite2D:frame")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Sprite2D/AnimatedSprite2D:flip_h")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[node name="libro_agua" type="Area2D"]
+z_index = 1
+position = Vector2(32, 30)
+collision_mask = 2
+script = ExtResource("1_2jrqu")
+textura_normal = ExtResource("2_31tqt")
+textura_seleccionado = ExtResource("3_2lgal")
+
+[node name="flecha" type="Sprite2D" parent="."]
+position = Vector2(9, -12)
+scale = Vector2(1.8749999, 2.15625)
+texture = ExtResource("4_4untp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.6250014, 5.750002)
+scale = Vector2(1.6500002, 1.8500004)
+texture = ExtResource("2_31tqt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8.5, 8.5)
+rotation = 1.0646509
+shape = SubResource("CapsuleShape2D_fn26c")
+debug_color = Color(0, 1.3415822, 1.5436193, 0.14117648)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_qsjwp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

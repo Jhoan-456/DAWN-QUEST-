@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d080a6pv7e4j5"
-path="res://.godot/imported/icono.png-1007c568c49f09d8cdfdc298dcaeecf6.ctex"
+uid="uid://bftxrw47jyclg"
+path="res://.godot/imported/AgarrarPastorDeHadas.png-f1e51f79e7d13b4470317aecca22b0df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icono.png"
-dest_files=["res://.godot/imported/icono.png-1007c568c49f09d8cdfdc298dcaeecf6.ctex"]
+source_file="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/AgarrarPastorDeHadas.png"
+dest_files=["res://.godot/imported/AgarrarPastorDeHadas.png-f1e51f79e7d13b4470317aecca22b0df.ctex"]
 
 [params]
 

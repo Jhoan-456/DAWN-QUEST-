@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=4 uid="uid://ywh1vrqrw346"]
 
 [ext_resource type="Texture2D" uid="uid://blni5m3olblw7" path="res://sprites/Tilesets.png" id="1_3ahxg"]
-[ext_resource type="Texture2D" uid="uid://cuakxpnri2m0t" path="res://PqredesBosque.png" id="2_p2dxm"]
+[ext_resource type="Texture2D" uid="uid://cuakxpnri2m0t" path="res://sprites/PqredesBosque.png" id="2_p2dxm"]
 [ext_resource type="PackedScene" uid="uid://cul6wv546udgk" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.tscn" id="3_p2dxm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ke036"]

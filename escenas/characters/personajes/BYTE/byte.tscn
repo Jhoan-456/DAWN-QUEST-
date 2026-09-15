@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://ckab71qke54h3"]
+[gd_scene load_steps=113 format=3 uid="uid://ckab71qke54h3"]
 
 [ext_resource type="Script" uid="uid://bkh0luinqp3lr" path="res://escenas/characters/personajes/BYTE/byte.gd" id="1_gpov7"]
 [ext_resource type="PackedScene" uid="uid://h247nuktlvmv" path="res://escenas/characters/menu/texto_flotante.tscn" id="2_lgr2f"]
@@ -21,6 +21,28 @@
 [ext_resource type="Texture2D" uid="uid://bregmn5cgyx3a" path="res://sprites/BarraDeEscudoSola.png" id="17_37nvn"]
 [ext_resource type="Texture2D" uid="uid://tc1ayxgl8ia3" path="res://sprites/BarraDeEnergiaSola.png" id="18_1binm"]
 [ext_resource type="Texture2D" uid="uid://bqk2hnql2gxn" path="res://escenas/characters/personajes/BYTE/recargar_pasiva_bateria.png" id="21_wuyol"]
+[ext_resource type="Script" uid="uid://b7ecm6ufx8bfv" path="res://escenas/characters/personajes/BYTE/burbuja_escudo.gd" id="22_cr5su"]
+[ext_resource type="Texture2D" uid="uid://d4i3vlw872h3p" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose1.png" id="22_io6yr"]
+[ext_resource type="Texture2D" uid="uid://c6m2kdj8c44q1" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose2.png" id="23_rvuhr"]
+[ext_resource type="Texture2D" uid="uid://cje4qcfdnlsrp" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose3.png" id="24_cr5su"]
+[ext_resource type="Texture2D" uid="uid://bicfhp7llu10t" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose4.png" id="25_4brt6"]
+[ext_resource type="Texture2D" uid="uid://c1t7kjsrnntea" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose5.png" id="26_t1qah"]
+[ext_resource type="Texture2D" uid="uid://dq5xubfnymtto" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose6.png" id="27_eofwo"]
+[ext_resource type="Texture2D" uid="uid://bbhjl2pm2df1t" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose7.png" id="28_nyty6"]
+[ext_resource type="Texture2D" uid="uid://b2pyelo8oc1p6" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose8.png" id="29_0ev70"]
+[ext_resource type="Texture2D" uid="uid://ctsc36aqkltiu" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose9.png" id="30_gbrtj"]
+[ext_resource type="Texture2D" uid="uid://na3njjvoxbk4" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose10.png" id="31_8y0hi"]
+[ext_resource type="Texture2D" uid="uid://b57hfundyw06v" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose11.png" id="32_2x0cp"]
+[ext_resource type="Texture2D" uid="uid://b248framos3k0" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose12.png" id="33_y3xky"]
+[ext_resource type="Texture2D" uid="uid://bpl2wvvkfol8" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose13.png" id="34_npxvk"]
+[ext_resource type="Texture2D" uid="uid://dm2pek10wrfvt" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose14.png" id="35_6d3vo"]
+[ext_resource type="Texture2D" uid="uid://bb5qxrm8gqp13" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose15.png" id="36_fqmw8"]
+[ext_resource type="Texture2D" uid="uid://djgmcatbwwvtm" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose16.png" id="37_qj3id"]
+[ext_resource type="Texture2D" uid="uid://cnhb548mw3bb0" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose17.png" id="38_bnoq1"]
+[ext_resource type="Texture2D" uid="uid://b5ke7ujjthegs" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose18.png" id="39_wgg2v"]
+[ext_resource type="Texture2D" uid="uid://bbs5fdy7rlt4q" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose19.png" id="40_dyaii"]
+[ext_resource type="Texture2D" uid="uid://yyda6kneufrd" path="res://escenas/characters/personajes/BYTE/animacioo_escudo_dañandose20.png" id="41_2n8ge"]
+[ext_resource type="Texture2D" uid="uid://cbm547lx551f4" path="res://escenas/characters/personajes/BYTE/anillo_energia_pasivo.png" id="43_4brt6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_igjd1"]
 atlas = ExtResource("3_ppgbu")
@@ -472,7 +494,93 @@ properties/2/path = NodePath(".:sync_position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Personaje" type="CharacterBody2D" groups=["jugador"]]
+[sub_resource type="AtlasTexture" id="AtlasTexture_io6yr"]
+atlas = ExtResource("22_io6yr")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wuyol"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_io6yr")
+}],
+"loop": true,
+"name": &"activo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_io6yr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_rvuhr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_cr5su")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_4brt6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_t1qah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_eofwo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_nyty6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_0ev70")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_gbrtj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_8y0hi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_2x0cp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_y3xky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_npxvk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_6d3vo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_fqmw8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_qj3id")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_bnoq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_wgg2v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_dyaii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_2n8ge")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"destruccion",
+"speed": 11.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvuhr"]
+radius = 61.073727
+
+[node name="Personaje" type="CharacterBody2D" node_paths=PackedStringArray("boton_habilidad", "barra_recarga") groups=["jugador"]]
 light_mask = 0
 z_index = 2
 position = Vector2(395, 263)
@@ -483,6 +591,9 @@ texto_flotante_scene = ExtResource("2_lgr2f")
 info_flotante_scene = ExtResource("3_lgr2f")
 radio_aim_assist = 300.0
 Velocidad_movimiento = 15.0
+escudo_bateria = 200.0
+boton_habilidad = NodePath("UI/habilidad_activo")
+barra_recarga = NodePath("UI/habilidad_activo/FiltroRecarga")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.9999954, 2)
@@ -636,9 +747,25 @@ scale = Vector2(0.38476557, 0.3769531)
 texture_normal = ExtResource("14_ihhc3")
 
 [node name="habilidad_activo" type="TouchScreenButton" parent="UI"]
-position = Vector2(926, 477.00003)
-scale = Vector2(1.6640629, 1.6015625)
+position = Vector2(922.0001, 354.00003)
+scale = Vector2(1.8359379, 1.8203124)
 texture_normal = ExtResource("16_ppgbu")
+
+[node name="FiltroRecarga" type="TextureProgressBar" parent="UI/habilidad_activo"]
+anchors_preset = -1
+anchor_left = -0.278
+anchor_top = 0.035
+anchor_right = 0.212
+anchor_bottom = 0.505
+offset_left = 35.584
+offset_top = -4.029
+offset_right = 100.864
+offset_bottom = 63.811005
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 4
+texture_progress = ExtResource("16_ppgbu")
+tint_progress = Color(0, 0, 0, 0.5882353)
 
 [node name="HBoxContainer" type="VBoxContainer" parent="UI"]
 anchors_preset = -1
@@ -757,6 +884,30 @@ visible = false
 z_index = -1
 position = Vector2(3, 20)
 texture = ExtResource("21_wuyol")
+
+[node name="BurbujaEscudo" type="Area2D" parent="." groups=["escudo_jugador"]]
+collision_layer = 16
+collision_mask = 12
+script = ExtResource("22_cr5su")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BurbujaEscudo"]
+position = Vector2(-1.1444092e-05, -3.999998)
+scale = Vector2(1.0234373, 0.9921875)
+sprite_frames = SubResource("SpriteFrames_wuyol")
+animation = &"destruccion"
+frame = 20
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BurbujaEscudo"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_rvuhr")
+debug_color = Color(0, 0.85000014, 1, 0.09019608)
+
+[node name="aro_energia" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(4, 20)
+texture = ExtResource("43_4brt6")
 
 [connection signal="enviar_joystick" from="UI" to="." method="_on_ui_enviar_joystick"]
 [connection signal="pressed" from="UI/pausar" to="." method="_on_pausar_pressed"]

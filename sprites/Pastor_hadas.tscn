@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://b31cgl6u1t68l"]
 
 [ext_resource type="Script" uid="uid://l4y8pavu2880" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor_hadas.gd" id="1_1v02b"]
-[ext_resource type="Texture2D" uid="uid://bftxrw47jyclg" path="res://escenas/characters/items/armas/RANGO/AgarrarPastorDeHadas.png" id="3_84cvc"]
+[ext_resource type="Texture2D" uid="uid://bftxrw47jyclg" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/AgarrarPastorDeHadas.png" id="3_84cvc"]
 [ext_resource type="PackedScene" uid="uid://b2dgyqkpjy7ca" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/hada_respectiva/activador_hada.tscn" id="4_84cvc"]
 [ext_resource type="Texture2D" uid="uid://ba3dx0hc1u24f" path="res://sprites/flecha_indi.png" id="5_6dady"]
-[ext_resource type="Texture2D" uid="uid://dxaeh6sllvn8b" path="res://escenas/characters/items/armas/RANGO/Pastor De Hadas.png" id="6_hojom"]
+[ext_resource type="Texture2D" uid="uid://dxaeh6sllvn8b" path="res://escenas/characters/items/armas/INVOCADOR/Pastor De hadas/Pastor De Hadas.png" id="6_hojom"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_84cvc"]
 radius = 2.8446922
@@ -32,6 +32,7 @@ script = ExtResource("1_1v02b")
 textura_normal = ExtResource("6_hojom")
 textura_seleccionado = ExtResource("3_84cvc")
 escena_bala = ExtResource("4_84cvc")
+limite_max = 3
 
 [node name="flecha" type="Sprite2D" parent="."]
 position = Vector2(7, -27)
