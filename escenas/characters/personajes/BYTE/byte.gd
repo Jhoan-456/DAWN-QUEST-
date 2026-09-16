@@ -287,6 +287,7 @@ func equipar_arma(nodo_arma: Node2D) -> void:
 		"duracion_quemadura": nodo_arma.duracion_quemadura if "duracion_quemadura" in nodo_arma else 0.0,
 		"escena_suelo_path": nodo_arma.scene_file_path,
 		"limite_max": nodo_arma.limite_max if "limite_max" in nodo_arma else 3,
+		"escenas_balas": nodo_arma.escenas_balas if "escenas_balas" in nodo_arma else []
 	}
 
 	if inventario_armas.size() < 2:
@@ -391,65 +392,73 @@ func soltar_arma_actual_al_suelo() -> void:
 
 
 func disparar() -> void:
-	if not escena_bala_actual:
+	if inventario_armas.is_empty():
 		return
-	# 🧚‍♂️ CONTROL DE INVOCACIONES POR JUGADOR
-	if not inventario_armas.is_empty():
-		var arma_actual = inventario_armas[indice_arma_activa]
-		if arma_actual.get("es_invocador", false):
-			# Lee el límite máximo del diccionario del arma (por defecto 1 si no existe)
-			var maximo_permitido: int = arma_actual.get("limite_max", 3)
-			
-			# Contar únicamente las hadas que pertenecen a ESTE jugador
-			var mis_hadas: Array = []
-			for node in get_tree().get_nodes_in_group("hada_jugador"):
-				if is_instance_valid(node):
-					# Revisa tanto si el nodo tiene la referencia como si la red coincide
-					var es_mio = ("jugador" in node and node.jugador == self) or (node.get_multiplayer_authority() == get_multiplayer_authority())
-					if es_mio:
-						mis_hadas.append(node)
-			
-			# Si alcanzamos o superamos el límite, borramos las más antiguas
-			while mis_hadas.size() >= maximo_permitido:
-				var hada_vieja = mis_hadas.pop_front()
-				if is_instance_valid(hada_vieja):
-					hada_vieja.queue_free()
 
+	var arma_actual = inventario_armas[indice_arma_activa]
+	var es_invocacion = arma_actual.get("es_invocador", false)
+
+	# 🎲 1. SELECCIÓN DE ESCENA (Aleatoria si tiene variantes como Libro de Agua, o bala por defecto)
+	var escena_a_instanciar: PackedScene = escena_bala_actual
+	var lista_variantes = arma_actual.get("escenas_balas", [])
+	if lista_variantes.size() > 0:
+		escena_a_instanciar = lista_variantes.pick_random()
+
+	if not escena_a_instanciar:
+		return
+
+	# 🧚‍♂️ 2. CONTROL DE INVOCACIONES POR JUGADOR
+	if es_invocacion:
+		var maximo_permitido: int = arma_actual.get("limite_max", 3)
+		var mis_hadas: Array = []
+		for node in get_tree().get_nodes_in_group("hada_jugador"):
+			if is_instance_valid(node):
+				var es_mio = ("jugador" in node and node.jugador == self) or (node.get_multiplayer_authority() == get_multiplayer_authority())
+				if es_mio:
+					mis_hadas.append(node)
+		
+		while mis_hadas.size() >= maximo_permitido:
+			var hada_vieja = mis_hadas.pop_front()
+			if is_instance_valid(hada_vieja):
+				hada_vieja.queue_free()
+
+	# 3. CONSUMO Y ESTADOS
 	Energia -= costo_energia_actual
 	Energia = clamp(Energia, 0, max_energia)
 	stats_cambiadas.emit()
 	
 	puede_disparar = false
 	
-	var bala = escena_bala_actual.instantiate()
+	# 4. INSTANCIAR Y POSICIONAR PROYECTIL / INVOCACIÓN
+	var bala = escena_a_instanciar.instantiate()
 	get_parent().add_child(bala)
 	
-	bala.global_position = $ArmaVisual/puntoDisparo.global_position
-	bala.rotation = $ArmaVisual.rotation
-	
-	# 🟢 DESFASE: Un pequeño margen aleatorio (-20 a 20 px) para que no queden encimadas una sobre otra
-	var desfase = Vector2(randf_range(-20, 20), randf_range(-20, 20))
-	bala.global_position = global_position + desfase
-	# 🟢 AGREGAR ESTAS 2 LÍNEAS PARA EL MULTIJUGADOR:
+	if es_invocacion:
+		# Las invocaciones nacen cerca con desfase para no encimarse
+		var desfase = Vector2(randf_range(-20, 20), randf_range(-20, 20))
+		bala.global_position = global_position + desfase
+	else:
+		# Los disparos normales salen desde el punto de disparo del arma
+		bala.global_position = $ArmaVisual/puntoDisparo.global_position
+		bala.rotation = $ArmaVisual.rotation
+
+	# 5. MULTIJUGADOR Y VECTORES
 	if "jugador" in bala:
-		bala.jugador = self # Le dices al hada que TÚ eres su invocador
-	bala.set_multiplayer_authority(get_multiplayer_authority()) # Le das tu misma autoridad
+		bala.jugador = self
+	bala.set_multiplayer_authority(get_multiplayer_authority())
 
 	if "direccion_vector" in bala:
 		bala.direccion_vector = Vector2.RIGHT.rotated($ArmaVisual.rotation)
 	
+	# 6. CÁLCULO DE DAÑO Y PASIVAS
 	var es_critico = (randf() * 100.0) <= prob_critico_calculada
 	var dano_final = dano_calculado * (1.5 if es_critico else 1.0)
 	
-	# ⚡ LÓGICA DE LA PASIVA SOBRECARGA
-	var es_no_fisico = false
-	if not inventario_armas.is_empty():
-		var arma_actual = inventario_armas[indice_arma_activa]
-		es_no_fisico = not arma_actual.get("es_mele", false)
+	var es_no_fisico = not arma_actual.get("es_mele", false)
 
 	var aplico_sobrecarga: bool = false
 	if pasiva_sobrecarga_lista and es_no_fisico:
-		dano_final *= 1.30 # ⚡ +30% de daño extra
+		dano_final *= 1.30
 		aplico_sobrecarga = true
 		pasiva_sobrecarga_lista = false 
 		tiempo_pasiva_acumulado = 0.0
@@ -459,7 +468,6 @@ func disparar() -> void:
 	if "dano" in bala:
 		bala.dano = dano_final
 		
-	# Si aplicó sobrecarga, avisa a la bala
 	if aplico_sobrecarga:
 		if "es_electrico" in bala:
 			bala.es_electrico = true
@@ -476,7 +484,6 @@ func disparar() -> void:
 	
 	await get_tree().create_timer(cadencia_calculada).timeout
 	puede_disparar = true
-
 
 func aplicar_retroceso():
 	$ArmaVisual.position = Vector2(0, 0)

@@ -308,7 +308,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 7.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uhebs"]
@@ -359,6 +359,7 @@ scale = Vector2(1.2601674, 1.2605002)
 sprite_frames = SubResource("SpriteFrames_mk1k5")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.008773014
 
 [node name="Zona_ataque" type="Area2D" parent="."]
 position = Vector2(-1, 0)

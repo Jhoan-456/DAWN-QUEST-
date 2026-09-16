@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bo1071kbitg3r"]
+
+[ext_resource type="Script" uid="uid://dge3tk51aqrgx" path="res://escenas/characters/items/armas/MAGO/libro de agua/burbujas/grande/burbujas_Agua_grande.gd" id="1_dfgn3"]
+[ext_resource type="Texture2D" uid="uid://blrub75d23i2v" path="res://escenas/characters/items/armas/MAGO/libro de agua/burbujas/grande/BurbujaGrande.png" id="2_dfgn3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ogfh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dfgn3")
+}],
+"loop": true,
+"name": &"grande",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_viuhj"]
+radius = 9.0
+height = 18.0
+
+[node name="Burbujas" type="Area2D"]
+collision_mask = 12
+script = ExtResource("1_dfgn3")
+velocidad = 1.0
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.1894484, 8.281052e-09)
+rotation = -1.5707964
+scale = Vector2(1, 1.0691594)
+sprite_frames = SubResource("SpriteFrames_1ogfh")
+animation = &"grande"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_viuhj")
+debug_color = Color(0, 1.9482881, 2.2556853, 0.043137256)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

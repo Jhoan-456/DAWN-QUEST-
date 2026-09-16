@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://br4vetd4wljha"]
+[gd_scene load_steps=10 format=3 uid="uid://br4vetd4wljha"]
 
 [ext_resource type="Script" uid="uid://6fi7ds2426ln" path="res://escenas/characters/items/armas/MAGO/libro de agua/libro_Agua.gd" id="1_2jrqu"]
 [ext_resource type="Texture2D" uid="uid://dmkdqng1i7e41" path="res://escenas/characters/items/armas/MAGO/libro de agua/LibroDeAgua.png" id="2_31tqt"]
 [ext_resource type="Texture2D" uid="uid://b5eqacapb8iff" path="res://escenas/characters/items/armas/MAGO/libro de agua/Libro de agyaAgarrar.png" id="3_2lgal"]
 [ext_resource type="Texture2D" uid="uid://ba3dx0hc1u24f" path="res://sprites/flecha_indi.png" id="4_4untp"]
+[ext_resource type="PackedScene" uid="uid://5mvmftcfq0ca" path="res://escenas/characters/items/armas/MAGO/libro de agua/burbujas/pequeño/burbujas_libroAgua.tscn" id="4_31tqt"]
+[ext_resource type="PackedScene" uid="uid://m8dkifhohonv" path="res://escenas/characters/items/armas/MAGO/libro de agua/burbujas/mediano/burbujas_libroAgua_mediano.tscn" id="5_4untp"]
+[ext_resource type="PackedScene" uid="uid://bo1071kbitg3r" path="res://escenas/characters/items/armas/MAGO/libro de agua/burbujas/grande/burbujas_libroAgua_grande.tscn" id="6_fn26c"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fn26c"]
 radius = 9.520912
@@ -34,26 +37,29 @@ properties/6/replication_mode = 1
 
 [node name="libro_agua" type="Area2D"]
 z_index = 1
-position = Vector2(32, 30)
+position = Vector2(37, 31)
 collision_mask = 2
 script = ExtResource("1_2jrqu")
 textura_normal = ExtResource("2_31tqt")
 textura_seleccionado = ExtResource("3_2lgal")
+escena_bala = ExtResource("4_31tqt")
+escena_bala_mediano = ExtResource("5_4untp")
+escena_bala_grande = ExtResource("6_fn26c")
 
 [node name="flecha" type="Sprite2D" parent="."]
-position = Vector2(9, -12)
-scale = Vector2(1.8749999, 2.15625)
+position = Vector2(7, -18.000002)
+scale = Vector2(1.6874999, 1.921875)
 texture = ExtResource("4_4untp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7.6250014, 5.750002)
+position = Vector2(1.9073486e-06, 2.3841858e-06)
 scale = Vector2(1.6500002, 1.8500004)
 texture = ExtResource("2_31tqt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8.5, 8.5)
+position = Vector2(-9.536743e-07, -9.536743e-07)
 rotation = 1.0646509
 shape = SubResource("CapsuleShape2D_fn26c")
 debug_color = Color(0, 1.3415822, 1.5436193, 0.14117648)

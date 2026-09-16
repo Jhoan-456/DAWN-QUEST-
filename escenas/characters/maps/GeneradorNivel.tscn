@@ -89,21 +89,21 @@ tile_set = SubResource("TileSet_1wvco")
 
 [node name="Arma" parent="." instance=ExtResource("7_yr302")]
 z_index = 2
-position = Vector2(727, 579)
+position = Vector2(534, 556)
 collision_mask = 3
 nombre_arma = "Pistola Default"
 
 [node name="Personaje" parent="." instance=ExtResource("7_0plmc")]
 z_index = 1
-position = Vector2(745, 580)
+position = Vector2(839, 588)
 
 [node name="Baculo" parent="." instance=ExtResource("8_0plmc")]
 z_index = 2
-position = Vector2(460, 300)
+position = Vector2(482, 560)
 
 [node name="Pastor_hadas" parent="." instance=ExtResource("9_nd1ey")]
 z_index = 2
-position = Vector2(965, 283)
+position = Vector2(600, 570)
 
 [node name="esfera" parent="." instance=ExtResource("7_nd1ey")]
 position = Vector2(745, 325)
@@ -115,4 +115,4 @@ position = Vector2(790, -140)
 position = Vector2(734, 228)
 
 [node name="libro_agua" parent="." instance=ExtResource("10_7g0br")]
-position = Vector2(740, 915)
+position = Vector2(436, 569)
