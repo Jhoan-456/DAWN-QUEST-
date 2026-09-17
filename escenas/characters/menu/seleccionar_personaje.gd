@@ -1,70 +1,174 @@
 extends Control
 
-@onready var cartel = $tit 
-# Señales para avisarle al menú principal qué está pasando
-signal personaje_enfocado(personaje)
-signal personaje_desenfocado()
-signal personaje_confirmado(nombre)
+# 🟢 REFERENCIAS A NODOS
+@onready var sprite_finnes: AnimatedSprite2D = $ConenerdorFinnes/AnimatedSprite2D
+@onready var boton_finnes: Button = $ConenerdorFinnes/BotonFinnes
 
-@export var nombre_personaje: String = "Guerrero"
-@export_multiline var datos_pergamino: String = "HP: 100\nFuerza: 15\nUn bárbaro implacable."
+@onready var sprite_byte: AnimatedSprite2D = $ConenerdorByte/AnimatedSprite2D
+@onready var boton_byte: Button = $ConenerdorByte/BotonByte
 
-@onready var sprite: AnimatedSprite2D = $Sprite
-@onready var boton: TextureButton = $botonInvisible
+@onready var vbox_stats: VBoxContainer = $VBoxContainer
+@onready var label_nombre: Label = $VBoxContainer/nombre
+@onready var label_vida: Label = $VBoxContainer/vida
+@onready var label_energia: Label = $VBoxContainer/energia
+@onready var label_escudo: Label = $VBoxContainer/escudo
 
-var posicion_original: Vector2
-var tween_movimiento: Tween
- # Pon aquí el nombre exacto de tu nodo
-# Called when the node enters the scene tree for the first time.
+@onready var boton_empezar: Button = $Button
+@onready var cartel: Node = $tit
+
+var personaje_seleccionado: String = ""
+
+# 📌 VARIABLES PARA CONTROLAR EL MOVIMIENTO DESDE LA DERECHA
+var pos_original_stats: Vector2
+var pos_original_boton: Vector2
+var pos_oculta_stats: Vector2
+var pos_oculta_boton: Vector2
+
+var tween_desplazamiento: Tween
+
+# 📊 DATOS DE ESTADÍSTICAS
+var datos_personajes = {
+	"Byte": {
+		"nombre": "NOMBRE: Byte",
+		"vida": "VIDA: 100",
+		"energia": "ENERGIA: 80",
+		"escudo": "ESCUDO: 50",
+		"ruta": "res://escenas/characters/personajes/BYTE/byte.tscn"
+	},
+	"Finnes": {
+		"nombre": "NOMBRE: Finnes",
+		"vida": "VIDA: 80",
+		"energia": "ENERGIA: 120",
+		"escudo": "ESCUDO: 20",
+		"ruta": "res://escenas/characters/personajes/FINNES/finnes.tscn"
+	}
+}
+
 func _ready() -> void:
-	posicion_original = position
-	sprite.play("idle") # Animación en bucle por defecto
+	# 1. GUARDAR POSICIONES ORIGINALES Y CALCULAR POSICIONES FUERA DE PANTALLA
+	pos_original_stats = vbox_stats.position
+	pos_original_boton = boton_empezar.position
 	
-	# Conectamos las señales nativas del botón invisible
-	boton.mouse_entered.connect(_on_mouse_entered)
-	boton.mouse_exited.connect(_on_mouse_exited)
-	boton.pressed.connect(_on_pressed)
-	iniciar()
-func _on_mouse_entered() -> void:
-	personaje_enfocado.emit(self)
+	# Sumamos 500 píxeles en X para esconderlos bien a la derecha
+	pos_oculta_stats = pos_original_stats + Vector2(500, 0)
+	pos_oculta_boton = pos_original_boton + Vector2(500, 0)
 	
-	# EFECTO: Dar un paso al frente (subir un poco en Y) y agrandarse sutilmente
-	if tween_movimiento: tween_movimiento.kill()
-	tween_movimiento = create_tween().set_parallel(true)
-	tween_movimiento.tween_property(self, "position", posicion_original + Vector2(0, -15), 0.2).set_trans(Tween.TRANS_BACK)
-	tween_movimiento.tween_property(self, "scale", Vector2(1.1, 1.1), 0.2).set_trans(Tween.TRANS_BACK)
+	# Colocamos la interfaz fuera de la pantalla al arrancar
+	vbox_stats.position = pos_oculta_stats
+	boton_empezar.position = pos_oculta_boton
 	
-	# Reproducir animación de saludo/reacción
-	if sprite.sprite_frames.has_animation("saludo"):
-		sprite.play("saludo")
-func _on_mouse_exited() -> void:
-	personaje_desenfocado.emit()
+	# 2. ASEGURAR ANIMACIONES IDLE
+	sprite_finnes.play("idle")
+	sprite_byte.play("idle")
 	
-	# EFECTO: Regresar a su posición y tamaño original
-	if tween_movimiento: tween_movimiento.kill()
-	tween_movimiento = create_tween().set_parallel(true)
-	tween_movimiento.tween_property(self, "position", posicion_original, 0.2).set_trans(Tween.TRANS_BACK)
-	tween_movimiento.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2).set_trans(Tween.TRANS_BACK)
+	# 3. CONECTAR SEÑALES
+	boton_finnes.mouse_entered.connect(_on_finnes_hover)
+	boton_finnes.mouse_exited.connect(_on_finnes_unhover)
+	boton_finnes.pressed.connect(_on_finnes_click)
 	
-	sprite.play("idle")
+	boton_byte.mouse_entered.connect(_on_byte_hover)
+	boton_byte.mouse_exited.connect(_on_byte_unhover)
+	boton_byte.pressed.connect(_on_byte_click)
+	
+	boton_empezar.pressed.connect(_on_empezar_pressed)
+	
+	iniciar_cartel()
 
-func _on_pressed() -> void:
-	personaje_confirmado.emit(nombre_personaje)
-func iniciar():
-	var posicion_inicial_y = cartel.position.y
+func iniciar_cartel() -> void:
+	if cartel:
+		var pos_y = cartel.position.y
+		var tween = create_tween()
+		tween.tween_property(cartel, "position:y", pos_y + 150, 1.0)\
+			.set_trans(Tween.TRANS_QUINT)\
+			.set_ease(Tween.EASE_OUT)
+
+# ==========================================
+# 🐟 EVENTOS DE FINNES
+# ==========================================
+func _on_finnes_hover() -> void:
+	if personaje_seleccionado != "Finnes":
+		sprite_finnes.play("seleccionado")
+
+func _on_finnes_unhover() -> void:
+	if personaje_seleccionado != "Finnes":
+		sprite_finnes.play("idle")
+
+func _on_finnes_click() -> void:
+	personaje_seleccionado = "Finnes"
+	sprite_finnes.play("seleccion_tocado")
+	sprite_byte.play("idle")
+	mostrar_estadisticas("Finnes")
+
+# ==========================================
+# 🖥️ EVENTOS DE BYTE
+# ==========================================
+func _on_byte_hover() -> void:
+	if personaje_seleccionado != "Byte":
+		sprite_byte.play("seleccionado")
+
+func _on_byte_unhover() -> void:
+	if personaje_seleccionado != "Byte":
+		sprite_byte.play("idle")
+
+func _on_byte_click() -> void:
+	personaje_seleccionado = "Byte"
+	sprite_byte.play("seleccion_tocado")
+	sprite_finnes.play("idle")
+	mostrar_estadisticas("Byte")
+
+# ==========================================
+# ⚙️ ANIMACIÓN DE DESPLAZAMIENTO (SLIDE)
+# ==========================================
+func mostrar_estadisticas(nombre_pers: String) -> void:
+	var data = datos_personajes[nombre_pers]
+	label_nombre.text = data["nombre"]
+	label_vida.text = data["vida"]
+	label_energia.text = data["energia"]
+	label_escudo.text = data["escudo"]
 	
-	# 2. Calculamos el destino sumándole píxeles hacia abajo.
-	# Si ves que se queda muy arriba, cambia el 250 por un número más grande (ej: 300 o 350)
-	var posicion_final_y = posicion_inicial_y + 150 
+	# Cancelamos la animación previa si el jugador hace clics muy rápidos
+	if tween_desplazamiento and tween_desplazamiento.is_running():
+		tween_desplazamiento.kill()
+		
+	tween_desplazamiento = create_tween().set_parallel(true)
 	
-	# 3. Creamos el Tween para que haga el recorrido solo al iniciar
-	var tween = create_tween()
-	
-	# 4. Deslizamos de forma fluida desde su sitio actual hasta el destino en pantalla
-	tween.tween_property(cartel, "position:y", posicion_final_y, 1)\
-		.set_trans(Tween.TRANS_QUINT)\
+	# Deslizar VBoxContainer hacia su posición original desde la derecha
+	tween_desplazamiento.tween_property(vbox_stats, "position:x", pos_original_stats.x, 0.4)\
+		.set_trans(Tween.TRANS_BACK)\
 		.set_ease(Tween.EASE_OUT)
-	pass # Replace with function body.
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+		
+	# Deslizar Botón Empezar con un ligero retraso sutil para dar estilo UI
+	tween_desplazamiento.tween_property(boton_empezar, "position:x", pos_original_boton.x, 0.5)\
+		.set_trans(Tween.TRANS_BACK)\
+		.set_ease(Tween.EASE_OUT)
+
+func ocultar_estadisticas() -> void:
+	if tween_desplazamiento and tween_desplazamiento.is_running():
+		tween_desplazamiento.kill()
+		
+	tween_desplazamiento = create_tween().set_parallel(true)
+	
+	# Regresar los paneles a la derecha fuera de la pantalla
+	tween_desplazamiento.tween_property(vbox_stats, "position:x", pos_oculta_stats.x, 0.3)\
+		.set_trans(Tween.TRANS_CUBIC)\
+		.set_ease(Tween.EASE_IN)
+		
+	tween_desplazamiento.tween_property(boton_empezar, "position:x", pos_oculta_boton.x, 0.3)\
+		.set_trans(Tween.TRANS_CUBIC)\
+		.set_ease(Tween.EASE_IN)
+
+# ==========================================
+# 🚀 BOTÓN EMPEZAR + TRANSICIONES GLOBALES
+# ==========================================
+func _on_empezar_pressed() -> void:
+	if personaje_seleccionado == "": return
+	
+	# 1. Guardar la ruta del personaje elegido
+	Datos.ruta_personaje_seleccionado = datos_personajes[personaje_seleccionado]["ruta"]
+	
+	# 2. Ruta exacta del nivel al que vas a ir
+	var escena_destino = "res://escenas/characters/maps/GeneradorNivel.tscn"
+	
+	# 3. Elegir una transición al azar (0, 1 o 2) y cambiar de escena
+	TransicionGlobal.transicion_actual = randi() % 3
+	TransicionGlobal.cambiar_escena(escena_destino)

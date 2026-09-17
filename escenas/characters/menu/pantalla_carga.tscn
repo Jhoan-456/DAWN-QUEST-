@@ -27,6 +27,7 @@ offset_bottom = -2.7850342
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bdype")
+escena_a_cargar = "res://escenas/characters/menu/pantalla_inicial.tscn"
 
 [node name="TextureRect" type="ColorRect" parent="."]
 layout_mode = 0

@@ -230,6 +230,7 @@ func _process(_delta: float) -> void:
 			pasiva_sobrecarga_lista = true
 			tiempo_pasiva_acumulado = 0.0
 			crear_info_flotante("⚡ ¡Sobrecarga Lista!", Color(1.0, 0.9, 0.2))
+			
 
 	# --- 🔋 RECARGA VISUAL DE LA HABILIDAD (Estilo Soul Knight) ---
 	if not activo_listo:

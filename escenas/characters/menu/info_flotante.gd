@@ -3,6 +3,9 @@ extends Marker2D
 @onready var label: Label = $Label
 
 func mostrar(texto: String, color: Color) -> void:
+	# 🟢 Espera a que los nodos hijos (como $Label) estén completamente cargados
+	if not is_node_ready():
+		await ready
 	label.text = texto
 	label.modulate = color
 	

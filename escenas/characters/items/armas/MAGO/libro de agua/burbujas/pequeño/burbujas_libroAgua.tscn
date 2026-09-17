@@ -21,7 +21,8 @@ height = 10.0
 [node name="Burbujas" type="Area2D"]
 collision_mask = 12
 script = ExtResource("1_wogtd")
-velocidad = 1.0
+velocidad = 220.0
+desaceleracion = 200.0
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

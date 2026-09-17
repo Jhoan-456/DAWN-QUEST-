@@ -4,8 +4,8 @@ extends Area2D
 @export var dano: float = 1
 @export var desaceleracion: float = 150.0
 
-@export var frecuencia_onda: float = 18.0
-@export var amplitud_onda: float = 40.0
+@export var frecuencia_onda: float = 9
+@export var amplitud_onda: float = 17.0
 
 var direccion_vector: Vector2 = Vector2.RIGHT
 var tiempo_transcurrido: float = 0.0

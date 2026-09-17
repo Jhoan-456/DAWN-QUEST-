@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://du7xgirwrtrld"]
 
+[ext_resource type="Script" uid="uid://cy7yiaefib0v7" path="res://escenas/characters/maps/generador_nivel.gd" id="1_7g0br"]
 [ext_resource type="Texture2D" uid="uid://blni5m3olblw7" path="res://sprites/Tilesets.png" id="1_kn705"]
 [ext_resource type="Texture2D" uid="uid://bg44rx76ns1jt" path="res://sprites/ParedesBoscosas.png" id="2_0b0my"]
-[ext_resource type="PackedScene" uid="uid://ckab71qke54h3" path="res://escenas/characters/personajes/BYTE/byte.tscn" id="7_0plmc"]
 [ext_resource type="PackedScene" uid="uid://62itmyvyxr0l" path="res://escenas/characters/enemi/ESFERA/esfera.tscn" id="7_nd1ey"]
 [ext_resource type="PackedScene" uid="uid://cul6wv546udgk" path="res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.tscn" id="7_yr302"]
 [ext_resource type="PackedScene" uid="uid://b6s3g802sotat" path="res://escenas/characters/items/armas/MAGO/baculo/baculo.tscn" id="8_0plmc"]
@@ -83,6 +83,7 @@ sources/0 = SubResource("TileSetAtlasSource_lj4md")
 sources/1 = SubResource("TileSetAtlasSource_46sid")
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_7g0br")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_1wvco")
@@ -92,10 +93,6 @@ z_index = 2
 position = Vector2(534, 556)
 collision_mask = 3
 nombre_arma = "Pistola Default"
-
-[node name="Personaje" parent="." instance=ExtResource("7_0plmc")]
-z_index = 1
-position = Vector2(839, 588)
 
 [node name="Baculo" parent="." instance=ExtResource("8_0plmc")]
 z_index = 2
@@ -116,3 +113,6 @@ position = Vector2(734, 228)
 
 [node name="libro_agua" parent="." instance=ExtResource("10_7g0br")]
 position = Vector2(436, 569)
+
+[node name="PuntoAparicion" type="Marker2D" parent="."]
+position = Vector2(504, 486)

@@ -29,7 +29,7 @@ var sprite_principal : Sprite2D
 @export var dano_base: float = 1.2
 @export var escalado_inteligencia: float = 0.30
 @export var escalado_fuerza: float = 0.0
-@export var cadencia_base: float = 0.09
+@export var cadencia_base: float = 0.5
 @export var multiplicador_vel_proyectil: float = 1.4
 
 # --- EXTRAS ---

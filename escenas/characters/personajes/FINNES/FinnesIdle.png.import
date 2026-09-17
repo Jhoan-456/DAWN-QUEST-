@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://benfgkx2c0dwa"
-path="res://.godot/imported/exitLeft.png-045e1718a29d096cbb97977625c6eacb.ctex"
+uid="uid://q4r8ewj5ka7c"
+path="res://.godot/imported/FinnesIdle.png-c96d41f0c623e7f7d593698d293b28a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://codigo GLOBAL/exitLeft.png"
-dest_files=["res://.godot/imported/exitLeft.png-045e1718a29d096cbb97977625c6eacb.ctex"]
+source_file="res://escenas/characters/personajes/FINNES/FinnesIdle.png"
+dest_files=["res://.godot/imported/FinnesIdle.png-c96d41f0c623e7f7d593698d293b28a7.ctex"]
 
 [params]
 
