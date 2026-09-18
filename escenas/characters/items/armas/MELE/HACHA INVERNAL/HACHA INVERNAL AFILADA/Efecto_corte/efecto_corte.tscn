@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2lewpwtfa78q"]
+
+[ext_resource type="Script" uid="uid://dn10dqhgtcb7c" path="res://escenas/characters/items/armas/MELE/HACHA INVERNAL/HACHA INVERNAL AFILADA/Efecto_corte/efecto_corte.gd" id="1_jryag"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jryag"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"corte",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jryag"]
+radius = 2.0
+height = 6.0
+
+[node name="EfectoCorte" type="Area2D"]
+script = ExtResource("1_jryag")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jryag")
+animation = &"corte"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_jryag")
+debug_color = Color(0.8, 0.24000001, 0.38000003, 0.16470589)

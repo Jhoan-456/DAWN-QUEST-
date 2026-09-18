@@ -1,12 +1,12 @@
-res://escenas/characters/items/armas/MAGO/libro de agua/burbujas/grande/burbujas_libroAgua_grande.tscn
-res://escenas/characters/personajes/FINNES/finnes.tscn
-res://escenas/characters/personajes/BYTE/byte.tscn
-res://escenas/characters/maps/GeneradorNivel.tscn
-res://escenas/characters/menu/pantalla_carga.tscn
-res://escenas/characters/menu/pantalla_inicial.tscn
 res://escenas/characters/menu/Seleccionar_personaje.tscn
-res://escenas/characters/menu/seleccionar_personaje.gd
-res://codigo GLOBAL/DatosJuego.gd
-res://escenas/characters/maps/generador_nivel.gd
-res://escenas/characters/items/armas/MAGO/baculo/fuego_respectivo/fuego_baculo.tscn
-res://codigo GLOBAL/transicion_global.gd
+res://escenas/characters/maps/GeneradorNivel.tscn
+res://escenas/characters/items/armas/MELE/HACHA INVERNAL/hacha invernal.tscn
+res://escenas/characters/items/armas/MELE/HACHA INVERNAL/hacha_invernal.gd
+res://escenas/characters/items/armas/MELE/HACHA INVERNAL/HACHA INVERNAL AFILADA/estalagmita respectiva/estalagmita.tscn
+res://escenas/characters/items/armas/MELE/HACHA INVERNAL/HACHA INVERNAL AFILADA/Efecto_corte/efecto_corte.tscn
+res://escenas/characters/items/armas/MELE/HACHA INVERNAL/HACHA INVERNAL AFILADA/Efecto_corte/efecto_corte.gd
+res://escenas/characters/personajes/FINNES/finnes.tscn
+res://escenas/characters/items/armas/MAGO/libro de agua/libro_Agua.tscn
+res://sprites/Pastor_hadas.tscn
+res://escenas/characters/items/armas/RANGO/ARMA DEFAULT/arma.tscn
+res://escenas/characters/items/armas/MAGO/baculo/baculo.tscn

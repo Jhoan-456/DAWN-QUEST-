@@ -191,6 +191,7 @@ one_way_collision = true
 debug_color = Color(0, 14.837186, 16.991568, 0)
 
 [node name="PivotArma" type="Marker2D" parent="."]
+position = Vector2(-2, 10)
 
 [node name="ArmaVisual" type="Sprite2D" parent="PivotArma"]
 visible = false
@@ -433,6 +434,7 @@ text = "400/400"
 label_settings = SubResource("LabelSettings_kne1u")
 
 [node name="ArmaEspalda" type="Sprite2D" parent="."]
+visible = false
 z_index = -1
 position = Vector2(-4, 0)
 rotation = -0.80110615

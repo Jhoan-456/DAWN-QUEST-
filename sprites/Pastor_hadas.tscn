@@ -26,13 +26,13 @@ properties/3/replication_mode = 1
 
 [node name="Pastor_hadas" type="Area2D"]
 z_index = 1
-position = Vector2(37, 36)
 collision_mask = 2
 script = ExtResource("1_1v02b")
 textura_normal = ExtResource("6_hojom")
 textura_seleccionado = ExtResource("3_84cvc")
 escena_bala = ExtResource("4_84cvc")
 limite_max = 3
+metadata/_edit_group_ = true
 
 [node name="flecha" type="Sprite2D" parent="."]
 position = Vector2(7, -27)

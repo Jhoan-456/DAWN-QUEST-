@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://du7xgirwrtrld"]
+[gd_scene load_steps=15 format=3 uid="uid://du7xgirwrtrld"]
 
 [ext_resource type="Script" uid="uid://cy7yiaefib0v7" path="res://escenas/characters/maps/generador_nivel.gd" id="1_7g0br"]
 [ext_resource type="Texture2D" uid="uid://blni5m3olblw7" path="res://sprites/Tilesets.png" id="1_kn705"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cghmcoklixce8" path="res://escenas/characters/enemi/SLIME/slime.tscn" id="9_7g0br"]
 [ext_resource type="PackedScene" uid="uid://b31cgl6u1t68l" path="res://sprites/Pastor_hadas.tscn" id="9_nd1ey"]
 [ext_resource type="PackedScene" uid="uid://br4vetd4wljha" path="res://escenas/characters/items/armas/MAGO/libro de agua/libro_Agua.tscn" id="10_7g0br"]
+[ext_resource type="PackedScene" uid="uid://vi5sh41uhmqr" path="res://escenas/characters/items/armas/MELE/HACHA INVERNAL/hacha invernal.tscn" id="11_a3e2m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lj4md"]
 texture = ExtResource("1_kn705")
@@ -115,4 +116,7 @@ position = Vector2(734, 228)
 position = Vector2(436, 569)
 
 [node name="PuntoAparicion" type="Marker2D" parent="."]
-position = Vector2(504, 486)
+position = Vector2(531, 467)
+
+[node name="hacha_invernal" parent="." instance=ExtResource("11_a3e2m")]
+position = Vector2(660, 584)

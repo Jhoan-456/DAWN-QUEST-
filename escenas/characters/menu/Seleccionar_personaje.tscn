@@ -1,10 +1,115 @@
-[gd_scene load_steps=62 format=3 uid="uid://chvrxkjei15ns"]
+[gd_scene load_steps=78 format=3 uid="uid://chvrxkjei15ns"]
 
 [ext_resource type="Script" uid="uid://bevgxsg7wmo3f" path="res://escenas/characters/menu/seleccionar_personaje.gd" id="1_b0d8j"]
 [ext_resource type="FontFile" uid="uid://glhbvbrcequf" path="res://sprites/Font/Romulus.ttf" id="2_4ntv8"]
+[ext_resource type="Texture2D" uid="uid://q4r8ewj5ka7c" path="res://escenas/characters/personajes/FINNES/FinnesIdle.png" id="3_tmn4p"]
+[ext_resource type="Texture2D" uid="uid://k7f7of4ip2r8" path="res://escenas/characters/personajes/FINNES/FinnesSeleccion.png" id="4_snhcw"]
 [ext_resource type="Texture2D" uid="uid://rstmv5nsxqx7" path="res://escenas/characters/personajes/BYTE/animacion_idle2_byte.png" id="5_jym7v"]
 [ext_resource type="Texture2D" uid="uid://lofr7of6ucxl" path="res://escenas/characters/personajes/BYTE/animacion_seleccionado_true_byte.png" id="6_snhcw"]
 [ext_resource type="Texture2D" uid="uid://bhd6gcjlhmqp8" path="res://escenas/characters/personajes/BYTE/animacion_seleccionado_byte.png" id="7_dunkd"]
+[ext_resource type="FontFile" uid="uid://c5ovpsfnc2xup" path="res://sprites/Font/Font.ttf" id="8_dunkd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snhcw"]
+atlas = ExtResource("3_tmn4p")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dunkd"]
+atlas = ExtResource("3_tmn4p")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3tfw"]
+atlas = ExtResource("3_tmn4p")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcnf1"]
+atlas = ExtResource("3_tmn4p")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0xe7"]
+atlas = ExtResource("4_snhcw")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5obi"]
+atlas = ExtResource("4_snhcw")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0qtn"]
+atlas = ExtResource("4_snhcw")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyc8n"]
+atlas = ExtResource("4_snhcw")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_no5tp"]
+atlas = ExtResource("4_snhcw")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dtm6"]
+atlas = ExtResource("4_snhcw")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8iflj"]
+atlas = ExtResource("4_snhcw")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eor5e"]
+atlas = ExtResource("4_snhcw")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jym7v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snhcw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dunkd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3tfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcnf1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 9.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"seleccion_tocado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0xe7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5obi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0qtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oyc8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_no5tp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dtm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8iflj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eor5e")
+}],
+"loop": true,
+"name": &"seleccionado",
+"speed": 8.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mqt5b"]
 atlas = ExtResource("5_jym7v")
@@ -439,11 +544,18 @@ anchor_left = -0.0050000004
 anchor_top = -0.008
 anchor_right = -0.0050000004
 anchor_bottom = -0.007
-offset_left = 315.2
-offset_top = 430.76
-offset_right = 357.2
-offset_bottom = 455.04
+offset_left = 314.2
+offset_top = 429.76
+offset_right = 356.2
+offset_bottom = 454.04
 metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ConenerdorFinnes"]
+position = Vector2(22, 10)
+scale = Vector2(2.03125, 2)
+sprite_frames = SubResource("SpriteFrames_jym7v")
+animation = &"seleccionado"
+frame_progress = 0.5826067
 
 [node name="BotonFinnes" type="Button" parent="ConenerdorFinnes"]
 layout_mode = 1
@@ -509,19 +621,58 @@ grow_vertical = 2
 
 [node name="nombre" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "NOMBRE:"
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
 
 [node name="vida" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "VIDA"
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
 
 [node name="energia" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "ENERGIA"
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
 
 [node name="escudo" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "ESCUDO"
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
+
+[node name="fuerza" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
+
+[node name="inteligencia" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
+
+[node name="velocidad_ataq" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
+
+[node name="velocidad_proyec" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
+
+[node name="velocidad_movi" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
+
+[node name="probabili_critic" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
+
+[node name="suerte" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_dunkd")
+theme_override_font_sizes/font_size = 32
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0

@@ -12,6 +12,14 @@ extends Control
 @onready var label_vida: Label = $VBoxContainer/vida
 @onready var label_energia: Label = $VBoxContainer/energia
 @onready var label_escudo: Label = $VBoxContainer/escudo
+@onready var label_fuer: Label =$VBoxContainer/fuerza
+@onready var label_inteli: Label =$VBoxContainer/inteligencia
+@onready var label_velociataq: Label =$VBoxContainer/velocidad_ataq
+@onready var label_velociproyec: Label =$VBoxContainer/velocidad_proyec
+@onready var label_velocimovimi: Label =$VBoxContainer/velocidad_movi
+@onready var label_probabicriti: Label =$VBoxContainer/probabili_critic
+@onready var label_suerte: Label = $VBoxContainer/suerte
+
 
 @onready var boton_empezar: Button = $Button
 @onready var cartel: Node = $tit
@@ -29,17 +37,24 @@ var tween_desplazamiento: Tween
 # 📊 DATOS DE ESTADÍSTICAS
 var datos_personajes = {
 	"Byte": {
-		"nombre": "NOMBRE: Byte",
-		"vida": "VIDA: 100",
-		"energia": "ENERGIA: 80",
-		"escudo": "ESCUDO: 50",
+		"nombre": "Byte",
+		"vida": "160",
+		"escudo": "150",
+		"energia": "400",
+		"fuerza": "5",
+		"inteligencia": "9",
+		"velocidad_ataque": "6.5",
+		"velocidad_proyectil": "14.0",
+		"velocidad_movimiento": "10.0",
+		"probabilidad_critico": "1.5%",
+		"suerte": "1.5%",
 		"ruta": "res://escenas/characters/personajes/BYTE/byte.tscn"
 	},
 	"Finnes": {
 		"nombre": "NOMBRE: Finnes",
 		"vida": "VIDA: 80",
-		"energia": "ENERGIA: 120",
 		"escudo": "ESCUDO: 20",
+		"energia": "ENERGIA: 120",
 		"ruta": "res://escenas/characters/personajes/FINNES/finnes.tscn"
 	}
 }
@@ -125,6 +140,13 @@ func mostrar_estadisticas(nombre_pers: String) -> void:
 	label_vida.text = data["vida"]
 	label_energia.text = data["energia"]
 	label_escudo.text = data["escudo"]
+	label_fuer.text = data["fuerza"]
+	label_inteli.text = data["inteligencia"]
+	label_velociataq.text = data["velocidad_ataque"]
+	label_velociproyec.text = data["velocidad_proyectil"]
+	label_velocimovimi.text = data["velocidad_movimiento"]
+	label_probabicriti.text = data["probabilidad_critico"]
+	label_suerte.text = data["suerte"]
 	
 	# Cancelamos la animación previa si el jugador hace clics muy rápidos
 	if tween_desplazamiento and tween_desplazamiento.is_running():
